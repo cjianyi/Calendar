@@ -13,6 +13,7 @@ public class User {
         this.username = username;
         this.emailAddress = emailAddress;
         this.password = password;
+        this.createCalendar("Calendar1");
 
     }
 
@@ -45,7 +46,7 @@ public class User {
 
         }
     }
-
+    //phase 2
     public void shareCalendar(Calendar c, User u) {
         u.calendars.add(c);
     }
