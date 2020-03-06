@@ -80,6 +80,7 @@ public class UserManager {
         }
         return null;
     }
+    //phase 2
     //user picks 1, then change username
     //user picks 2, then change emailAddress
     //user picks 3, then change password

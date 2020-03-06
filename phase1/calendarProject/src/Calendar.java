@@ -20,16 +20,17 @@ public class Calendar implements Comparator {
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
     }
-
+    //Event editor menu
     public void addEvent(Event e) {
         this.events.add(e);
     }
-
+    //Event editor menu
     public void deleteEvent(Event e) {
         if (events.contains(e)) {
                 this.events.remove(e);
         }
     }
+    //Event editor menu
     public void editEvent(Event e) {
 
     }
@@ -44,6 +45,10 @@ public class Calendar implements Comparator {
     //argument Alert a, not a static method
     public static void editAlert() {
 
+    }
+
+    public String getCalendarName() {
+        return this.calendarName;
     }
 
     public String toString() {
