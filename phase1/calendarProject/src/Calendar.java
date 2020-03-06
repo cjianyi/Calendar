@@ -6,7 +6,7 @@ public class Calendar implements Comparator {
 
     private String calendarName;
     private Map<String, ArrayList<Event>> seriesMap;
-    private Map<String, ArrayList<Event>> timeDayMap;
+    //private Map<String, ArrayList<Event>> timeDayMap;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
 
@@ -14,7 +14,7 @@ public class Calendar implements Comparator {
     public Calendar (String name) {
         this.calendarName = name;
         this.seriesMap = new HashMap<>();
-        this.timeDayMap = new HashMap<>();
+        //this.timeDayMap = new HashMap<>();
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class Calendar implements Comparator {
     public ArrayList<Event> search(String inputString, String information){
         ArrayList<Event> temp = new ArrayList<>();
             String v = "";
-
+        for (Event e: events) {
             if (inputString.equals("tag")) {
                 v = e.getTag();
             }
@@ -60,7 +60,6 @@ public class Calendar implements Comparator {
             else if (inputString.equals("future")) {
 
             }*/
-        for (Event e: events) {
             if (v.equalsIgnoreCase(information)) {
                 temp.add(e);
             }
