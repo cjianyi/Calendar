@@ -8,9 +8,28 @@ public class Controller {
 
     private static String username = "";
     private static String password = "";
+    private static String email = "";
+
+
     public Controller() {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
+    }
+
+    private void accountGetter(){
+        do {
+            System.out.println("Enter a username");
+            username = this.in.nextLine();
+        }while(!userManager.userNameAvailable(username));
+        do {
+            System.out.println("Enter your email");
+            email = this.in.nextLine();
+        }while(!userManager.emailAvailable(email));
+        do {
+            System.out.println("Enter a password");
+            password = this.in.nextLine();
+        }while(!userManager.passwordValid(password));
+        userManager.createAccount(username, email, password);
     }
 
     public void mainMenu(){
@@ -18,14 +37,16 @@ public class Controller {
         String log = this.in.nextLine();
         if(log.equals("1")) {
             this.logInMenu();
+        }else if(log.equals("2")){
+            accountGetter();
         }
     }
 
     private void logInGetter(){
         boolean exit = false;
-        System.out.println("Enter your username or email, or enter 1 to go back to the main menu");
+        System.out.println("Enter your username or email, or enter -1 to go back to the main menu");
         username = this.in.nextLine();
-        if(username.equals("1")){
+        if(username.equals("-1")){
             mainMenu();
             exit = true;
         }
@@ -41,22 +62,13 @@ public class Controller {
             logInGetter();
             User user = this.userManager.logIn(username, password);
             if (user!= null) {
+                System.out.println("Log in success!");
                 this.currentUser = user;
                 exit = true;
             } else {
                 System.out.println("The username or password you entered is incorrect");
-
             }
         }
     }
 
-
-    public void getInput() {
-        System.out.print("Username: ");
-        String s1 = in.nextLine();
-        System.out.print("Password: ");
-        String s2 = in.nextLine();
-        System.out.println(s1);
-        System.out.println(s2);
-    }
 }
