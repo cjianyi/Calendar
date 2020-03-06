@@ -1,11 +1,26 @@
 import java.util.ArrayList;
 
 public class UserManager {
-    //sdsdfsdfnsdfnb
+
     public ArrayList<User> users;
 
     public void createAccount(String username, String emailAddress, String password) {
         users.add(new User(username, emailAddress, password));
+    }
+
+    public boolean userNameAvailable(String username){
+        //place holder to make code run
+        return true;
+    }
+
+    public boolean emailAvailable(String email){
+        //place holder to make code run
+        return true;
+    }
+
+    public boolean passwordValid(String password){
+        //place holder to make code run
+        return true;
     }
 
     public void deleteAccount(User u) {
