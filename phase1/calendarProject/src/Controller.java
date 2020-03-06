@@ -6,6 +6,7 @@ public class Controller {
     Scanner in;
     UserManager userManager;
     User currentUser;
+    Calendar currentCalendar;
 
     private static String username = "";
     private static String password = "";
@@ -23,30 +24,57 @@ public class Controller {
                 " past events\n Press 4 to view all future events\n Press 5 to view all events\n Press 6 to search " +
                 "events by memo\n Press 7 to search events by tag\n Press 8 to search events by series title\n" +
                 " Press 9 to search events by name");
+        String option = this.in.nextLine();
+        int num = Integer.parseInt(option);
+        switch(num){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+        }
+
     }
 
     private void accountGetter() throws IOException {
         boolean valid = false;
+        boolean available = false;
         do {
             System.out.println("Enter a username");
             username = this.in.nextLine();
-            valid = userManager.userNameAvailable(username);
-            if(!valid){
+            username.trim();
+            available = userManager.userNameAvailable(username);
+            valid = username.matches("^[^,]\\w+[^,]$");
+            if(!available || !valid){
                 System.out.println("Username taken");
             }
-        }while(!valid);
+        }while(!available || !valid);
         do {
             System.out.println("Enter your email");
             email = this.in.nextLine();
-            valid = userManager.emailAvailable(email);
-            if(!valid){
+            available = userManager.emailAvailable(email);
+            valid = email.matches("^[^,]\\w+@\\w+\\.(ca|com|net|org)$");
+            if(!available || !valid){
                 System.out.println("email taken");
             }
-        }while(!valid);
+        }while(!available || !valid);
         do {
             System.out.println("Enter a password");
             password = this.in.nextLine();
-            valid = password.matches("^[^,][a-zA-Z0-9!@#$%&*]*$");
+            valid = password.matches("^[^,][a-zA-Z0-9!@#$%&*]{7,}$");
         }while(!valid);
         userManager.createAccount(username, email, password);
     }
