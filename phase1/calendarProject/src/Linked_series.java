@@ -8,10 +8,6 @@ public class Linked_series extends Series implements Event{
         this.events = events;
     }
 
-    //public Event find_event(String event_name){} // find by event name
-    //public Event find_event(Date d){}// find by event date
-    //public Event modify_event(Event e){}// modify one of the event in the series
-
     public ArrayList get_events(){
         return this.events;
     }
