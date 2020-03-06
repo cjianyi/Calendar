@@ -4,7 +4,7 @@ public class Series implements Event {
         this.series_name = series_name;
     }
 
-    public String getter_series(){
+    public String get_event_name(){
         return this.series_name;
     }
 

@@ -4,8 +4,8 @@ public class UserManager {
 
     public ArrayList<User> users;
 
-    public UserManager(){
-        users = new ArrayList<>();
+    public UserManager() {
+        this.users = new ArrayList<>();
     }
 
     public void createAccount(String username, String emailAddress, String password) {
@@ -14,16 +14,39 @@ public class UserManager {
 
     public boolean userNameAvailable(String username){
         //place holder to make code run
+        if (!users.isEmpty()) {
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     public boolean emailAvailable(String email){
         //place holder to make code run
+        if (!users.isEmpty()) {
+            for (User user : users) {
+                if (user.getEmailAddress().equalsIgnoreCase(email))
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     public boolean passwordValid(String password){
-        //place holder to make code run
+        //place holder to make code
+        if (!users.isEmpty()) {
+            for (User user: users) {
+                if (user.getPassword().equals(password))
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -38,9 +61,18 @@ public class UserManager {
         }
     }
 
-    public User logIn(String username, String passworrd){
+    public User logIn(String username, String password){
         //place holder to make code run
-        return new User(username, "holder", passworrd);
+        // return new User(username, "holder", password);
+        if (!users.isEmpty()) {
+            for (User user : users) {
+                if (user.getUsername().equals(username) &&
+                        user.getPassword().equals(password)) {
+                    return user;
+                }
+            }
+        }
+        return null;
     }
     //user picks 1, then change username
     //user picks 2, then change emailAddress

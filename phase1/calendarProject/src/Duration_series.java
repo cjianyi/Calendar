@@ -13,9 +13,6 @@ public class Duration_series extends Series implements Event {
         this.frequency = frequency;
     }
 
-    //public Event find_event(String event_name){} // find by event name
-    //public Event find_event(Date d){}// find by event date
-
     public int get_num_series(){
         return this.num_series;
     }
