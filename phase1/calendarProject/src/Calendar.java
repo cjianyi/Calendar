@@ -10,6 +10,7 @@ public class Calendar implements Comparator {
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
 
+
     public Calendar (String name) {
         this.calendarName = name;
         this.seriesMap = new HashMap<>();

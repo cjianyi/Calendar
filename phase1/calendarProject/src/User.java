@@ -7,11 +7,13 @@ public class User {
     private String password;
     private ArrayList<Calendar> calendars;
 
+
     public User(String username, String emailAddress, String password) {
         calendars = new ArrayList<Calendar>();
         this.username = username;
         this.emailAddress = emailAddress;
         this.password = password;
+
     }
 
     public String getUsername() {
