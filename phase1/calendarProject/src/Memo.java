@@ -11,11 +11,15 @@ public class Memo {
     }
 
     public void addAssociate(Event e) {
-        associatedEvents.add(e);
+        this.associatedEvents.add(e);
+        // Add this method to event class:
+        // e.addMemo(this);
     }
 
     public void removeAssociate(Event e) {
-        associatedEvents.remove(e);
+        this.associatedEvents.remove(e);
+        // Add this method to event class:
+        // e.removeMemo(this);
     }
 
     public void editText(String newMessage) {
