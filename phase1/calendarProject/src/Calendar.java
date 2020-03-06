@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class Calendar {
+public class Calendar implements Comparator {
 
     private String calendarName;
-    private Map<String, ArrayList<Object>> seriesMap;
-    private Map<String, ArrayList<Object>> tagMap;
-    private Map<String, ArrayList<Object>> memoMap;
+    private Map<String, ArrayList<Event>> seriesMap;
+    private Map<String, ArrayList<Event>> tagMap;
+    private Map<String, ArrayList<Event>> memoMap;
 
     public Calendar (String name) {
         this.calendarName = name;
@@ -14,25 +14,35 @@ public class Calendar {
         this.memoMap = new HashMap<>();
     }
 
-    public void addEvent() {
-    }
-
-    public void deleteEvent() {
-
-    }
-    public void editEvent() {
+    public void addEvent(Event e) {
 
     }
 
-    public void addAlert() {
+    public void deleteEvent(Event e) {
+
+    }
+    public void editEvent(Event e) {
 
     }
 
-    public void deleteAlert() {
+    public void addAlert(Event a) {
 
     }
 
-    public void editAlert() {
+    public void deleteAlert(Object a) {
 
+    }
+
+    public void editAlert(Object a) {
+
+    }
+
+    public String toString() {
+        return "";
+    }
+
+    @Override
+    public int compare(Object o1, Object o2) {
+        return 0;
     }
 }
