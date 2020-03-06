@@ -1,5 +1,6 @@
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import java.io.IOException;
 import java.util.Scanner;
 public class Controller {
     Scanner in;
@@ -11,7 +12,7 @@ public class Controller {
     private static String email = "";
     private static boolean exit = false;
     private static boolean loggedIn = false;
-    public Controller() {
+    public Controller() throws IOException {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
     }
@@ -24,27 +25,33 @@ public class Controller {
                 " Press 9 to search events by name");
     }
 
-    private void accountGetter(){
+    private void accountGetter() throws IOException {
         boolean valid = false;
         do {
             System.out.println("Enter a username");
             username = this.in.nextLine();
             valid = userManager.userNameAvailable(username);
+            if(!valid){
+                System.out.println("Username taken");
+            }
         }while(!valid);
         do {
             System.out.println("Enter your email");
             email = this.in.nextLine();
             valid = userManager.emailAvailable(email);
+            if(!valid){
+                System.out.println("email taken");
+            }
         }while(!valid);
         do {
             System.out.println("Enter a password");
             password = this.in.nextLine();
-            valid = userManager.passwordValid(password);
+            valid = password.matches("^[^,][a-zA-Z0-9!@#$%&*]*$");
         }while(!valid);
         userManager.createAccount(username, email, password);
     }
 
-    public void mainMenu(){
+    public void mainMenu() throws IOException {
         exit = false;
         while(!exit) {
             System.out.println("Enter 1 to log in, 2 to create new account, -1 to exit");
@@ -62,7 +69,7 @@ public class Controller {
         }
     }
 
-    private void logInGetter(){
+    private void logInGetter() throws IOException {
         exit = false;
         System.out.println("Enter your username or email, or enter -1 to go back to the main menu");
         username = this.in.nextLine();
@@ -76,7 +83,7 @@ public class Controller {
         }
     }
 
-    private void logInMenu(){
+    private void logInMenu() throws IOException {
         exit = false;
         while(!exit) {
             logInGetter();
