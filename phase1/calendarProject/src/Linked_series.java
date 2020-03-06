@@ -1,5 +1,5 @@
 import java.util.*;
-public class Linked_series extends Series implements Event{
+public class Linked_series extends Series {
     private String series_name;
     private ArrayList<Event> events;
 

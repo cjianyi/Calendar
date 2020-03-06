@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Duration_series extends Series implements Event {
+public class Duration_series extends Series {
     private String series_name;
     private Integer num_series;
     private Date duration; // end date only for now

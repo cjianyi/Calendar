@@ -1,2 +1,3 @@
-public interface Event {
+public class Event {
+
 }

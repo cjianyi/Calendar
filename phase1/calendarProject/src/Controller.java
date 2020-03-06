@@ -144,19 +144,22 @@ public class Controller {
         System.out.println("\nSearch menu\n Press 1 to search by day\nPress to search by tag\n" +
                 "Press 3 to search by series name\n Press 4 to search events by name");
         String choice = this.in.nextLine();
+        ArrayList<Event> events;
         switch(choice){
             case "1":
                 System.out.println("Enter the day you want to search");
                 choice = this.in.nextLine();
-                ArrayList<Event> events = currentCalendar.search();
+                 events = currentCalendar.search("date", choice);
                 break;
             case "2":
                 System.out.println("Enter the tag you want to search");
                 choice = this.in.nextLine();
+                events = currentCalendar.search("tag", choice);
                 break;
             case "3":
                 System.out.println("Enter the series name you want to search");
                 choice = this.in.nextLine();
+                events = currentCalendar.search("series_name", choice);
                 break;
         }
 
