@@ -14,7 +14,7 @@ public class UserManager {
 
     public boolean userNameAvailable(String username){
         //place holder to make code run
-        while (!users.isEmpty()) {
+        if (!users.isEmpty()) {
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
                     return false;
@@ -26,7 +26,7 @@ public class UserManager {
 
     public boolean emailAvailable(String email){
         //place holder to make code run
-        while (!users.isEmpty()) {
+        if (!users.isEmpty()) {
             for (User user : users) {
                 if (user.getEmailAddress().equalsIgnoreCase(email))
                 {
@@ -39,7 +39,7 @@ public class UserManager {
 
     public boolean passwordValid(String password){
         //place holder to make code
-        while(!users.isEmpty()) {
+        if (!users.isEmpty()) {
             for (User user: users) {
                 if (user.getPassword().equals(password))
                 {
