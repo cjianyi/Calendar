@@ -1,12 +1,18 @@
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
+import java.util.Stack;
+
 public class Controller {
     Scanner in;
+    static java.lang.reflect.Method method;
     UserManager userManager;
     User currentUser;
     Calendar currentCalendar;
+    static Stack<String> menuStack = new Stack<String>();
+
 
     private static String username = "";
     private static String password = "";
@@ -16,37 +22,52 @@ public class Controller {
     public Controller() throws IOException {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
+        menuStack.push("mainMenu");
+    }
+
+    public void displayMenu() {
+        while (true) {
+            try {
+                method = this.getClass().getMethod(menuStack.peek());
+            } catch (SecurityException e) {
+            } catch (NoSuchMethodException e) {
+            }
+            ;
+
+            try {
+                method.invoke(this);
+            } catch (IllegalArgumentException e) {
+            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException e) {
+            }
+
+            System.out.println("tsrhtrsh");
+        }
     }
 
     public void calendarMenu(){
-        System.out.println("Your calendar");
-        System.out.println("Press 1 to use the current date\n Press 2 to enter a date to view \n Press 3 to view all" +
-                " past events\n Press 4 to view all future events\n Press 5 to view all events\n Press 6 to search " +
-                "events by memo\n Press 7 to search events by tag\n Press 8 to search events by series title\n" +
-                " Press 9 to search events by name");
-        String option = this.in.nextLine();
-        int num = Integer.parseInt(option);
-        switch(num){
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
+        System.out.println("Press 1 to open event editor\n Press 2 to open to events");
+        String choice = this.in.nextLine();
+        if(choice.equals("1")){
+            editorMenu();
+        }else if(choice.equals("2")){
+            eventMenu();
         }
+    }
 
+    public void editorMenu(){
+        System.out.println("Editor Menu\n Press 1 to create an event\nPress 2 to delete an event" +
+                "\nPress 3 to edit an event");
+    }
+
+    public void eventMenu(){
+        System.out.println("Event menu\n Press 1 to view past event\nPress 2 to view current events" +
+                "\nPress 3 to view future event\nPress 4 to view all events\nPress 5 open search menu");
+    }
+
+    public void searchMenu(){
+        System.out.println("Search menu\n Press 1 to search by day\nPress to search by tag\n" +
+                "Press 3 to search by series name\n Press to search events by name");
     }
 
     private void accountGetter() throws IOException {
@@ -85,9 +106,9 @@ public class Controller {
             System.out.println("Enter 1 to log in, 2 to create new account, -1 to exit");
             String log = this.in.nextLine();
             if (log.equals("1")) {
-                this.logInMenu();
+                menuStack.push("logInMenu");
             } else if (log.equals("2")) {
-                accountGetter();
+                menuStack.push("accountGetter");
             }else if (log.equals("-1")){
                 exit = true;
             }

@@ -4,6 +4,6 @@ public class Display {
 
     public Display() throws IOException {
         Controller c = new Controller();
-        c.mainMenu();
+        c.displayMenu();
     }
 }
