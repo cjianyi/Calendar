@@ -9,41 +9,61 @@ public class Controller {
     private static String username = "";
     private static String password = "";
     private static String email = "";
-
-
+    private static boolean exit = false;
+    private static boolean loggedIn = false;
     public Controller() {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
     }
 
+    public void calendarMenu(){
+        System.out.println("Your calendar");
+        System.out.println("Press 1 to use the current date\n Press 2 to enter a date to view \n Press 3 to view all" +
+                " past events\n Press 4 to view all future events\n Press 5 to view all events\n Press 6 to search " +
+                "events by memo\n Press 7 to search events by tag\n Press 8 to search events by series title\n" +
+                " Press 9 to search events by name");
+    }
+
     private void accountGetter(){
+        boolean valid = false;
         do {
             System.out.println("Enter a username");
             username = this.in.nextLine();
-        }while(!userManager.userNameAvailable(username));
+            valid = userManager.userNameAvailable(username);
+        }while(!valid);
         do {
             System.out.println("Enter your email");
             email = this.in.nextLine();
-        }while(!userManager.emailAvailable(email));
+            valid = userManager.emailAvailable(email);
+        }while(!valid);
         do {
             System.out.println("Enter a password");
             password = this.in.nextLine();
-        }while(!userManager.passwordValid(password));
+            valid = userManager.passwordValid(password);
+        }while(!valid);
         userManager.createAccount(username, email, password);
     }
 
     public void mainMenu(){
-        System.out.println("Enter 1 to log in, 2 to create new account");
-        String log = this.in.nextLine();
-        if(log.equals("1")) {
-            this.logInMenu();
-        }else if(log.equals("2")){
-            accountGetter();
+        exit = false;
+        while(!exit) {
+            System.out.println("Enter 1 to log in, 2 to create new account, -1 to exit");
+            String log = this.in.nextLine();
+            if (log.equals("1")) {
+                this.logInMenu();
+            } else if (log.equals("2")) {
+                accountGetter();
+            }else if (log.equals("-1")){
+                exit = true;
+            }
+        }
+        if(loggedIn){
+            calendarMenu();
         }
     }
 
     private void logInGetter(){
-        boolean exit = false;
+        exit = false;
         System.out.println("Enter your username or email, or enter -1 to go back to the main menu");
         username = this.in.nextLine();
         if(username.equals("-1")){
@@ -57,18 +77,20 @@ public class Controller {
     }
 
     private void logInMenu(){
-        boolean exit = false;
+        exit = false;
         while(!exit) {
             logInGetter();
-            User user = this.userManager.logIn(username, password);
-            if (user!= null) {
-                System.out.println("Log in success!");
-                this.currentUser = user;
-                exit = true;
-            } else {
-                System.out.println("The username or password you entered is incorrect");
+            if (!exit) {
+                User user = this.userManager.logIn(username, password);
+                if (user != null) {
+                    System.out.println("Log in success!");
+                    this.currentUser = user;
+                    loggedIn = true;
+                    exit = true;
+                } else {
+                    System.out.println("The username or password you entered is incorrect");
+                }
             }
         }
     }
-
 }

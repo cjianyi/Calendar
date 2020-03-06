@@ -4,6 +4,10 @@ public class UserManager {
 
     public ArrayList<User> users;
 
+    public UserManager(){
+        users = new ArrayList<>();
+    }
+
     public void createAccount(String username, String emailAddress, String password) {
         users.add(new User(username, emailAddress, password));
     }
