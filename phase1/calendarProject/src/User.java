@@ -22,9 +22,14 @@ public class User {
         return this.password;
     }
 
+    public String getEmailAddress() {
+        return this.emailAddress;
+    }
+
     //Create a calendar
     public void createCalendar(String name) {
         Calendar cal = new Calendar (name);
+        calendars.add(cal);
     }
 
     public void deleteCalendar(Calendar c) {
@@ -39,7 +44,7 @@ public class User {
         }
     }
 
-    public void shareCalendar(Calendar c) {
-        calendars.add(c);
+    public void shareCalendar(Calendar c, User u) {
+        u.calendars.add(c);
     }
 }

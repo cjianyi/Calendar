@@ -24,16 +24,16 @@ public class Calendar implements Comparator {
     public void editEvent(Event e) {
 
     }
-
-    public void addAlert(Event a) {
-
-    }
-
-    public void deleteAlert(Object a) {
+    //argument Alert a, not a static method
+    public static void addAlert() {
 
     }
+    //argument Alert a, not static
+    public static void deleteAlert() {
 
-    public void editAlert(Object a) {
+    }
+    //argument Alert a, not a static method
+    public static void editAlert() {
 
     }
 

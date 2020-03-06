@@ -14,16 +14,39 @@ public class UserManager {
 
     public boolean userNameAvailable(String username){
         //place holder to make code run
+        while (!users.isEmpty()) {
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     public boolean emailAvailable(String email){
         //place holder to make code run
+        while (!users.isEmpty()) {
+            for (User user : users) {
+                if (user.getEmailAddress().equalsIgnoreCase(email))
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     public boolean passwordValid(String password){
-        //place holder to make code run
+        //place holder to make code
+        while(!users.isEmpty()) {
+            for (User user: users) {
+                if (user.getPassword().equals(password))
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
