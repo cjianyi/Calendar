@@ -95,4 +95,24 @@ public class Event implements Comparable<Event>{
         else
             return this.name.compareTo(e.name);
     }
+
+    public String eventFileFormatter(){
+        StringBuilder s = new StringBuilder();
+        s.append(this.startTime.toString()).append(",");
+        s.append(this.endTime.toString()).append(",");
+        s.append(this.name).append(",");
+        s.append("[");
+        for(String tag: this.tags){
+            s.append(tag);
+            s.append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        s.append("],[");
+        for(Series series: this.series){
+            s.append(series.getSeriesName());
+            s.append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        return s.toString();
+    }
 }

@@ -2,10 +2,8 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 import java.text.DateFormat;
-import java.util.ArrayList;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +11,7 @@ public class Controller {
     Scanner in;
     static java.lang.reflect.Method method;
     UserManager userManager;
+    static EventManager eventManager;
     User currentUser;
     Calendar currentCalendar;
     LocalDateTime currentDate = LocalDateTime.now();
@@ -25,6 +24,13 @@ public class Controller {
     private static String email = "";
     private static boolean exit = false;
     private static boolean loggedIn = false;
+
+    private static LocalDateTime startDate;
+    private static LocalDateTime endDate;
+    private static ArrayList<String> tags;
+    private static ArrayList<Alert> alerts;
+    private static ArrayList<Memo> memos;
+
     public Controller()  {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
@@ -51,11 +57,10 @@ public class Controller {
                     break;
                 case "editorMenu":
                     editorMenu();
-                    menuStack.pop();
+
                     break;
                 case "eventMenu":
                     eventMenu();
-
                     break;
                 case "searchMenu":
                     searchMenu();
@@ -119,6 +124,64 @@ public class Controller {
 
     public void createEventMenu(){
         //date, time, tag, memo, seriesame, alert, freq, duration
+        System.out.println("Enter a start date");
+        String startDay = this.in.nextLine();
+
+        System.out.println("Enter a start time");
+        String startTime = this.in.nextLine();
+        startDate = LocalDateTime.parse(startDay + "T" + startTime);
+        System.out.println(startDate);
+        System.out.println("Enter an end date");
+        String endDay = this.in.nextLine();
+
+        System.out.println("Enter an end time");
+        String endTime = this.in.nextLine();
+        endDate = LocalDateTime.parse(endDay +"T"+ endTime);
+
+        System.out.println("Enter a tag(s) for the event, separated by commas");
+        String tag = this.in.nextLine();
+        String[] tagged = tag.split("\\s*,\\s*");
+        tags = new ArrayList<String>();
+        Collections.addAll(tags, tagged);
+
+        System.out.println("Would you like to add alert(s) to the event (y/n)");
+        String choice = this.in.nextLine();
+        if(choice.equals("y")){
+            alertMenu(false);
+        }
+
+        System.out.println("Would you like this event to repeat? (y/n)");
+        choice = this.in.nextLine();
+        if(choice.equals("y")){
+            repeatedEventMenu(false);
+        }
+
+        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername());
+    }
+
+    public void alertMenu(boolean edit){
+        System.out.println("Enter a description for the alert");
+        String desription = this.in.nextLine();
+        System.out.println("Enter a date");
+        String date = this.in.nextLine();
+        System.out.println("Enter a time");
+        String time = this.in.nextLine();
+        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+        System.out.println("Do you want it to repeat? (y/n");
+        String choice = this.in.nextLine();
+        if(choice.equals("y")){
+            repeatedAlertMenu();
+        }
+    }
+
+    public void repeatedAlertMenu(){
+        System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
+        String choice = this.in.nextLine();
+    }
+
+    public void repeatedEventMenu(boolean edit){
+        System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
+        String choice = this.in.nextLine();
     }
 
     public void deleteEventMenu(){
@@ -194,7 +257,7 @@ public class Controller {
         do {
             System.out.println("Enter a username");
             username = this.in.nextLine();
-            username.trim();
+            username = username.trim();
             available = userManager.userNameAvailable(username);
             valid = username.matches("^[^,]\\w+[^,]$");
             if(!available || !valid){

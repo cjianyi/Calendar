@@ -17,13 +17,15 @@ public class Calendar implements Comparator {
         this.alerts = new ArrayList<>();
 
     }
+
+
     //Event editor menu
-    public void addEvent(Event e) {
+    public void addEvent(Event e, String username) {
         this.events.add(e);
         try {
             FileWriter fw = new FileWriter("src\\users.txt");
             for (Event event : this.events) {
-                fw.write("");
+                fw.write(e.eventFileFormatter());
             }
             fw.close();
         }catch(IOException ex){}
