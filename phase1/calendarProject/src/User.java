@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class User {
@@ -14,7 +16,6 @@ public class User {
         this.emailAddress = emailAddress;
         this.password = password;
         this.createCalendar("Calendar1");
-
     }
 
     public String getUsername() {
@@ -33,6 +34,20 @@ public class User {
     public void createCalendar(String name) {
         Calendar cal = new Calendar (name);
         calendars.add(cal);
+        String fileName = "src\\" + this.username + "calendar" + name + ".txt";
+        File file = new File(fileName);
+        boolean exists;
+        exists = file.exists();
+        try {
+            if (!exists) {
+                file.createNewFile();
+            }
+        }catch(IOException e){}
+
+    }
+
+    public ArrayList<Calendar> getCalendars(){
+        return this.calendars;
     }
 
     public void deleteCalendar(Calendar c) {

@@ -226,6 +226,7 @@ public class Controller {
                 System.out.println("Log in success!");
                 this.currentUser = user;
                 menuStack.pop();
+                this.currentCalendar = this.currentUser.getCalendars().get(0);
                 menuStack.push("calendarMenu");
             } else {
                 System.out.println("The username or password you entered is incorrect");
