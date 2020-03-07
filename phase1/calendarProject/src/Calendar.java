@@ -111,6 +111,10 @@ public class Calendar implements Comparator {
         return temp;
     }
 
+    public ArrayList<Event> getEvents(){
+        return this.events;
+    }
+
     //argument Alert a, not a static method
     public static void addAlert(/*String description, String date, Boolean repeat*/) {
         //Alert a = new Alert(description, date, repeat);
