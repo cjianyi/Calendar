@@ -13,5 +13,35 @@ public class Event {
         return this.date;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public String getSeriesName(){
+        return this.serieName;
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
