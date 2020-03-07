@@ -26,6 +26,11 @@ public class Alert{
 
     }
 
+    public String alertFileFormatter() {
+        StringBuilder s = new StringBuilder();
+        s.append("{").append("'description':").append("'").append(this.description).append("',");
+        return s.toString();
+    }
 
 
     public void editAlert(String new_description){
