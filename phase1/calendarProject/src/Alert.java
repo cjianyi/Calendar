@@ -36,5 +36,8 @@ public class Alert{
 
 
     }
+    public void editDate(LocalDateTime new_date){
+        this.date = new_date;
+    }
 
 }
