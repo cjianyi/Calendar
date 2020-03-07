@@ -10,14 +10,17 @@ public class Event implements Comparable<Event>{
     private ArrayList<Series> series;
     private ArrayList<Memo> memos;
 
-    public Event(LocalDateTime start, LocalDateTime end, String name) {
+    public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
+                 ArrayList<Alert> alerts, ArrayList<Series> series) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
-        tags = new ArrayList<>();
-        alerts = new ArrayList<>();
-        series = new ArrayList<>();
+        this.tags = tags;
+        this.alerts = alerts;
+        this.series = series;
+
     }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -28,6 +31,7 @@ public class Event implements Comparable<Event>{
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }

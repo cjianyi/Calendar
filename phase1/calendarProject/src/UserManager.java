@@ -5,7 +5,7 @@ public class UserManager {
 
     public ArrayList<User> users;
 
-    public UserManager() throws IOException {
+    public UserManager()  {
         this.users = new ArrayList<>();
         File file = new File("src\\users.txt");
         try {
@@ -21,7 +21,7 @@ public class UserManager {
     }
 
 
-    public void createAccount(String username, String emailAddress, String password) throws IOException {
+    public void createAccount(String username, String emailAddress, String password)  {
         users.add(new User(username, emailAddress, password));
         try {
             FileWriter fw = new FileWriter("src\\users.txt");

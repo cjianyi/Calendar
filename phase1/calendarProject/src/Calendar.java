@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -18,6 +20,13 @@ public class Calendar implements Comparator {
     //Event editor menu
     public void addEvent(Event e) {
         this.events.add(e);
+        try {
+            FileWriter fw = new FileWriter("src\\users.txt");
+            for (Event event : this.events) {
+                fw.write("");
+            }
+            fw.close();
+        }catch(IOException ex){}
     }
     //Event editor menu
     public void deleteEvent(Event e) {
@@ -60,10 +69,7 @@ public class Calendar implements Comparator {
                 }
             }
             else if (inputString.equals("all")) {
-                for (int i = 0; i < events.size(); i++)
-                {
-                    temp.add(e);
-                }
+                return events;
             }
         }
         return temp;

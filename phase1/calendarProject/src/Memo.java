@@ -3,10 +3,12 @@ import java.util.ArrayList;
 public class Memo {
 
     private ArrayList<Event> associatedEvents;
+    private ArrayList<Memo> associatedMemos;
     private String text;
 
     public Memo(String message) {
         associatedEvents = new ArrayList<>();
+        associatedMemos = new ArrayList<>();
         this.text = message;
     }
 
@@ -15,10 +17,17 @@ public class Memo {
         e.addMemo(this);
     }
 
-    // not yet implemented in Event
+    public void addAssociate(Memo m) {
+        this.associatedMemos.add(m);
+    }
+
     public void removeAssociate(Event e) {
         this.associatedEvents.remove(e);
         e.removeMemo(this);
+    }
+
+    public void removeAssociate(Memo m) {
+        this.associatedMemos.remove(m);
     }
 
     public void editText(String newMessage) {
@@ -27,6 +36,10 @@ public class Memo {
 
     public ArrayList<Event> getAssociatedEvents() {
         return associatedEvents;
+    }
+
+    public ArrayList<Memo> getAssociatedMemos() {
+        return associatedMemos;
     }
 
 }
