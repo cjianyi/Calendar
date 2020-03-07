@@ -160,61 +160,23 @@ public class Controller {
     }
 
     public void alertMenu(boolean edit){
-        String answer; // representing whether the user wants to add another alert
-        do {
-            System.out.println("Enter a description for the alert");
-            String description = this.in.nextLine();
-            System.out.println("Enter a date");
-            String date = this.in.nextLine();
-            System.out.println("Enter a time");
-            String time = this.in.nextLine();
-            LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-            System.out.println("Do you want it to repeat? (y/n");
-            String choice = this.in.nextLine();
-            if (choice.equals("y")) {
-                repeatedAlertMenu(description, datetime);
-            } else {
-                Alert alert = new Alert(description, datetime, "");
-                alerts.add(alert);
-            }
-            System.out.println("Enter y for creating a new alert and n for not creating another one");
-            answer = this.in.nextLine();
-        } while (answer.equals("y"));
+        System.out.println("Enter a description for the alert");
+        String desription = this.in.nextLine();
+        System.out.println("Enter a date");
+        String date = this.in.nextLine();
+        System.out.println("Enter a time");
+        String time = this.in.nextLine();
+        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+        System.out.println("Do you want it to repeat? (y/n");
+        String choice = this.in.nextLine();
+        if(choice.equals("y")){
+            repeatedAlertMenu();
+        }
     }
 
-    public void repeatedAlertMenu(String description, LocalDateTime date){
+    public void repeatedAlertMenu(){
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
         String choice = this.in.nextLine();
-        switch (choice){
-            case "1":
-                while (date.isBefore(endDate) || date.equals(endDate)){
-                    Alert alert = new Alert(description, date, "daily");
-                    alerts.add(alert);
-                    date.plusDays(1);
-                }
-                break;
-            case "2":
-                while (date.isBefore(endDate) || date.equals(endDate)){
-                    Alert alert = new Alert(description, date, "weekly");
-                    alerts.add(alert);
-                    date.plusDays(7);
-                }
-                break;
-            case "3":
-                while (date.isBefore(endDate) || date.equals(endDate)){
-                    Alert alert = new Alert(description, date, "monthly");
-                    alerts.add(alert);
-                    date.plusMonths(1);
-                }
-                break;
-            case "4":
-                while (date.isBefore(endDate) || date.equals(endDate)){
-                    Alert alert = new Alert(description, date, "yearly");
-                    alerts.add(alert);
-                    date.plusYears(1);
-                }
-                break;
-        }
     }
 
     public void memoMenu(boolean edit){
