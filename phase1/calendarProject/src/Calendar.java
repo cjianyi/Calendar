@@ -69,10 +69,7 @@ public class Calendar implements Comparator {
                 }
             }
             else if (inputString.equals("all")) {
-                for (int i = 0; i < events.size(); i++)
-                {
-                    temp.add(e);
-                }
+                return events;
             }
         }
         return temp;
