@@ -31,6 +31,7 @@ public class Controller {
     private static ArrayList<String> tags = new ArrayList<>();
     private static ArrayList<Alert> alerts = new ArrayList<>();
     private static ArrayList<Memo> memos = new ArrayList<>();
+    private static ArrayList<Series> series = new ArrayList<>();
 
     public Controller()  {
         in = new Scanner(System.in);
@@ -159,7 +160,7 @@ public class Controller {
             repeatedEventMenu(false);
         }
 
-        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername());
+        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate,tags, alerts, series);
     }
 
     public void alertMenu(boolean edit){
