@@ -16,6 +16,15 @@ public class MemoManager {
         return memos;
     }
 
+    public Memo getMemo(int idNum) {
+        for (Memo m : memos) {
+            if (m.getId() == idNum) {
+                return m;
+            }
+        }
+        throw new RuntimeException("No memo was found.");
+    }
+
     public void deleteMemo(Memo m) {
         memos.remove(m);
     }
