@@ -212,20 +212,20 @@ public class Controller {
                 break;
             case "2":
                 while(datetime.isBefore(endDate)){
-                    Alert alert = new Alert(description, datetime, "weekly");
+                    Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusDays(7);
                 }
             case "3":
                 while (datetime.isBefore(endDate)){
-                    Alert alert = new Alert(description, datetime, "monthly");
+                    Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusMonths(1);
                 }
                 break;
             case "4":
                 while (datetime.isBefore(endDate)){
-                    Alert alert = new Alert(description, datetime, "yearly");
+                    Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusYears(1);
                 }
