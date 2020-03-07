@@ -178,18 +178,25 @@ public class Controller {
     }
 
     public void alertMenu(boolean edit){
-        System.out.println("Enter a description for the alert");
-        String desription = in.nextLine();
-        System.out.println("Enter a date");
-        String date = in.nextLine();
-        System.out.println("Enter a time");
-        String time = in.nextLine();
-        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-        System.out.println("Do you want it to repeat? (y/n");
-        String choice = in.nextLine();
-        if(choice.equals("y")){
-            repeatedAlertMenu(desription, datetime);
-        }
+        String choice;
+        do {
+            System.out.println("Enter a description for the alert");
+            String description = in.nextLine();
+            System.out.println("Enter a date");
+            String date = in.nextLine();
+            System.out.println("Enter a time");
+            String time = in.nextLine();
+            LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+            System.out.println("Do you want it to repeat? (y/n");
+            choice = in.nextLine();
+            if (choice.equals("y")) {
+                repeatedAlertMenu(description, datetime);
+            }else{
+                Alert alert = new Alert(description, datetime, "");
+            }
+            System.out.println("Entering y for choosing new alert or n for end choosing alert");
+            choice = in.nextLine();
+        }while(choice.equals("y"));
     }
 
     public void repeatedAlertMenu(String description, LocalDateTime datetime){
