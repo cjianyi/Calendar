@@ -2,7 +2,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
 
-public class Alert implements Comparable{
+public class Alert implements{
 
     private String description;
     private String date;
@@ -17,23 +17,11 @@ public class Alert implements Comparable{
     }
 
 
-    //set alert
-    public static void addAlert(){
-        Calendar.addAlert();
 
-    }
-    public static void deleteAlert(){
-        Calendar.deleteAlert();
+    public void editAlert(String new_description){
+        this.description =  new_description;
 
 
     }
-    public static void editAlert(){
-        Calendar.editAlert();
 
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 }
