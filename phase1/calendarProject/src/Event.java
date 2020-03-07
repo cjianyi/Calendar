@@ -96,12 +96,19 @@ public class Event implements Comparable<Event>{
             return this.name.compareTo(e.name);
     }
 
+    /**
+     *
+     * @return
+     */
     public String eventFileFormatter(){
         StringBuilder s = new StringBuilder();
         s.append("[{ 'name': ").append("'").append(this.name).append("',");
         s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
         s.append("'endTime':").append("'").append(this.endTime.toString()).append(",");
-        s.append("'alerts'");
+        s.append("'alerts':[");
+        for(Alert alert: this.alerts){
+            s.append(alert.alertFileFormatter()).append(",");
+        }
         return s.toString();
     }
 }
