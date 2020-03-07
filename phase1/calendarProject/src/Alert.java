@@ -1,22 +1,29 @@
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Alert{
 
     private String description;
-    private String date;
-    private Boolean repeat;
+    private LocalDateTime date;
+    private String frequency;
 
-    public Alert(String description, String date, Boolean repeat){
+    public Alert(String description, LocalDateTime date, String frequency){
         this.description = description;
         this.date = date;
-        this.repeat = repeat;
-
+        this.frequency = frequency;
 
     }
+    public void editFrequency(String new_frequency){
+        this.frequency = new_frequency;
+    }
+    public String getFrequency(){
+        return this.frequency;
+    }
+
     public String getAlert(){
-        return description;
+        return this.description;
 
     }
 
