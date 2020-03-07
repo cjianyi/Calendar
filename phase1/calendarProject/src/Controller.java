@@ -25,6 +25,7 @@ public class Controller {
     private static boolean exit = false;
     private static boolean loggedIn = false;
 
+    private static String eventName = "";
     private static LocalDateTime startDate;
     private static LocalDateTime endDate;
     private static ArrayList<String> tags;
