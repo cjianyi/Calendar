@@ -1,5 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Calendar implements Comparator {
@@ -59,30 +59,41 @@ public class Calendar implements Comparator {
                     temp.add(e);
                 }
             }
+            else if (inputString.equals("all")) {
+                for (int i = 0; i < events.size(); i++)
+                {
+                    temp.add(e);
+                }
+            }
         }
         return temp;
     }
     //calendar should be able to return a given day.
     //public Day
     //function overload so that it deals with all the search object with dates
-    public ArrayList<Event> search(String inputString, Date date)
+    public ArrayList<Event> search(String inputString, LocalDateTime date)
     {
-        Date startTime;
-        Date endTime;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         //also add sameDay
         ArrayList<Event> temp = new ArrayList<>();
         for (Event e: events) {
             startTime = e.getStartTime();
             endTime = e.getEndTime();
-            if (((inputString.equals("current")) || (inputString.equals("any")))
-                    && (startTime.before(date) && endTime.after(date)))
+            if ((inputString.equals("current"))
+                    && (startTime.isBefore(date) && endTime.isAfter(date)))
             {
                 temp.add(e);
             }
-            else if (inputString.equals("past") && endTime.before(date)) {
+            else if (inputString.equals("any") && (startTime.toLocalDate().isEqual(date.toLocalDate())
+            || endTime.toLocalDate().isEqual(date.toLocalDate())))
+            {
                 temp.add(e);
             }
-            else if (inputString.equals("future") && startTime.after(date)) {
+            else if (inputString.equals("past") && endTime.isBefore(date)) {
+                temp.add(e);
+            }
+            else if (inputString.equals("future") && startTime.isAfter(date)) {
                 temp.add(e);
             }
         }
