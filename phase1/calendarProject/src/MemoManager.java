@@ -8,8 +8,8 @@ public class MemoManager {
         memos = new ArrayList<>();
     }
 
-    public void createMemo(String text) {
-        memos.add(new Memo(text));
+    public void createMemo(int idNum, String text) {
+        memos.add(new Memo(idNum, text));
     }
 
     public ArrayList<Memo> showMemos() {
