@@ -4,13 +4,20 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 import java.util.Stack;
+import java.text.DateFormat;
 import java.util.ArrayList;
+
+import java.util.Date;
+
 public class Controller {
     Scanner in;
     static java.lang.reflect.Method method;
     UserManager userManager;
     User currentUser;
     Calendar currentCalendar;
+    Date currentDate = new Date();
+
+
     static Stack<String> menuStack = new Stack<String>();
 
 
@@ -75,12 +82,17 @@ public class Controller {
     }
 
     public void calendarMenu(){
-        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events");
+        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
+                "the current date to a day other than today");
         String choice = this.in.nextLine();
         if(choice.equals("1")){
             menuStack.push("editorMenu");
         }else if(choice.equals("2")){
             menuStack.push("eventMenu");
+        }else if(choice.equals("3")){
+            System.out.println("Enter a date to set");
+            String date = this.in.nextLine();
+            currentDate = DateFormat.parse(date);
         }
     }
 
@@ -127,6 +139,7 @@ public class Controller {
         String choice = this.in.nextLine();
         switch(choice){
             case "1":
+                //this.currentCalendar.search("past", )
                 break;
             case "2":
                 break;
