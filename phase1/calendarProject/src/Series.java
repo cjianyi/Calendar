@@ -12,6 +12,10 @@ public class Series {
         this.series_name = series_name;
     }
 
+    public String getSeriesName(){
+        return this.series_name;
+    }
+
     public void editEvent(String series_name){
         set_series_name(series_name);
     }

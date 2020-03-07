@@ -2,15 +2,20 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
-import java.util.Stack;
-import java.util.ArrayList;
+import java.util.*;
+import java.text.DateFormat;
+
+import java.time.LocalDateTime;
+
 public class Controller {
     Scanner in;
     static java.lang.reflect.Method method;
     UserManager userManager;
+    static EventManager eventManager;
     User currentUser;
     Calendar currentCalendar;
+    LocalDateTime currentDate = LocalDateTime.now();
+
     static Stack<String> menuStack = new Stack<String>();
 
 
@@ -19,13 +24,21 @@ public class Controller {
     private static String email = "";
     private static boolean exit = false;
     private static boolean loggedIn = false;
-    public Controller() throws IOException {
+
+    private static LocalDateTime startDate;
+    private static LocalDateTime endDate;
+    private static ArrayList<String> tags;
+    private static ArrayList<Alert> alerts;
+    private static ArrayList<Memo> memos;
+
+    public Controller()  {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
         menuStack.push("mainMenu");
+        System.out.println(currentDate);
     }
 
-    public void displayMenu() throws IOException {
+    public void displayMenu() {
         while (true) {
             switch (menuStack.peek()) {
                 case "mainMenu":
@@ -44,11 +57,10 @@ public class Controller {
                     break;
                 case "editorMenu":
                     editorMenu();
-                    menuStack.pop();
+
                     break;
                 case "eventMenu":
                     eventMenu();
-
                     break;
                 case "searchMenu":
                     searchMenu();
@@ -75,12 +87,17 @@ public class Controller {
     }
 
     public void calendarMenu(){
-        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events");
+        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
+                "the current date to a day other than today");
         String choice = this.in.nextLine();
         if(choice.equals("1")){
             menuStack.push("editorMenu");
         }else if(choice.equals("2")){
             menuStack.push("eventMenu");
+        }else if(choice.equals("3")){
+            System.out.println("Enter a date to set");
+            String date = this.in.nextLine();
+            currentDate = LocalDateTime.parse(date);
         }
     }
 
@@ -107,6 +124,64 @@ public class Controller {
 
     public void createEventMenu(){
         //date, time, tag, memo, seriesame, alert, freq, duration
+        System.out.println("Enter a start date");
+        String startDay = this.in.nextLine();
+
+        System.out.println("Enter a start time");
+        String startTime = this.in.nextLine();
+        startDate = LocalDateTime.parse(startDay + "T" + startTime);
+        System.out.println(startDate);
+        System.out.println("Enter an end date");
+        String endDay = this.in.nextLine();
+
+        System.out.println("Enter an end time");
+        String endTime = this.in.nextLine();
+        endDate = LocalDateTime.parse(endDay +"T"+ endTime);
+
+        System.out.println("Enter a tag(s) for the event, separated by commas");
+        String tag = this.in.nextLine();
+        String[] tagged = tag.split("\\s*,\\s*");
+        tags = new ArrayList<String>();
+        Collections.addAll(tags, tagged);
+
+        System.out.println("Would you like to add alert(s) to the event (y/n)");
+        String choice = this.in.nextLine();
+        if(choice.equals("y")){
+            alertMenu(false);
+        }
+
+        System.out.println("Would you like this event to repeat? (y/n)");
+        choice = this.in.nextLine();
+        if(choice.equals("y")){
+            repeatedEventMenu(false);
+        }
+
+        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername());
+    }
+
+    public void alertMenu(boolean edit){
+        System.out.println("Enter a description for the alert");
+        String desription = this.in.nextLine();
+        System.out.println("Enter a date");
+        String date = this.in.nextLine();
+        System.out.println("Enter a time");
+        String time = this.in.nextLine();
+        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+        System.out.println("Do you want it to repeat? (y/n");
+        String choice = this.in.nextLine();
+        if(choice.equals("y")){
+            repeatedAlertMenu();
+        }
+    }
+
+    public void repeatedAlertMenu(){
+        System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
+        String choice = this.in.nextLine();
+    }
+
+    public void repeatedEventMenu(boolean edit){
+        System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
+        String choice = this.in.nextLine();
     }
 
     public void deleteEventMenu(){
@@ -123,18 +198,27 @@ public class Controller {
 
     public void eventMenu(){
         System.out.println("\nEvent menu\n Press 1 to view past event\nPress 2 to view current events" +
-                "\nPress 3 to view future event\nPress 4 to view all events\nPress 5 open search menu");
+                "\nPress 3 to view today's events \nPress 4 to view future event\nPress 5 to view all events\nPress 6 open search menu");
         String choice = this.in.nextLine();
+        ArrayList<Event> events;
         switch(choice){
             case "1":
+                //this.currentCalendar.search("past", )
+                events = this.currentCalendar.search("past", currentDate);
                 break;
             case "2":
+                events = this.currentCalendar.search("current", currentDate);
                 break;
             case "3":
+                events = this.currentCalendar.search("any", currentDate);
                 break;
             case "4":
+                events = this.currentCalendar.search("future", currentDate);
                 break;
             case "5":
+                events = this.currentCalendar.search("all", "");
+                break;
+            case "6":
                 menuStack.push("searchMenu");
                 break;
         }
@@ -167,13 +251,13 @@ public class Controller {
         choice = this.in.nextLine();
     }
 
-    private void accountGetter() throws IOException {
+    private void accountGetter()  {
         boolean valid = false;
         boolean available = false;
         do {
             System.out.println("Enter a username");
             username = this.in.nextLine();
-            username.trim();
+            username = username.trim();
             available = userManager.userNameAvailable(username);
             valid = username.matches("^[^,]\\w+[^,]$");
             if(!available || !valid){
@@ -197,7 +281,7 @@ public class Controller {
         userManager.createAccount(username, email, password);
     }
 
-    public void mainMenu() throws IOException {
+    public void mainMenu()  {
             System.out.println("\nMain Menu\nEnter 1 to log in, 2 to create new account, -1 to exit");
             String log = this.in.nextLine();
             if (log.equals("1")) {
@@ -210,7 +294,7 @@ public class Controller {
     }
 
 
-    private void logInMenu() throws IOException {
+    private void logInMenu()  {
         System.out.println("\nLogin Menu\nEnter your username or email, or enter -1 to go back to the main menu");
         username = this.in.nextLine();
         if (username.equals("-1")) {

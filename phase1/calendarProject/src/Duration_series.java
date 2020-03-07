@@ -1,15 +1,19 @@
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Duration_series extends Series {
     private String series_name;
     private Integer num_series;
-    private Date duration; // end date only for now
+    private LocalDateTime starttime;
+    private LocalDateTime endtime;
     private String frequency;
 
-    public Duration_series(String series_name, int num_series, Date duration, String frequency){
+    public Duration_series(String series_name, int num_series, LocalDateTime starttime,
+                           LocalDateTime endtime,  String frequency){
         super(series_name);
         this.num_series = num_series;
-        this.duration = duration;
+        this.starttime = starttime;
+        this.endtime = endtime;
         this.frequency = frequency;
     }
 
@@ -21,12 +25,20 @@ public class Duration_series extends Series {
         this.num_series = num_series;
     }
 
-    public Date get_duration(){
-        return this.duration;
+    public LocalDateTime get_starttime(){
+        return this.starttime;
     }
 
-    public void set_duration(Date duration){
-        this.duration = duration;
+    public LocalDateTime get_endtime(){
+        return this.endtime;
+    }
+
+    public void set_starttime(LocalDateTime starttime){
+        this.starttime = starttime;
+    }
+
+    public void set_endtime(LocalDateTime endtime){
+        this.endtime = endtime;
     }
 
 
@@ -40,8 +52,9 @@ public class Duration_series extends Series {
 
     //user picks 1, then change series_name
     //user picks 2, then change num_series
-    //user picks 3, then change duration
+    //user picks 3, then change starttime
     //user picks 4, then change frequency
+    //user picks 5, then change endtime
     public void editEvent(int user_input, Object user_change){
         switch (user_input){
             case 1:
@@ -51,9 +64,12 @@ public class Duration_series extends Series {
                 set_num_series((Integer) user_change );
                 break;
             case 3:
-                set_duration((Date) user_change);
+                set_starttime((LocalDateTime) user_change);
                 break;
             case 4:
+                set_endtime((LocalDateTime) user_change);
+                break;
+            case 5:
                 set_frequency((String) user_change);
                 break;
             }

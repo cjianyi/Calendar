@@ -3,13 +3,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class User {
-
+    /** The username of a user. */
     private String username;
+    /** The email address of a user. */
     private String emailAddress;
+    /** The password of a user. */
     private String password;
+    /** An array list that stores all the calendars that the user has. */
     private ArrayList<Calendar> calendars;
 
-
+    /**
+     * Constructor for User.
+     * <p>
+     * The username, emailAddress and password are from users.txt
+     * if the program is loading information stored in that text file or from the user when
+     * he or she is trying to create an account.
+     * </p>
+     *
+     * @param username the username of an user
+     * @param emailAddress the email address of an user
+     * @param password the password of an user
+     */
     public User(String username, String emailAddress, String password) {
         calendars = new ArrayList<Calendar>();
         this.username = username;
@@ -18,19 +32,39 @@ public class User {
         this.createCalendar("Calendar1");
     }
 
+    /**
+     * Gets the username of an user.
+     * @return returns the username of an user.
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * Gets the password of an user.
+     * @return returns the password of an user.
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * Gets the email address of an user.
+     * @return returns the emailAddress of an user.
+     */
     public String getEmailAddress() {
         return this.emailAddress;
     }
 
-    //Create a calendar
+    /**
+     * Creates a calendar for a user.
+     * <p>
+     * Adds the calendar to the list of calendars that user has. Creates a new file
+     * which stores the information of this calendar.
+     * </p>
+     *
+     * @param name the name of that calendar
+     */
     public void createCalendar(String name) {
         Calendar cal = new Calendar (name);
         calendars.add(cal);
@@ -46,6 +80,10 @@ public class User {
 
     }
 
+    /**
+     * Gets all the calendars that the user has.
+     * @return returns an array list of calendars that the user has.
+     */
     public ArrayList<Calendar> getCalendars(){
         return this.calendars;
     }
@@ -61,8 +99,5 @@ public class User {
 
         }
     }
-    //phase 2
-    public void shareCalendar(Calendar c, User u) {
-        u.calendars.add(c);
-    }
+
 }

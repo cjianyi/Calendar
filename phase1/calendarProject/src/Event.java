@@ -8,16 +8,19 @@ public class Event implements Comparable<Event>{
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
-    private Memo memo;
+    private ArrayList<Memo> memos;
 
-    public Event(LocalDateTime start, LocalDateTime end, String name) {
+    public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
+                 ArrayList<Alert> alerts, ArrayList<Series> series) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
-        tags = new ArrayList<String>();
-        alerts = new ArrayList<Alert>();
-        series = new ArrayList<Series>();
+        this.tags = tags;
+        this.alerts = alerts;
+        this.series = series;
+
     }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -28,6 +31,7 @@ public class Event implements Comparable<Event>{
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
@@ -40,7 +44,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<String> getTags() {
-        return new ArrayList<String>(this.tags);
+        return new ArrayList<>(this.tags);
     }
     public void addTag(String tag) {
         this.tags.add(tag);
@@ -50,7 +54,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<Alert> getAlerts() {
-        return new ArrayList<Alert>(this.alerts);
+        return new ArrayList<>(this.alerts);
     }
     public void addAlert(Alert alert) {
         this.alerts.add(alert);
@@ -61,7 +65,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<Series> getSeries() {
-        return new ArrayList<Series>(this.series);
+        return new ArrayList<>(this.series);
     }
     public void addSeries(Series series) {
         this.series.add(series);
@@ -69,11 +73,14 @@ public class Event implements Comparable<Event>{
     public void removeSeries(Series series) {
         this.series.remove(series);
     }
-    public Memo getMemo() {
-        return this.memo;
+    public ArrayList<Memo> getMemos() {
+        return this.memos;
     }
-    public void setMemo(Memo newMemo) {
-        this.memo = newMemo;
+    public void addMemo(Memo newMemo) {
+        this.memos.add(newMemo);
+    }
+    public void removeMemo(Memo newMemo) {
+        this.memos.remove(newMemo);
     }
 
 
@@ -87,5 +94,25 @@ public class Event implements Comparable<Event>{
             return equalEnd;
         else
             return this.name.compareTo(e.name);
+    }
+
+    public String eventFileFormatter(){
+        StringBuilder s = new StringBuilder();
+        s.append(this.startTime.toString()).append(",");
+        s.append(this.endTime.toString()).append(",");
+        s.append(this.name).append(",");
+        s.append("[");
+        for(String tag: this.tags){
+            s.append(tag);
+            s.append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        s.append("],[");
+        for(Series series: this.series){
+            s.append(series.getSeriesName());
+            s.append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        return s.toString();
     }
 }
