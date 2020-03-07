@@ -1,3 +1,4 @@
+import com.restfb.json.JsonObject;
 public class EventManager {
 
     public void createEvent(Calendar cal, String username) {
