@@ -35,6 +35,7 @@ public class User {
 
     /**
      * Gets the username of an user.
+     *
      * @return returns the username of an user.
      */
     public String getUsername() {
@@ -43,6 +44,7 @@ public class User {
 
     /**
      * Gets the password of an user.
+     *
      * @return returns the password of an user.
      */
     public String getPassword() {
@@ -51,6 +53,7 @@ public class User {
 
     /**
      * Gets the email address of an user.
+     *
      * @return returns the emailAddress of an user.
      */
     public String getEmailAddress() {
@@ -83,6 +86,7 @@ public class User {
 
     /**
      * Gets all the calendars that the user has.
+     *
      * @return returns an array list of calendars that the user has.
      */
     public ArrayList<Calendar> getCalendars(){
