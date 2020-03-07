@@ -20,7 +20,7 @@ public class Day implements Comparable<Day>{
     }
     public void addAlert(Alert alert) {
         this.alerts.add(alert);
-        Collections.sort(this.alerts);
+
     }
     public void removeAlert(Alert alert) {
         this.alerts.remove(alert);
