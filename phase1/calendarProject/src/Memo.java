@@ -12,15 +12,14 @@ public class Memo {
 
     public void addAssociate(Event e) {
         this.associatedEvents.add(e);
-        e.setMemo(this);
+        e.addMemo(this);
     }
 
     // not yet implemented in Event
-//    public void removeAssociate(Event e) {
-//        this.associatedEvents.remove(e);
-//        // Add this method to event class:
-//        // e.removeMemo(this);
-//    }
+    public void removeAssociate(Event e) {
+        this.associatedEvents.remove(e);
+        e.removeMemo(this);
+    }
 
     public void editText(String newMessage) {
         this.text = newMessage;
