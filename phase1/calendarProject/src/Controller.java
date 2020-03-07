@@ -156,11 +156,11 @@ public class Controller {
             }
         }while(!exit);
 
-//        System.out.println("Enter a tag(s) for the event, separated by commas");
-//        String tag = in.nextLine();
-//        String[] tagged = tag.split("\\s*,\\s*");
-//        tags = new ArrayList<String>();
-//        Collections.addAll(tags, tagged);
+        System.out.println("Enter a tag(s) for the event, separated by commas");
+        String tag = in.nextLine();
+        String[] tagged = tag.split("\\s*,\\s*");
+        tags = new ArrayList<String>();
+        Collections.addAll(tags, tagged);
 
         System.out.println("Would you like to add alert(s) to the event (y/n)");
         String choice = in.nextLine();

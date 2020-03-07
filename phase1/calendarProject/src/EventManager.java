@@ -46,7 +46,7 @@ public class EventManager {
 
     // Frequency should affect how many alerts are added...
     public void addAlert(Event event, String description, LocalDateTime date, String frequency) {
-        event.addAlert(new Alert(description, date, frequency));
+        event.addAlert(new Alert(description, date));
     }
 
     public void removeAlert(Event event, Alert alert) {

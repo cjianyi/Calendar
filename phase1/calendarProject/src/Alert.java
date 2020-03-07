@@ -30,7 +30,7 @@ public class Alert{
         StringBuilder s = new StringBuilder();
         s.append("{").append("'description':").append("'").append(this.description).append("',");
         s.append("'date':").append("'").append(this.date.toString()).append("'}");
-        
+
         return s.toString();
     }
 

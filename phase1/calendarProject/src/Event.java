@@ -104,11 +104,12 @@ public class Event implements Comparable<Event>{
         StringBuilder s = new StringBuilder();
         s.append("[{ 'name': ").append("'").append(this.name).append("',");
         s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
-        s.append("'endTime':").append("'").append(this.endTime.toString()).append(",");
+        s.append("'endTime':").append("'").append(this.endTime.toString()).append("',");
         s.append("'alerts':[");
         for(Alert alert: this.alerts){
             s.append(alert.alertFileFormatter()).append(",");
         }
+        s.replace(s.length()- 1, s.length(), "");
         return s.toString();
     }
 }
