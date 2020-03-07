@@ -87,7 +87,7 @@ public class UserManager {
     public void editAccount(User u) {
 
     }
-
+    //phase 2
     public void accept(User u) {
 
     }
