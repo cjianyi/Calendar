@@ -1,13 +1,15 @@
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Duration_series extends Series {
     private String series_name;
     private Integer num_series;
-    private Date starttime;
-    private Date endtime;
+    private LocalDateTime starttime;
+    private LocalDateTime endtime;
     private String frequency;
 
-    public Duration_series(String series_name, int num_series, Date starttime, Date endtime,  String frequency){
+    public Duration_series(String series_name, int num_series, LocalDateTime starttime,
+                           LocalDateTime endtime,  String frequency){
         super(series_name);
         this.num_series = num_series;
         this.starttime = starttime;
@@ -23,19 +25,19 @@ public class Duration_series extends Series {
         this.num_series = num_series;
     }
 
-    public Date get_starttime(){
+    public LocalDateTime get_starttime(){
         return this.starttime;
     }
 
-    public Date get_endtime(){
+    public LocalDateTime get_endtime(){
         return this.endtime;
     }
 
-    public void set_starttime(Date starttime){
+    public void set_starttime(LocalDateTime starttime){
         this.starttime = starttime;
     }
 
-    public void set_endtime(Date endtime){
+    public void set_endtime(LocalDateTime endtime){
         this.endtime = endtime;
     }
 
@@ -62,10 +64,10 @@ public class Duration_series extends Series {
                 set_num_series((Integer) user_change );
                 break;
             case 3:
-                set_starttime((Date) user_change);
+                set_starttime((LocalDateTime) user_change);
                 break;
             case 4:
-                set_endtime((Date) user_change);
+                set_endtime((LocalDateTime) user_change);
                 break;
             case 5:
                 set_frequency((String) user_change);

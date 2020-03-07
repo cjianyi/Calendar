@@ -8,15 +8,15 @@ public class Event implements Comparable<Event>{
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
-    private Memo memo;
+    private ArrayList<Memo> memos;
 
     public Event(LocalDateTime start, LocalDateTime end, String name) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
-        tags = new ArrayList<String>();
-        alerts = new ArrayList<Alert>();
-        series = new ArrayList<Series>();
+        tags = new ArrayList<>();
+        alerts = new ArrayList<>();
+        series = new ArrayList<>();
     }
     public LocalDateTime getStartTime() {
         return startTime;
@@ -40,7 +40,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<String> getTags() {
-        return new ArrayList<String>(this.tags);
+        return new ArrayList<>(this.tags);
     }
     public void addTag(String tag) {
         this.tags.add(tag);
@@ -50,7 +50,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<Alert> getAlerts() {
-        return new ArrayList<Alert>(this.alerts);
+        return new ArrayList<>(this.alerts);
     }
     public void addAlert(Alert alert) {
         this.alerts.add(alert);
@@ -61,7 +61,7 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<Series> getSeries() {
-        return new ArrayList<Series>(this.series);
+        return new ArrayList<>(this.series);
     }
     public void addSeries(Series series) {
         this.series.add(series);
@@ -69,11 +69,14 @@ public class Event implements Comparable<Event>{
     public void removeSeries(Series series) {
         this.series.remove(series);
     }
-    public Memo getMemo() {
-        return this.memo;
+    public ArrayList<Memo> getMemos() {
+        return this.memos;
     }
-    public void setMemo(Memo newMemo) {
-        this.memo = newMemo;
+    public void addMemo(Memo newMemo) {
+        this.memos.add(newMemo);
+    }
+    public void removeMemo(Memo newMemo) {
+        this.memos.remove(newMemo);
     }
 
 
