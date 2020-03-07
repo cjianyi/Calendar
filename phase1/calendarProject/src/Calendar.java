@@ -5,16 +5,12 @@ import java.util.*;
 public class Calendar implements Comparator {
 
     private String calendarName;
-    private Map<String, ArrayList<Event>> seriesMap;
-    //private Map<String, ArrayList<Event>> timeDayMap;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
 
 
     public Calendar (String name) {
         this.calendarName = name;
-        this.seriesMap = new HashMap<>();
-        //this.timeDayMap = new HashMap<>();
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
 
@@ -36,38 +32,62 @@ public class Calendar implements Comparator {
     //String input is to see whether it is tag, memo or, date, alert, series_name, or anything.
     public ArrayList<Event> search(String inputString, String information){
         ArrayList<Event> temp = new ArrayList<>();
-            String v = "";
+        String v = "";
+        ArrayList<String> tags;
+        ArrayList<Series> series;
         for (Event e: events) {
             if (inputString.equals("tag")) {
-                v = e.getTag();
-            }
-            //use start date, or end date if duration_series
-            else if (inputString.equals("date")) {
-                v = e.getDate();
+                tags = e.getTags();
+                for (String tag : tags) {
+                    if (tag.equals(information)) {
+                        temp.add(e);
+                    }
+                }
             }
             else if (inputString.equals("series_name")) {
-                v = e.getSeriesName();
+                series = e.getSeries();
+                for (Series ser: series)
+                {
+                    if (ser.get_event_name().equalsIgnoreCase(information)) {
+                        temp.add(e);
+                    }
+                }
             }
             else if (inputString.equals("name")) {
                 v = e.getName();
-            }
-            /*else if (inputString.equals("past")) {
-                //if ()
-            }
-            else if (inputString.equals("today")) {
-
-            }
-            else if (inputString.equals("future")) {
-
-            }*/
-            if (v.equalsIgnoreCase(information)) {
-                temp.add(e);
+                if (v.equalsIgnoreCase(information)) {
+                    temp.add(e);
+                }
             }
         }
         return temp;
     }
     //calendar should be able to return a given day.
     //public Day
+    //function overload so that it deals with all the search object with dates
+    public ArrayList<Event> search(String inputString, Date date)
+    {
+        Date startTime;
+        Date endTime;
+        //also add sameDay
+        ArrayList<Event> temp = new ArrayList<>();
+        for (Event e: events) {
+            startTime = e.getStartTime();
+            endTime = e.getEndTime();
+            if (((inputString.equals("current")) || (inputString.equals("any")))
+                    && (startTime.before(date) && endTime.after(date)))
+            {
+                temp.add(e);
+            }
+            else if (inputString.equals("past") && endTime.before(date)) {
+                temp.add(e);
+            }
+            else if (inputString.equals("future") && startTime.after(date)) {
+                temp.add(e);
+            }
+        }
+        return temp;
+    }
 
     //argument Alert a, not a static method
     public static void addAlert(/*String description, String date, Boolean repeat*/) {
