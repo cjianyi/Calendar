@@ -25,13 +25,14 @@ public class Controller {
     private static String email = "";
     private static boolean exit = false;
     private static boolean loggedIn = false;
-    public Controller() throws IOException {
+    public Controller()  {
         this.in = new Scanner(System.in);
         this.userManager = new UserManager();
         menuStack.push("mainMenu");
+        System.out.println(currentDate);
     }
 
-    public void displayMenu() throws IOException {
+    public void displayMenu() {
         while (true) {
             switch (menuStack.peek()) {
                 case "mainMenu":
@@ -187,7 +188,7 @@ public class Controller {
         choice = this.in.nextLine();
     }
 
-    private void accountGetter() throws IOException {
+    private void accountGetter()  {
         boolean valid = false;
         boolean available = false;
         do {
@@ -217,7 +218,7 @@ public class Controller {
         userManager.createAccount(username, email, password);
     }
 
-    public void mainMenu() throws IOException {
+    public void mainMenu()  {
             System.out.println("\nMain Menu\nEnter 1 to log in, 2 to create new account, -1 to exit");
             String log = this.in.nextLine();
             if (log.equals("1")) {
@@ -230,7 +231,7 @@ public class Controller {
     }
 
 
-    private void logInMenu() throws IOException {
+    private void logInMenu()  {
         System.out.println("\nLogin Menu\nEnter your username or email, or enter -1 to go back to the main menu");
         username = this.in.nextLine();
         if (username.equals("-1")) {
