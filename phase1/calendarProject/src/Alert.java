@@ -26,7 +26,7 @@ public class Alert{
 
     }
 
-    public
+    
 
     public void editAlert(String new_description){
         this.description =  new_description;
