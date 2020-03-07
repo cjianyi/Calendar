@@ -1,14 +1,15 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EventManager {
     // A lot of these methods have an event parameter.
     // Maybe a variable keeping track of one event?
 
-    public void createEvent(Calendar cal, String name, LocalDateTime start, LocalDateTime end) {
-        Event newEvent = new Event(start, end, name);
-        cal.addEvent(newEvent);
+    // too many variables. Could probably move some up or down hierarchy
+    public void createEvent(Calendar cal, String user, String name, LocalDateTime start, LocalDateTime end,
+                            ArrayList<String> tags, ArrayList<Alert> alerts, ArrayList<Series> series) {
+        Event newEvent = new Event(start, end, name, tags, alerts, series);
+        cal.addEvent(newEvent, user);
     }
 
     // Need way of getting optional parameters (Builder?)
@@ -36,31 +37,16 @@ public class EventManager {
             case ("tag") :
                 event.addTag(load);
                 break;
-            case ("memo") :
-                event.setMemo(new Memo(load));
-                event.getMemo().addAssociate(event);
-                break;
         }
     }
 
-    public void removeFromEvent(Event event, String type, String name) {
-        switch (type) {
-            case ("tag") :
-                event.removeTag(name);
-                break;
-            case ("memo") :
-                event.setMemo(null);
-                break;
-        }
+    public void removeTag(Event event, String tag) {
+        event.removeTag(tag);
     }
 
-    public void addAlert(Event event, String description, String date, Boolean repeat) {
-        event.addAlert(new Alert(description, date, repeat));
-    }
-
-    // Instead of a frequency alert, maybe just add multiple alerts using the frequency
-    public void addAlert(Event event, String description, String date, Boolean repeat, String frequency) {
-        event.addAlert(new FrequencyAlert(description, date, repeat, frequency));
+    // Frequency should affect how many alerts are added...
+    public void addAlert(Event event, String description, LocalDateTime date, String frequency) {
+        event.addAlert(new Alert(description, date, frequency));
     }
 
     public void removeAlert(Event event, Alert alert) {
@@ -72,8 +58,9 @@ public class EventManager {
     }
 
     // Change Date to LocalDateTime
-    public void addSeries(Event event, String name, Integer num_series, Date duration, String frequency) {
-        event.addSeries(new Duration_series(name, num_series, duration, frequency));
+    public void addSeries(Event event, String name, Integer num_series, LocalDateTime start, LocalDateTime end,
+                          String frequency) {
+        event.addSeries(new Duration_series(name, num_series, start, end, frequency));
     }
 
     public void removeSeries(Event event, Series series) {
