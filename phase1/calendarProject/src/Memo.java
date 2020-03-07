@@ -19,6 +19,10 @@ public class Memo {
         return this.text;
     }
 
+    public int getId() {
+        return this.idNum;
+    }
+
     public void addAssociate(Event e) {
         this.associatedEvents.add(e);
         e.addMemo(this);
