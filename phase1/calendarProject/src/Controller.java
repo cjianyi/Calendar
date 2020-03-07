@@ -154,7 +154,7 @@ public class Controller {
             case "5":
                 events = this.currentCalendar.search("all", "");
                 break;
-            case "5":
+            case "6":
                 menuStack.push("searchMenu");
                 break;
         }
