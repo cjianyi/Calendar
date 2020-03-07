@@ -29,6 +29,7 @@ public class User {
         this.username = username;
         this.emailAddress = emailAddress;
         this.password = password;
+        this.calendars = new ArrayList<>();
         this.createCalendar("Calendar1");
     }
 
