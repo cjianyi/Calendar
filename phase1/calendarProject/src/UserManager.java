@@ -112,6 +112,7 @@ public class UserManager {
             for (User user : users) {
                 if (user.getUsername().equals(username) &&
                         user.getPassword().equals(password)) {
+
                     return user;
                 }
             }

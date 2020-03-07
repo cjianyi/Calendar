@@ -29,12 +29,18 @@ public class Calendar implements Comparator {
     public void addEvent(Event e, String username) {
         this.events.add(e);
         try {
-            FileWriter fw = new FileWriter("src\\users.txt");
+            FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
             for (Event event : this.events) {
                 fw.write(e.eventFileFormatter());
             }
             fw.close();
-        }catch(IOException ex){}
+        }catch(IOException ex){
+            System.out.println("error");
+        }
+    }
+
+    public ArrayList<Memo> getMemos(){
+        return new ArrayList<Memo>();
     }
     //Event editor menu
     public void deleteEvent(Event e) {
@@ -109,6 +115,15 @@ public class Calendar implements Comparator {
             }
         }
         return temp;
+    }
+
+    /**
+     * Getter that gets all the events in a calendar.
+     *
+     * @return a list of events
+     */
+    public ArrayList<Event> getEvents(){
+        return this.events;
     }
 
     //argument Alert a, not a static method
