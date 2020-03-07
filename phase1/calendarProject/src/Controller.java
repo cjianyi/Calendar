@@ -217,6 +217,16 @@ public class Controller {
         }
     }
 
+    public void memoMenu(boolean edit){
+        System.out.println("Enter the text for this memo");
+        String text = this.in.nextLine();
+        do{
+            System.out.println("Choose a new Event");
+            String event_name = this.in.nextLine();
+            System.out.println("Enter y for choosing a new event ");
+        }while();
+    }
+
     public void repeatedEventMenu(boolean edit){
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
         String choice = this.in.nextLine();
