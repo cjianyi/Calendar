@@ -214,14 +214,38 @@ public class Controller {
 
     public void memoMenu(boolean edit){
         System.out.println("Enter the text for this memo");
-        String text = in.nextLine();
+        String text = this.in.nextLine();
+        ArrayList<Event> events;
+        ArrayList<Memo> memos;
         Memo m = new Memo(text);
         String answer;
+        // selecting events
         do{
             System.out.println("Choose a new Event");
-            String event_name = in.nextLine();
+            String event_name = this.in.nextLine();
+            events = currentCalendar.getEvents();
+            for (int i = 0; i < events.size(); i++){
+                if (event_name == events.get(i).getName()){
+                    m.addAssociate(events.get(i));
+                    break;
+                }
+            }
             System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
-            answer = in.nextLine();
+            answer = this.in.nextLine();
+        }while(answer.equals("y"));
+        //selecting memos
+        do{
+            System.out.println("Choose a new memo");
+            String memo_name = this.in.nextLine();
+            memos = currentCalendar.getMemos();
+            for (int i = 0; i < memos.size(); i++){
+                if (memo_name == memos.get(i).getText()){
+                    m.addAssociate(memos.get(i));
+                    break;
+                }
+            }
+            System.out.println("Enter y for choosing a new memo or enter n for end choosing event ");
+            answer = this.in.nextLine();
         }while(answer.equals("y"));
     }
 
