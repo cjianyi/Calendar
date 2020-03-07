@@ -12,6 +12,10 @@ public class Memo {
         this.text = message;
     }
 
+    public String getText(){
+        return this.text;
+    }
+
     public void addAssociate(Event e) {
         this.associatedEvents.add(e);
         e.addMemo(this);
