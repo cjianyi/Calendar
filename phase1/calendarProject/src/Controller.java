@@ -322,8 +322,12 @@ public class Controller {
             answer = this.in.nextLine();
         }while (answer == "y");
     }
-
-
+    public void alertAnnoucements() {
+        System.out.println("---Alerts---");
+        for (int i = 0; i < alerts.size(); i++) {
+            System.out.println(alerts.get(i).getAlert());
+        }
+    }
 
 
     public void repeatedEventMenu(boolean edit){
