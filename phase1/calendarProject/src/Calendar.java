@@ -117,6 +117,11 @@ public class Calendar implements Comparator {
         return temp;
     }
 
+    /**
+     * Getter that gets all the events in a calendar.
+     *
+     * @return a list of events
+     */
     public ArrayList<Event> getEvents(){
         return this.events;
     }
