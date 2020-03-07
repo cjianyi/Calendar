@@ -36,34 +36,34 @@ public class Calendar implements Comparator {
     //String input is to see whether it is tag, memo or, date, alert, series_name, or anything.
     public ArrayList<Event> search(String inputString, String information){
         ArrayList<Event> temp = new ArrayList<>();
-//            String v = "";
-//        for (Event e: events) {
-//            if (inputString.equals("tag")) {
-//                v = e.getTag();
-//            }
-//            //use start date, or end date if duration_series
-//            else if (inputString.equals("date")) {
-//                v = e.getDate();
-//            }
-//            else if (inputString.equals("series_name")) {
-//                v = e.getSeriesName();
-//            }
-//            else if (inputString.equals("name")) {
-//                v = e.getName();
-//            }
-//            /*else if (inputString.equals("past")) {
-//                //if ()
-//            }
-//            else if (inputString.equals("today")) {
-//
-//            }
-//            else if (inputString.equals("future")) {
-//
-//            }*/
-//            if (v.equalsIgnoreCase(information)) {
-//                temp.add(e);
-//            }
-//        }
+            String v = "";
+        for (Event e: events) {
+            if (inputString.equals("tag")) {
+                v = e.getTag();
+            }
+            //use start date, or end date if duration_series
+            else if (inputString.equals("date")) {
+                v = e.getDate();
+            }
+            else if (inputString.equals("series_name")) {
+                v = e.getSeriesName();
+            }
+            else if (inputString.equals("name")) {
+                v = e.getName();
+            }
+            /*else if (inputString.equals("past")) {
+                //if ()
+            }
+            else if (inputString.equals("today")) {
+
+            }
+            else if (inputString.equals("future")) {
+
+            }*/
+            if (v.equalsIgnoreCase(information)) {
+                temp.add(e);
+            }
+        }
         return temp;
     }
     //calendar should be able to return a given day.
