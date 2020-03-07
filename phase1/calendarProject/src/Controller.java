@@ -274,7 +274,15 @@ public class Controller {
             answer = this.in.nextLine();
         }while (answer == "y");
     }
+    public void alertAnnoucements(){
+        System.out.println("---Alerts---");
+        for (int i = 0; i < alerts.size(); i++){
+            System.out.println(alerts.get(i).getAlert());
 
+        }
+
+
+    }
     public void repeatedEventMenu(boolean edit){
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
         String choice = in.nextLine();
