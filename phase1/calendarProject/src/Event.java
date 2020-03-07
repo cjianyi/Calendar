@@ -1,7 +1,7 @@
 import java.util.Date;
 public class Event {
     private String tag;
-    private Date date;
+    private Date date; // end date only for duration series and start date for the rest types of event
     private String name;
     private String serieName;
 
