@@ -5,12 +5,18 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Calendar implements Comparator {
-
+    /** The name of a calendar. */
     private String calendarName;
+    /** An array list that stores all the events in a calendar. */
     private ArrayList<Event> events;
+    /** An array list that stores all the alerts in a calendar. */
     private ArrayList<Alert> alerts;
 
-
+    /**
+     * Constructor for a calendar. Creates an empty calendar with a name.
+     *
+     * @param name The name of a calendar.
+     */
     public Calendar (String name) {
         this.calendarName = name;
         this.events = new ArrayList<>();
@@ -43,12 +49,9 @@ public class Calendar implements Comparator {
     //String input is to see whether it is tag, memo or, date, alert, series_name, or anything.
     public ArrayList<Event> search(String inputString, String information){
         ArrayList<Event> temp = new ArrayList<>();
-        String v = "";
-        ArrayList<String> tags;
-        ArrayList<Series> series;
         for (Event e: events) {
             if (inputString.equals("tag")) {
-                tags = e.getTags();
+                ArrayList<String> tags = e.getTags();
                 for (String tag : tags) {
                     if (tag.equals(information)) {
                         temp.add(e);
@@ -56,7 +59,7 @@ public class Calendar implements Comparator {
                 }
             }
             else if (inputString.equals("series_name")) {
-                series = e.getSeries();
+                ArrayList<Series> series = e.getSeries();
                 for (Series ser: series)
                 {
                     if (ser.get_event_name().equalsIgnoreCase(information)) {
@@ -65,7 +68,7 @@ public class Calendar implements Comparator {
                 }
             }
             else if (inputString.equals("name")) {
-                v = e.getName();
+                String v = e.getName();
                 if (v.equalsIgnoreCase(information)) {
                     temp.add(e);
                 }
