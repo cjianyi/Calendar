@@ -214,11 +214,14 @@ public class Controller {
     public void memoMenu(boolean edit){
         System.out.println("Enter the text for this memo");
         String text = this.in.nextLine();
+        Memo m = new Memo(text);
+        String answer;
         do{
             System.out.println("Choose a new Event");
             String event_name = this.in.nextLine();
-            System.out.println("Enter y for choosing a new event ");
-        }while();
+            System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
+            answer = this.in.nextLine();
+        }while(answer.equals("y"));
     }
 
     public void repeatedEventMenu(boolean edit){
