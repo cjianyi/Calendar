@@ -5,15 +5,22 @@ public class Memo {
     private ArrayList<Event> associatedEvents;
     private ArrayList<Memo> associatedMemos;
     private String text;
+    private int idNum;
 
-    public Memo(String message) {
+    public Memo(int idNum, String message) {
         associatedEvents = new ArrayList<>();
         associatedMemos = new ArrayList<>();
         this.text = message;
+        this.idNum = idNum;
+
     }
 
     public String getText(){
         return this.text;
+    }
+
+    public int getId() {
+        return this.idNum;
     }
 
     public void addAssociate(Event e) {
