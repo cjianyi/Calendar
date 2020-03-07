@@ -13,6 +13,7 @@ public class Alert implements Comparable{
         this.date = date;
         this.repeat = repeat;
 
+
     }
 
 
@@ -23,6 +24,7 @@ public class Alert implements Comparable{
     }
     public static void deleteAlert(){
         Calendar.deleteAlert();
+
 
     }
     public static void editAlert(){
