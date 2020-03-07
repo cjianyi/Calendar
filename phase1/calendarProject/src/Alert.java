@@ -2,7 +2,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
 
-public class Alert implements{
+public class Alert{
 
     private String description;
     private String date;
@@ -15,8 +15,10 @@ public class Alert implements{
 
 
     }
+    public String getAlert(){
+        return description;
 
-
+    }
 
     public void editAlert(String new_description){
         this.description =  new_description;
