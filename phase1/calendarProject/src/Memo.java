@@ -8,6 +8,7 @@ public class Memo {
 
     public Memo(String message) {
         associatedEvents = new ArrayList<>();
+        associatedMemos = new ArrayList<>();
         this.text = message;
     }
 
@@ -35,6 +36,10 @@ public class Memo {
 
     public ArrayList<Event> getAssociatedEvents() {
         return associatedEvents;
+    }
+
+    public ArrayList<Memo> getAssociatedMemos() {
+        return associatedMemos;
     }
 
 }
