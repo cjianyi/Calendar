@@ -38,6 +38,10 @@ public class Calendar implements Comparator {
             System.out.println("error");
         }
     }
+
+    public ArrayList<Memo> getMemos(){
+        return new ArrayList<Memo>();
+    }
     //Event editor menu
     public void deleteEvent(Event e) {
         if (events.contains(e)) {
