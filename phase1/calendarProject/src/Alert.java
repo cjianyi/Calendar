@@ -9,9 +9,10 @@ public class Alert{
     private LocalDateTime date;
     private String frequency; //Limited to None, Per hour, Per 24 hours, Per 7 days
 
-    public Alert(String description, LocalDateTime date){
+    public Alert(String description, LocalDateTime date, String frequency){
         this.description = description;
         this.date = date;
+        this.frequency = frequency;
 
     }
     public void editFrequency(String new_frequency){
