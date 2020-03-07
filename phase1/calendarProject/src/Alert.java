@@ -7,7 +7,7 @@ public class Alert{
 
     private String description;
     private LocalDateTime date;
-    private String frequency;
+    private String frequency; //Limited to None, Per hour, Per 24 hours, Per 7 days
 
     public Alert(String description, LocalDateTime date, String frequency){
         this.description = description;
