@@ -7,7 +7,7 @@ import java.util.Stack;
 import java.text.DateFormat;
 import java.util.ArrayList;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Controller {
     Scanner in;
@@ -15,8 +15,7 @@ public class Controller {
     UserManager userManager;
     User currentUser;
     Calendar currentCalendar;
-    Date currentDate = new Date();
-
+    LocalDateTime currentDate = LocalDateTime.now();
 
     static Stack<String> menuStack = new Stack<String>();
 
@@ -92,7 +91,7 @@ public class Controller {
         }else if(choice.equals("3")){
             System.out.println("Enter a date to set");
             String date = this.in.nextLine();
-            currentDate = DateFormat.parse(date);
+            currentDate = LocalDateTime.parse(date);
         }
     }
 
@@ -135,17 +134,25 @@ public class Controller {
 
     public void eventMenu(){
         System.out.println("\nEvent menu\n Press 1 to view past event\nPress 2 to view current events" +
-                "\nPress 3 to view future event\nPress 4 to view all events\nPress 5 open search menu");
+                "\nPress 3 to view today's events \nPress 4 to view future event\nPress 5 to view all events\nPress 6 open search menu");
         String choice = this.in.nextLine();
+        ArrayList<Event> events;
         switch(choice){
             case "1":
                 //this.currentCalendar.search("past", )
+                events = this.currentCalendar.search("past", currentDate);
                 break;
             case "2":
+                events = this.currentCalendar.search("current", currentDate);
                 break;
             case "3":
+                events = this.currentCalendar.search("any", currentDate);
                 break;
             case "4":
+                events = this.currentCalendar.search("future", currentDate);
+                break;
+            case "5":
+                events = this.currentCalendar.search("all", "");
                 break;
             case "5":
                 menuStack.push("searchMenu");
