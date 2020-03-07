@@ -2,6 +2,7 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.text.DateFormat;
 
@@ -11,7 +12,7 @@ public class Controller {
     Scanner in;
     static java.lang.reflect.Method method;
     UserManager userManager;
-    static EventManager eventManager;
+    static EventManager eventManager = new EventManager();
     User currentUser;
     Calendar currentCalendar;
     LocalDateTime currentDate = LocalDateTime.now();
@@ -130,23 +131,36 @@ public class Controller {
         eventName = in.nextLine();
         System.out.println("Enter a start date");
         String startDay = in.nextLine();
+        boolean exit = false;
+        do {
+            try {
+                System.out.println("Enter a start time");
+                String startTime = in.nextLine();
+                startDate = LocalDateTime.parse(startDay + "T" + startTime);
+                exit = true;
+            }catch (DateTimeParseException e){
+                System.out.println("wrong format");}
+        }while(!exit);
+        exit = false;
+        do {
+            try {
+                System.out.println("Enter an end date");
+                String endDay = in.nextLine();
 
-        System.out.println("Enter a start time");
-        String startTime = in.nextLine();
-        startDate = LocalDateTime.parse(startDay + "T" + startTime);
-        System.out.println(startDate);
-        System.out.println("Enter an end date");
-        String endDay = in.nextLine();
+                System.out.println("Enter an end time");
+                String endTime = in.nextLine();
+                endDate = LocalDateTime.parse(endDay + "T" + endTime);
+                exit = true;
+            }catch(DateTimeParseException e){
+                System.out.println("wrong format");
+            }
+        }while(!exit);
 
-        System.out.println("Enter an end time");
-        String endTime = in.nextLine();
-        endDate = LocalDateTime.parse(endDay +"T"+ endTime);
-
-        System.out.println("Enter a tag(s) for the event, separated by commas");
-        String tag = in.nextLine();
-        String[] tagged = tag.split("\\s*,\\s*");
-        tags = new ArrayList<String>();
-        Collections.addAll(tags, tagged);
+//        System.out.println("Enter a tag(s) for the event, separated by commas");
+//        String tag = in.nextLine();
+//        String[] tagged = tag.split("\\s*,\\s*");
+//        tags = new ArrayList<String>();
+//        Collections.addAll(tags, tagged);
 
         System.out.println("Would you like to add alert(s) to the event (y/n)");
         String choice = in.nextLine();
