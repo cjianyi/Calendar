@@ -1,6 +1,6 @@
 public class EventManager {
 
-    public void createEvent(Calendar cal) {
+    public void createEvent(Calendar cal, String username) {
 
     }
 

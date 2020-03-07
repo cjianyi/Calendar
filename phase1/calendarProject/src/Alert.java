@@ -13,7 +13,6 @@ public class Alert{
         this.description = description;
         this.date = date;
         this.frequency = frequency;
-
     }
     public void editFrequency(String new_frequency){
         this.frequency = new_frequency;
