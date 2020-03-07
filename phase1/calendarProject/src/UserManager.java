@@ -8,25 +8,28 @@ public class UserManager {
     public UserManager() throws IOException {
         this.users = new ArrayList<>();
         File file = new File("src\\users.txt");
-
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        String[] user = new String[0];
-        while ((st = br.readLine()) != null) {
-            user = st.split("\\s*,");
-            this.createAccount(user[0], user[1], user[2]);
-        }
-        br.close();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String st;
+            String[] user = new String[0];
+            while ((st = br.readLine()) != null) {
+                user = st.split("\\s*,");
+                this.createAccount(user[0], user[1], user[2]);
+            }
+            br.close();
+        }catch(IOException e){}
     }
 
 
     public void createAccount(String username, String emailAddress, String password) throws IOException {
         users.add(new User(username, emailAddress, password));
-        FileWriter fw=new FileWriter("src\\users.txt");
-        for(User user: users){
-            fw.write(user.getUsername() + " ," + user.getEmailAddress() + " ," + user.getPassword() + "\n");
-        }
-        fw.close();
+        try {
+            FileWriter fw = new FileWriter("src\\users.txt");
+            for (User user : users) {
+                fw.write(user.getUsername() + " ," + user.getEmailAddress() + " ," + user.getPassword() + "\n");
+            }
+            fw.close();
+        }catch(IOException e){}
     }
 
     public boolean userNameAvailable(String username){
