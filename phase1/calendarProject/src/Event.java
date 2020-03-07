@@ -1,47 +1,65 @@
-import java.util.Date;
-public class Event {
-    private String tag;
-    private Date date; // end date only for duration series and start date for the rest types of event
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class Event implements Comparable<Event>{
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String name;
-    private String serieName;
+    private ArrayList<String> tags;
+    private ArrayList<Alert> alerts;
+    private ArrayList<Series> series;
+    private Memo memo;
 
-    public String getTag(){
-        return this.tag;
+    public Event(LocalDateTime start, LocalDateTime end, String name) {
+        this.startTime = start;
+        this.endTime = end;
+        this.name = name;
+        tags = new ArrayList<String>();
+        alerts = new ArrayList<Alert>();
+        series = new ArrayList<Series>();
+    }
+    public String getName() {
+        return  this.name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
+    }
+    public void addAlert(Alert alert) {
+        this.alerts.add(alert);
+        // point alert to this event
+    }
+    public void removeAlert(Alert alert) {
+        this.alerts.remove(alert);
+    }
+    public void addSeries(Series series) {
+        this.series.add(series);
+    }
+    public void removeSeries(Series series) {
+        this.series.remove(series);
+    }
+    public Memo getMemo() {
+        return this.memo;
+    }
+    public void setMemo(Memo newMemo) {
+        this.memo = newMemo;
     }
 
-    public Date getDate(){
-        return this.date;
-    }
 
-    public String getName(){
-        return this.name;
+    @Override
+    public int compareTo(Event e) {
+        int equalStart = this.startTime.compareTo(e.startTime);
+        int equalEnd = this.endTime.compareTo(e.endTime);
+        if (equalStart != 0)
+            return  equalStart;
+        else if (equalEnd != 0)
+            return equalEnd;
+        else
+            return this.name.compareTo(e.name);
     }
-
-    public String getSeriesName(){
-        return this.serieName;
-    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
