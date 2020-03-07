@@ -9,10 +9,10 @@ public class Alert{
     private LocalDateTime date;
     private String frequency; //Limited to None, Per hour, Per 24 hours, Per 7 days
 
-    public Alert(String description, LocalDateTime date, String frequency){
+    public Alert(String description, LocalDateTime date){
         this.description = description;
         this.date = date;
-        this.frequency = frequency;
+
     }
     public void editFrequency(String new_frequency){
         this.frequency = new_frequency;
@@ -29,6 +29,8 @@ public class Alert{
     public String alertFileFormatter() {
         StringBuilder s = new StringBuilder();
         s.append("{").append("'description':").append("'").append(this.description).append("',");
+        s.append("'date':").append("'").append(this.date.toString()).append("'}");
+        
         return s.toString();
     }
 

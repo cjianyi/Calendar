@@ -106,6 +106,9 @@ public class Event implements Comparable<Event>{
         s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
         s.append("'endTime':").append("'").append(this.endTime.toString()).append(",");
         s.append("'alerts':[");
+        for(Alert alert: this.alerts){
+            s.append(alert.alertFileFormatter()).append(",");
+        }
         return s.toString();
     }
 }

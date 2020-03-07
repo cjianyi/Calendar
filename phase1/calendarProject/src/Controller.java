@@ -192,7 +192,7 @@ public class Controller {
             if (choice.equals("y")) {
                 repeatedAlertMenu(description, datetime);
             }else{
-                Alert alert = new Alert(description, datetime, "");
+                Alert alert = new Alert(description, datetime);
             }
             System.out.println("Entering y for choosing new alert or n for end choosing alert");
             choice = in.nextLine();
@@ -205,7 +205,7 @@ public class Controller {
         switch (choice){
             case "1":
                 while(datetime.isBefore(endDate)){
-                    Alert alert = new Alert(description, datetime, "daily");
+                    Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusDays(1);
                 }
