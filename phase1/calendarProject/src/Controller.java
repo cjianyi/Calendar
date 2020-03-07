@@ -170,13 +170,42 @@ public class Controller {
         System.out.println("Do you want it to repeat? (y/n");
         String choice = this.in.nextLine();
         if(choice.equals("y")){
-            repeatedAlertMenu();
+            repeatedAlertMenu(desription, datetime);
         }
     }
 
-    public void repeatedAlertMenu(){
+    public void repeatedAlertMenu(String description, LocalDateTime datetime){
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
         String choice = this.in.nextLine();
+        switch (choice){
+            case "1":
+                while(datetime.isBefore(endDate)){
+                    Alert alert = new Alert(description, datetime, "daily");
+                    alerts.add(alert);
+                    datetime.plusDays(1);
+                }
+                break;
+            case "2":
+                while(datetime.isBefore(endDate)){
+                    Alert alert = new Alert(description, datetime, "weekly");
+                    alerts.add(alert);
+                    datetime.plusDays(7);
+                }
+            case "3":
+                while (datetime.isBefore(endDate)){
+                    Alert alert = new Alert(description, datetime, "monthly");
+                    alerts.add(alert);
+                    datetime.plusMonths(1);
+                }
+                break;
+            case "4":
+                while (datetime.isBefore(endDate)){
+                    Alert alert = new Alert(description, datetime, "yearly");
+                    alerts.add(alert);
+                    datetime.plusYears(1);
+                }
+                break;
+        }
     }
 
     public void memoMenu(boolean edit){
