@@ -535,8 +535,7 @@ public class Controller {
             System.out.println("Press 1 to edit event name\nPress 2 to edit event startTime\nPress 3 to edit event " +
                     "endTime\nPress 4 to add a tag for the event\nPress 5 to remove a tag fo the event" +
                     "\nPress 6 to add an alert for the event\nPress 7 to remove an " +
-                    "alert for the event\nPress 8 to add event to a duration series" +
-                    "\nPress 9 to remove event from a series.\nPress 11 to go back to editorMenu.");
+                    "alert for the event\nPress 8 to remove event from a series.\nPress 9 to go back to editorMenu.");
             String change = in.nextLine();
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
@@ -607,29 +606,7 @@ public class Controller {
                         }
                     }
                     break;
-                case "8": {
-                    System.out.println("You are trying to add this event to a duration series.");
-                    System.out.println("Please enter series name: ");
-                    String name = in.nextLine();
-                    System.out.println("Please enter number of events in the series: ");
-                    String num_series = in.nextLine();
-                    System.out.println("Please enter the start date of the series: ");
-                    String startDay = in.nextLine();
-                    System.out.println("Please enter the start time of the series: ");
-                    String startTime = in.nextLine();
-                    System.out.println("Please enter the end date of the series:  ");
-                    String endDay = in.nextLine();
-                    System.out.println("Please enter the end time of the series: ");
-                    String endTime = in.nextLine();
-                    System.out.println("Please enter the frequency of this event happening in this series: ");
-                    String frequency = in.nextLine();
-                    LocalDateTime datetime = LocalDateTime.parse(startDay + "T" + startTime);
-                    LocalDateTime datetime2 = LocalDateTime.parse(endDay + "T" + endTime);
-                    eventManager.addSeries(ev, name, Integer.parseInt(num_series), datetime, datetime2, frequency);
-
-                    break;
-                }
-                case "9":
+                case "8":
                     System.out.println("You are trying to remove this event from a series.");
                     System.out.println("Please enter series name: ");
                     String series = in.nextLine();
@@ -639,7 +616,7 @@ public class Controller {
                         }
                     }
                     break;
-                case "11":
+                case "9":
                     choice = "1";
                     break;
             }
