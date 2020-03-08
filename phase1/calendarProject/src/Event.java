@@ -10,7 +10,7 @@ public class Event implements Comparable<Event>{
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
-    private ArrayList<Memo> memos;
+    private ArrayList<Memo> memos = new ArrayList<>();
 
     public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
                  ArrayList<Alert> alerts, ArrayList<Series> series) {
@@ -111,25 +111,33 @@ public class Event implements Comparable<Event>{
         for(Alert alert: this.alerts){
             s.append(alert.alertFileFormatter()).append(",");
         }
-        s.replace(s.length()- 1, s.length(), "");
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
         s.append("],");
         s.append("'tags':[");
         for(String tag:this.tags){
             s.append(tag).append(",");
         }
-        s.replace(s.length() - 1, s.length(), "");
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
         s.append("],");
         s.append("'memos':[");
         for(Memo memo:this.memos){
             s.append(memo.getId()).append(",");
         }
-        s.replace(s.length() - 1, s.length(), "");
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
         s.append("],");
         s.append("'series':[");
         for(Series serie: this.series){
             s.append(serie.getSeriesName()).append(";");
         }
-        s.replace(s.length() - 1, s.length(), "");
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
         s.append("]");
         return s.toString();
     }

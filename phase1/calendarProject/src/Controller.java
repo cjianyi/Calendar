@@ -251,32 +251,32 @@ public class Controller {
     }
 
     public void editAlertMenu(){
-        String choice;
-        do{
-            System.out.println("Enter the description of the alert to be deleted");
-            String des  = in.nextLine();
-            System.out.println("Enter 1 for changing description\nEnter 2 for changing date");
-            choice = in.nextLine();
-
-            for (int i = 0; i < alerts.size(); i++){
-                if (des == alerts.get(i).getAlert()){
-                    if (choice == "1") {
-                        System.out.println("Enter new description");
-                        des = in.nextLine();
-                        alerts.get(i).editAlert(des);
-                    }
-                    }if(choice == "2"){
-                        System.out.println("Enter a date");
-                        String date = in.nextLine();
-                        System.out.println("Enter a time");
-                        String time = in.nextLine();
-                        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                        alerts.get(i).editAlert(datetime);
-                }
-            }
-            System.out.println("Enter y for edit a new alert or n for stop");
-            choice = in.nextLine();
-        }while(choice == "y");
+//        String choice;
+//        do{
+//            System.out.println("Enter the description of the alert to be deleted");
+//            String des  = in.nextLine();
+//            System.out.println("Enter 1 for changing description\nEnter 2 for changing date");
+//            choice = in.nextLine();
+//
+//            for (int i = 0; i < alerts.size(); i++){
+//                if (des == alerts.get(i).getAlert()){
+//                    if (choice == "1") {
+//                        System.out.println("Enter new description");
+//                        des = in.nextLine();
+//                        alerts.get(i).editAlert(des);
+//                    }
+//                    }if(choice == "2"){
+//                        System.out.println("Enter a date");
+//                        String date = in.nextLine();
+//                        System.out.println("Enter a time");
+//                        String time = in.nextLine();
+//                        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+//                        alerts.get(i).editAlert(datetime);
+//                }
+//            }
+//            System.out.println("Enter y for edit a new alert or n for stop");
+//            choice = in.nextLine();
+//        }while(choice == "y");
     }
 
 
