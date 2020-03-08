@@ -23,15 +23,26 @@ public class Calendar implements Comparator {
         this.alerts = new ArrayList<>();
     }
 
+    private void loadEvents(){
+        
+    }
+
 
     //Event editor menu
     public void addEvent(Event e, String username) {
         this.events.add(e);
         try {
             FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
+            fw.write("[");
             for (Event event : this.events) {
                 fw.write(e.eventFileFormatter());
+                if(!event.equals(this.events.get(this.events.size() - 1))){
+                    fw.write(",\n");
+                }
+
             }
+
+            fw.write("]");
             fw.close();
         }catch(IOException ex){
             System.out.println("error");

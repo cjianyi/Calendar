@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 public class Event implements Comparable<Event>{
     private LocalDateTime startTime;
@@ -8,7 +10,7 @@ public class Event implements Comparable<Event>{
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
-    private ArrayList<Memo> memos;
+    private ArrayList<Memo> memos = new ArrayList<>();
 
     public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
                  ArrayList<Alert> alerts, ArrayList<Series> series) {
@@ -102,13 +104,41 @@ public class Event implements Comparable<Event>{
      */
     public String eventFileFormatter(){
         StringBuilder s = new StringBuilder();
-        s.append("[{ 'name': ").append("'").append(this.name).append("',");
+        s.append("{ 'name': ").append("'").append(this.name).append("',");
         s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
-        s.append("'endTime':").append("'").append(this.endTime.toString()).append(",");
+        s.append("'endTime':").append("'").append(this.endTime.toString()).append("',");
         s.append("'alerts':[");
         for(Alert alert: this.alerts){
             s.append(alert.alertFileFormatter()).append(",");
         }
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
+        s.append("],");
+        s.append("'tags':[");
+        for(String tag:this.tags){
+            s.append(tag).append(",");
+        }
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
+        s.append("],");
+        s.append("'memos':[");
+        for(Memo memo:this.memos){
+            s.append(memo.getId()).append(",");
+        }
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
+        s.append("],");
+        s.append("'series':[");
+        for(Series serie: this.series){
+            s.append(serie.getSeriesName()).append(";");
+        }
+        if(s.charAt(s.length() - 1) == ',') {
+            s.replace(s.length() - 1, s.length(), "");
+        }
+        s.append("]");
         return s.toString();
     }
 }
