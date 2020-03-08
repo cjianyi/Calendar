@@ -12,6 +12,10 @@ public class Linked_series extends Series {
         return this.events;
     }
 
+    public String getlinkedSeriesname(){
+        return this.series_name;
+    }
+
     public void add_events(Event e){
         this.events.add(e);
     }

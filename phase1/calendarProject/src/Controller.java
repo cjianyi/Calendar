@@ -33,6 +33,7 @@ public class Controller {
     private static ArrayList<String> tags = new ArrayList<>();
     private static ArrayList<Alert> alerts = new ArrayList<>();
     private static ArrayList<Memo> memos = new ArrayList<>();
+    private static ArrayList<Linked_series> linkedSeries = new ArrayList<>();
     private static ArrayList<Series> series = new ArrayList<>();
 
     public Controller()  {
@@ -598,8 +599,8 @@ public class Controller {
     }
 
     public void linkEventMenu(){
-        String repeat;
 
+        Linked_series existingSeries = null;
         System.out.println("Press 1 to create new Linked Event, Press 2 to edit existing event");
         String input_1 = in.nextLine();
         if (input_1 == "1"){
@@ -607,30 +608,40 @@ public class Controller {
             String input_2 = in.next();
             ArrayList<Event> new_array = new ArrayList<Event>();
             Linked_series new_link = new Linked_series(input_2, new_array);
-            series.add(new_link);
+            linkedSeries.add(new_link);
 
         } else {
             System.out.println("Enter the name of existing Linked Event");
-            String input_3 = in.next();
-            for (int i = 0; i < series.size(); i++){
-                if (series.get(i).getSeriesName() == input_3){
-                    Series existingSeries = series.get(i);
-                    break;
+            String input_3 = in.nextLine();
+
+            for (int i = 0; i < linkedSeries.size(); i++){
+                if (linkedSeries.get(i).getlinkedSeriesname() == input_3){
+                    existingSeries = linkedSeries.get(i);
+
+                }
+
+            if (i == linkedSeries.size()){ //name does not exist
+                System.out.println("Name does not exist");
+
+            }else{
+                ArrayList<Event> events = currentCalendar.getEvents();
+                System.out.println("Enter the names of two or more events below that you want to link seperated by commas.");
+                System.out.println(currentCalendar.showAllEvents());
+                String input = in.nextLine();
+                String[] eventNames = input.split(",");
+
+                for (int k = 0; k < eventNames.length; k++){
+                    for (int j = 0; j < events.size(); j++){
+                        if (eventNames[k] == events.get(j).getName()){
+                            existingSeries.add_events(events.get(j));
+                        }
+                    }
                 }
             }
-
-            System.out.println(currentCalendar.showAllEvents());
-            System.out.println("Enter the names of two or more event that you want to link seperated by commas.");
-            String input = in.nextLine();
-            String[] eventNames = input.split(",");
-
-
-
             }
 
 
-
-
+            }
 
         }
 
