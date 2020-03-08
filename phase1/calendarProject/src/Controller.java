@@ -353,33 +353,67 @@ public class Controller {
             choice = in.nextLine();
 
             for (int i = 0; i < memos.size(); i++){
-                if (memo_id == memos.get(i).getId()){
+                if (memo_id == memos.get(i).getId()) {
                     if (choice == "1") {
                         System.out.println("Enter new text");
                         String text = in.nextLine();
                         memos.get(i).editText(text);
                     }
-                }if(choice == "2"){
-                    System.out.println("Enter 1 for deleting event\nEnter 2 for adding event");
-                    String choice_1 = in.nextLine();
-                    switch (choice_1){
-                        case "1":
-                            System.out.println(currentCalendar.showAllEvents());
-                            System.out.println("Select an event");
-                            String event_name = in.nextLine();
-                            for (int j = 0; j < memos.get(i).getAssociatedEvents().size(); j++){
-                                if (event_name == memos.get(i).getAssociatedEvents().get(j).getName()){
-                                    memos.get(i).getAssociatedEvents().get(j).removeMemo(memos.get(i));
-                                    memos.get(i).getAssociatedEvents().remove(j);
+                    if (choice == "2") {
+
+                        System.out.println("Enter 1 for deleting event\nEnter 2 for adding event");
+                        String choice_1 = in.nextLine();
+                        switch (choice_1) {
+                            case "1":
+                                System.out.println(memos.get(i).showAllEvents());
+                                System.out.println("Select an event");
+                                String event_name = in.nextLine();
+                                for (int j = 0; j < memos.get(i).getAssociatedEvents().size(); j++) {
+                                    if (event_name == memos.get(i).getAssociatedEvents().get(j).getName()) {
+                                        memos.get(i).getAssociatedEvents().get(j).removeMemo(memos.get(i));
+                                        memos.get(i).getAssociatedEvents().remove(j);
+                                    }
                                 }
-                            }
-                        case "2":
-                            System.out.println(currentCalendar.showAllEvents());
-                            System.out.println("Select an event");
-                            event_name = in.nextLine();
-                            for (int j = 0; j <currentCalendar.getEvents().size(); j++ ){
-                                
-                            }
+                            case "2":
+                                System.out.println(currentCalendar.showAllEvents());
+                                System.out.println("Select an event");
+                                event_name = in.nextLine();
+                                for (int j = 0; j < currentCalendar.getEvents().size(); j++) {
+                                    if (event_name == currentCalendar.getEvents().get(j).getName()) {
+                                        memos.get(i).addAssociate(currentCalendar.getEvents().get(j));
+                                        currentCalendar.getEvents().get(j).addMemo(memos.get(i));
+                                    }
+
+                                }
+                        }
+                    }if (choice == "3"){
+                        System.out.println("Enter 1 for deleting memo\nEnter 2 for adding memo");
+                        String choice_1 = in.nextLine();
+                        switch (choice_1){
+                            case "1":
+                                System.out.println(memos.get(i).showAllMemos());
+                                System.out.println("Select a memo");
+                                String memo_temp = in.nextLine();
+                                int memo_id_2 = Integer.parseInt(memo_temp);
+                                for (int j = 0; j < memos.get(i).getAssociatedMemos().size(); j++){
+                                    if (memo_id_2 == memos.get(i).getAssociatedMemos().get(j).getId()){
+                                        memos.get(i).getAssociatedMemos().get(j).removeAssociate(memos.get(i));
+                                        memos.get(i).removeAssociate(memos.get(i).getAssociatedMemos().get(j));
+                                    }
+
+                                }
+                            case "2":
+                                System.out.println(currentCalendar.showAllMemos());
+                                System.out.println("Select a memo");
+                                memo_temp = in.nextLine();
+                                memo_id_2 = Integer.parseInt(memo_temp);
+                                for (int j = 0; j < currentCalendar.getMemos().size(); j++){
+                                    if (memo_id_2 == currentCalendar.getMemos().get(j).getId()){
+                                        memos.get(i).addAssociate(currentCalendar.getMemos().get(j));
+                                        currentCalendar.getMemos().get(j).addAssociate(memos.get(i));
+                                    }
+                                }
+                        }
                     }
                 }
             }
