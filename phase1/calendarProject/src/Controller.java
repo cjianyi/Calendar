@@ -90,6 +90,7 @@ public class Controller {
     }
 
     public void calendarMenu(){
+        alertAnnoucements();
         System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
                 "the current date to a day other than today");
         String choice = in.nextLine();
@@ -428,6 +429,8 @@ public class Controller {
         for (int i = 0; i < alerts.size(); i++) {
             System.out.println(alerts.get(i).getAlert());
         }
+        System.out.println("-------------");
+
     }
 
 
@@ -476,7 +479,14 @@ public class Controller {
     }
 
     public void linkEventMenu(){
+        String input;
+        do {
+            System.out.println("Enter 'y' to link events together, Enter 'n' to exit to editEventMenu");
+            input = in.nextLine();
 
+        } while (input == "y");
+        menuStack.pop();
+        }
     }
 
     public void eventMenu(){
