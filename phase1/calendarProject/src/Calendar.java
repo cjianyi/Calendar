@@ -1,8 +1,8 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
+import com.restfb.json.*;
 
 public class Calendar implements Comparator {
     /** The name of a calendar. */
@@ -23,8 +23,37 @@ public class Calendar implements Comparator {
         this.alerts = new ArrayList<>();
     }
 
-    private void loadEvents(){
-        
+    private ArrayList<String> loadEventsFile(String username){
+        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
+        ArrayList<String> eventGetter = new ArrayList<>();
+        BufferedReader br;
+        try{
+            br = new BufferedReader(new FileReader(file));
+            String line = br.readLine();
+            while(line!=null){
+                if(line.charAt(line.length()-1) == ','){
+                    StringBuilder s = new StringBuilder(line);
+                    s.replace(s.length() - 1, s.length(), "]");
+                    line = s.toString();
+                }
+                if(line.charAt(0) == '{'){
+                    StringBuilder s = new StringBuilder(line);
+                    s.replace(0, 1, "[{");
+                    line = s.toString();
+                }
+                eventGetter.add(line);
+                line = br.readLine();
+            }
+        }catch (IOException e){}
+        return eventGetter;
+    }
+
+    public void loadEvents(String username){
+        ArrayList<String>  events = this.loadEventsFile(username);
+        for(String event:events){
+            
+        }
+
     }
 
 

@@ -464,7 +464,9 @@ public class Controller {
                 this.currentUser = user;
                 menuStack.pop();
                 this.currentCalendar = this.currentUser.getCalendars().get(0);
+                this.currentCalendar.loadEvents(this.currentUser.getUsername());
                 menuStack.push("calendarMenu");
+
             } else {
                 System.out.println("The username or password you entered is incorrect");
             }
