@@ -143,6 +143,18 @@ public class Calendar implements Comparator {
         return allMemos;
     }
 
+    public String showAllAlerts() {
+        String allAlerts = "";
+        for (Event e: events)
+        {
+            for (Alert a: e.getAlerts())
+            {
+                allAlerts = allAlerts + a.getAlert() + "\n";
+            }
+        }
+        return allAlerts;
+    }
+
     /**
      * Gets all the memos in this calendar.
      *
@@ -257,6 +269,15 @@ public class Calendar implements Comparator {
      */
     public ArrayList<Event> getEvents(){
         return this.events;
+    }
+
+    public ArrayList<Alert> getAlerts() {
+        ArrayList<Alert> alertArrayList = new ArrayList<>();
+        for (Event e: events)
+        {
+            alertArrayList.addAll(e.getAlerts());
+        }
+        return alertArrayList;
     }
     //phase2
     //argument Alert a, not a static method
