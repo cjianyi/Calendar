@@ -45,7 +45,7 @@ public class Calendar implements Comparator {
         String eventName = "";
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now();
-        ArrayList<Alert> alerts = new ArrayList<>();
+        ArrayList<Alert> alerts2 = new ArrayList<>();
         ArrayList<String> tags = new ArrayList<>();
         ArrayList<Series> series = new ArrayList<>();
         ArrayList<Memo> memo = new ArrayList<>();
@@ -60,10 +60,10 @@ public class Calendar implements Comparator {
             JsonArray a = e.getJsonArray("tags");
             this.loadTags(a, tags);
             JsonArray b = e.getJsonArray("alerts");
-            this.loadAlerts(b, alerts);
-            Event p = new Event(startDate, endDate, eventName, tags, alerts, series);
+            this.loadAlerts(b, alerts2);
+            Event p = new Event(startDate, endDate, eventName, tags, alerts2, series);
+            this.alerts.addAll(alerts2);
             this.addEvent(p, username);
-            this.alerts.addAll(alerts);
         }
 
     }
@@ -77,9 +77,9 @@ public class Calendar implements Comparator {
     private void loadAlerts(JsonArray arr, ArrayList<Alert> al){
         for(int i = 0; i<arr.length(); i++){
             JsonObject o = arr.getJsonObject(i);
-            String desription = o.getString("description");
+            String description = o.getString("description");
             LocalDateTime d = LocalDateTime.parse(o.getString("date"));
-            Alert alert = new Alert(desription, d);
+            Alert alert = new Alert(description, d);
             al.add(alert);
         }
     }
@@ -104,11 +104,12 @@ public class Calendar implements Comparator {
     public ArrayList<Alert> getAlerts(LocalDateTime date){
         ArrayList<Alert> e = new ArrayList<>();
         for(Alert alert:this.alerts){
-            if(alert.getDate().equals(date)){
+
+            if(alert.getDate().toLocalDate().equals(date.toLocalDate())){
                 e.add(alert);
             }
         }
-        return alerts;
+        return e;
     }
 
     /**

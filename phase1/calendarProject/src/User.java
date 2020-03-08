@@ -71,7 +71,7 @@ public class User {
      */
     public void createCalendar(String name) {
         Calendar cal = new Calendar (name);
-        calendars.add(cal);
+        this.calendars.add(cal);
         String fileName = "src\\" + this.username + "calendar" + name + ".txt";
         File file = new File(fileName);
         boolean exists;

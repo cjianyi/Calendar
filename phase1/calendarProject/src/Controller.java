@@ -430,7 +430,7 @@ public class Controller {
 
     public void alertAnnoucements() {
         System.out.println("---Alerts---");
-        for (int i = 0; i < alerts.size(); i++) {
+        for (int i = 0; i < currentCalendar.getAlerts(currentDate).size(); i++) {
             System.out.println(currentCalendar.getAlerts(currentDate).get(i).getAlert());
         }
         System.out.println("-------------");
