@@ -21,7 +21,6 @@ public class Calendar implements Comparator {
         this.calendarName = name;
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
-
     }
 
 
@@ -39,8 +38,49 @@ public class Calendar implements Comparator {
         }
     }
 
+    /**
+     * Shows all the events inside this calendar.
+     *
+     * @return returns a string that will contain all the event names of the events in this calendar.
+     */
+    public String showAllEvents() {
+        String allEvents = "";
+        for (Event e: events)
+        {
+            allEvents = allEvents + e.getName() + "\n";
+        }
+        return allEvents;
+    }
+
+    /**
+     * Shows all the memos inside this calendar.
+     *
+     * @return returns a string that will contain all the memo names and memo ids that
+     * are associated with the events in this calendar.
+     */
+    public String showAllMemos() {
+        String allMemos = "";
+        for (Event e: events)
+        {
+            for (Memo m: e.getMemos()) {
+                allMemos = allMemos + m.getId() + ": " + m.getText() + "\n";
+            }
+        }
+        return allMemos;
+    }
+
+    /**
+     * Gets all the memos in this calendar.
+     *
+     * @return all the memos in this calendar.
+     */
     public ArrayList<Memo> getMemos(){
-        return new ArrayList<Memo>();
+        ArrayList<Memo> memos = new ArrayList<>();
+        for (Event e: events)
+        {
+            memos.addAll(e.getMemos());
+        }
+        return memos;
     }
     //Event editor menu
     public void deleteEvent(Event e) {

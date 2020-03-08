@@ -269,7 +269,7 @@ public class Controller {
                         System.out.println("Enter a time");
                         String time = in.nextLine();
                         LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                        alerts.get(i).editAlert(datetime);
+                        alerts.get(i).editDate(datetime);
                 }
             }
             System.out.println("Enter y for edit a new alert or n for stop");
@@ -290,6 +290,7 @@ public class Controller {
             this.memos.add(m);
             // selecting events
             do {
+                System.out.println(currentCalendar.showAllEvents());
                 System.out.println("Choose a new Event");
                 String event_name = this.in.nextLine();
                 events = currentCalendar.getEvents();
@@ -305,6 +306,7 @@ public class Controller {
             } while (answer.equals("y"));
             //selecting memos
             do {
+                System.out.println(currentCalendar.showAllMemos());
                 System.out.println("Choose a new memo");
                 String memo_Id_1 = this.in.nextLine();
                 int memo_id = Integer.parseInt(memo_Id_1);
@@ -322,6 +324,71 @@ public class Controller {
             answer = this.in.nextLine();
         }while (answer == "y");
     }
+
+    public void deleteMemoMenu(){
+        String choice;
+        do{
+            System.out.println(currentCalendar.showAllMemos());
+            System.out.println("Enter the id of the memo to be deleted");
+            String memo_1  = in.nextLine();
+            int memo_id = Integer.parseInt(memo_1);
+            for (int i = 0; i < memos.size(); i++){
+                if (memo_id == memos.get(i).getId()){
+                    memos.remove(i);
+                }
+            }
+            System.out.println("Enter y for deleting a new memo or n for stop");
+            choice = in.nextLine();
+        }while(choice == "y");
+    }
+
+    public void editMemoMenu(){
+        String choice;
+        do{
+            System.out.println(currentCalendar.showAllMemos());
+            System.out.println("Enter the id of the memo to be deleted");
+            String memo_1  = in.nextLine();
+            int memo_id = Integer.parseInt(memo_1);
+            System.out.println("Enter 1 for changing text\nEnter 2 for changing event\nEnter 3 for changing memo");
+            choice = in.nextLine();
+
+            for (int i = 0; i < memos.size(); i++){
+                if (memo_id == memos.get(i).getId()){
+                    if (choice == "1") {
+                        System.out.println("Enter new text");
+                        String text = in.nextLine();
+                        memos.get(i).editText(text);
+                    }
+                }if(choice == "2"){
+                    System.out.println("Enter 1 for deleting event\nEnter 2 for adding event");
+                    String choice_1 = in.nextLine();
+                    switch (choice_1){
+                        case "1":
+                            System.out.println(currentCalendar.showAllEvents());
+                            System.out.println("Select an event");
+                            String event_name = in.nextLine();
+                            for (int j = 0; j < memos.get(i).getAssociatedEvents().size(); j++){
+                                if (event_name == memos.get(i).getAssociatedEvents().get(j).getName()){
+                                    memos.get(i).getAssociatedEvents().get(j).removeMemo(memos.get(i));
+                                    memos.get(i).getAssociatedEvents().remove(j);
+                                }
+                            }
+                        case "2":
+                            System.out.println(currentCalendar.showAllEvents());
+                            System.out.println("Select an event");
+                            event_name = in.nextLine();
+                            for (int j = 0; j <currentCalendar.getEvents().size(); j++ ){
+                                
+                            }
+                    }
+                }
+            }
+            System.out.println("Enter y for edit a new alert or n for stop");
+            choice = in.nextLine();
+        }while(choice == "y");
+    }
+
+
     public void alertAnnoucements() {
         System.out.println("---Alerts---");
         for (int i = 0; i < alerts.size(); i++) {
