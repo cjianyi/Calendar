@@ -449,6 +449,10 @@ public class Controller {
         System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
+            if (choice.equals("1"))
+            {
+                break;
+            }
             boolean switcher = false;
                 for (Event e : currentCalendar.getEvents()) {
                     if (e.getName().equalsIgnoreCase(choice)) {
@@ -473,12 +477,16 @@ public class Controller {
         System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
+            if (choice.equals("1"))
+            {
+                break;
+            }
             Event ev = null;
             System.out.println("Press 1 to edit event name\nPress 2 to edit event startTime\nPress 3 to edit event " +
                     "endTime\nPress 4 to add a tag for the event\nPress 5 to remove a tag fo the event" +
                     "\nPress 6 to add an alert for the event\nPress 7 to remove an " +
                     "alert for the event\nPress 8 to add event to a duration series" +
-                    "\nPress 9 to remove event from a series. ");
+                    "\nPress 9 to remove event from a series.\nPress 11 to go back to editorMenu.");
             String change = in.nextLine();
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
@@ -581,6 +589,10 @@ public class Controller {
                         eventManager.removeSeries(ev, e);
                     }
                 }
+            }
+            else if (change.equals("11"))
+            {
+                choice = "1";
             }
         }while (!choice.equals("1"));
     }
