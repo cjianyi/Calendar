@@ -9,6 +9,8 @@ public class Day implements Comparable<Day>{
 
     public Day(LocalDate date) {
         this.date = date;
+        this.events = new ArrayList<>();
+        this.alerts = new ArrayList<>();
     }
 
     public void addEvent(Event event) {
@@ -20,6 +22,7 @@ public class Day implements Comparable<Day>{
     }
     public void addAlert(Alert alert) {
         this.alerts.add(alert);
+ //       Collections.sort(this.alerts);
     }
     public void removeAlert(Alert alert) {
         this.alerts.remove(alert);
