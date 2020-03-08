@@ -90,6 +90,7 @@ public class Controller {
     }
 
     public void calendarMenu(){
+        alertAnnoucements();
         System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
                 "the current date to a day other than today");
         String choice = in.nextLine();
@@ -428,6 +429,8 @@ public class Controller {
         for (int i = 0; i < alerts.size(); i++) {
             System.out.println(alerts.get(i).getAlert());
         }
+        System.out.println("-------------");
+
     }
 
 
@@ -437,15 +440,53 @@ public class Controller {
     }
 
     public void deleteEventMenu(){
-
+        System.out.println("Please type the name of the event that will be deleted\n" +
+                "Press 1 to go back to editorMenu");
+        System.out.println(currentCalendar.getAllEventNames());
+        String choice = in.nextLine();
+        do {
+            boolean switcher = false;
+                for (Event e : currentCalendar.getEvents()) {
+                    if (e.getName().equalsIgnoreCase(choice)) {
+                        eventManager.deleteEvent(currentCalendar, e);
+                        switcher = true;
+                        System.out.println("Event is deleted successfully!");
+                        break;
+                    }
+                }
+                if (!switcher) {
+                    System.out.println("Event does not exist.");
+                }
+                System.out.println("Please type the name of the event that ill be deleted or press 1 to go " +
+                    "back to editorMenu");
+                choice = in.nextLine();
+        }while(!choice.equals("1"));
+        menuStack.pop();
     }
-
+    //startTime, endTime, name, addTags removeTags, addAlerts, removeAlerts, addseries, removeseries
     public void editEventMenu(){
-
+        System.out.println("Please type the name of the event that will be edited\nPress 1 to go back to editorMenu");
+        System.out.println(currentCalendar.getAllEventNames());
+        String choice = in.nextLine();
+        boolean switcher = false;
+        if (choice.equals("1"))
+        {
+            menuStack.pop();
+        }
+        else {
+            System.out.println("Press 1 to edit event name\nPress 2 to edit ");
+        }
     }
 
     public void linkEventMenu(){
+        String input;
+        do {
+            System.out.println("Enter 'y' to link events together, Enter 'n' to exit to editEventMenu");
+            input = in.nextLine();
 
+        } while (input == "y");
+        menuStack.pop();
+        }
     }
 
     public void eventMenu(){
@@ -563,7 +604,9 @@ public class Controller {
                 this.currentUser = user;
                 menuStack.pop();
                 this.currentCalendar = this.currentUser.getCalendars().get(0);
+                this.currentCalendar.loadEvents(this.currentUser.getUsername());
                 menuStack.push("calendarMenu");
+
             } else {
                 System.out.println("The username or password you entered is incorrect");
             }

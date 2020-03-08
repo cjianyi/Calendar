@@ -1,8 +1,8 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
+import com.restfb.json.*;
 
 public class Calendar implements Comparator {
     /** The name of a calendar. */
@@ -23,8 +23,37 @@ public class Calendar implements Comparator {
         this.alerts = new ArrayList<>();
     }
 
-    private void loadEvents(){
-        
+    private ArrayList<String> loadEventsFile(String username){
+        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
+        ArrayList<String> eventGetter = new ArrayList<>();
+        BufferedReader br;
+        try{
+            br = new BufferedReader(new FileReader(file));
+            String line = br.readLine();
+            while(line!=null){
+                if(line.charAt(line.length()-1) == ','){
+                    StringBuilder s = new StringBuilder(line);
+                    s.replace(s.length() - 1, s.length(), "]");
+                    line = s.toString();
+                }
+                if(line.charAt(0) == '{'){
+                    StringBuilder s = new StringBuilder(line);
+                    s.replace(0, 1, "[{");
+                    line = s.toString();
+                }
+                eventGetter.add(line);
+                line = br.readLine();
+            }
+        }catch (IOException e){}
+        return eventGetter;
+    }
+
+    public void loadEvents(String username){
+        ArrayList<String>  events = this.loadEventsFile(username);
+        for(String event:events){
+            
+        }
+
     }
 
 
@@ -99,16 +128,25 @@ public class Calendar implements Comparator {
                 this.events.remove(e);
         }
     }
+
+    public String getAllEventNames() {
+        String allEventNames = "";
+        for (Event e: events)
+        {
+            allEventNames += e.getName() + "\n";
+        }
+        return allEventNames;
+    }
     //Event editor menu
     public void editEvent(Event e) {
 
     }
 
-    public boolean isEventTagged (Event e, String information)
+    public boolean isEventTagged (Event e, String info)
     {
         for (String tag: e.getTags())
         {
-            if (tag.equals(information))
+            if (tag.equals(info))
             {
                 return true;
             }
@@ -116,11 +154,11 @@ public class Calendar implements Comparator {
         return false;
     }
 
-    public boolean isEventInSeries (Event e, String information)
+    public boolean isEventInSeries (Event e, String info)
     {
         for (Series ser: e.getSeries())
         {
-            if (ser.get_event_name().equalsIgnoreCase(information))
+            if (ser.get_event_name().equalsIgnoreCase(info))
             {
                 return true;
             }
@@ -128,52 +166,48 @@ public class Calendar implements Comparator {
         return false;
     }
 
-    public boolean isEventNameEqual (Event e, String information)
+    public boolean isEventNameEqual (Event e, String info)
     {
-        return e.getName().equalsIgnoreCase(information);
+        return e.getName().equalsIgnoreCase(info);
     }
 
-    public ArrayList<Event> search(String inputString, String information){
+    public ArrayList<Event> search(String input, String info){
         ArrayList<Event> temp = new ArrayList<>();
-        if (inputString.equals("all"))
+        if (input.equals("all"))
         {
             return events;
         }
         for (Event e: events) {
-            if ((inputString.equals("tag") && isEventTagged(e, information)) ||
-                    (inputString.equals("series_name") && isEventInSeries(e, information)) ||
-                        (inputString.equals("name") && isEventNameEqual(e, information))) {
-                        temp.add(e);
+            if ((input.equals("tag") && isEventTagged(e, info)) ||
+                    (input.equals("series_name") && isEventInSeries(e, info)) ||
+                        (input.equals("name") && isEventNameEqual(e, info))) {
+                            temp.add(e);
             }
         }
         return temp;
     }
 
-    public boolean isEventCurrent (LocalDateTime startTime, LocalDateTime endTime,
-                                   String inputString, LocalDateTime date)
+    public boolean isEventCurrent (LocalDateTime startTime, LocalDateTime endTime, LocalDateTime date)
     {
-        return inputString.equals("current") && startTime.isBefore(date) && endTime.isAfter(date);
+        return startTime.isBefore(date) && endTime.isAfter(date);
     }
 
-    public boolean isEventAny (LocalDateTime startTime, LocalDateTime endTime,
-                               String inputString, LocalDateTime date)
+    public boolean isEventAny (LocalDateTime startTime, LocalDateTime endTime, LocalDateTime date)
     {
-        return inputString.equals("any") && (startTime.toLocalDate().isEqual(date.toLocalDate())
-                || endTime.toLocalDate().isEqual(date.toLocalDate()));
+        return startTime.toLocalDate().isEqual(date.toLocalDate()) || endTime.toLocalDate().isEqual(date.toLocalDate());
     }
 
-    public boolean isEventPast (LocalDateTime endTime,
-                                String inputString, LocalDateTime date)
+    public boolean isEventPast (LocalDateTime endTime, LocalDateTime date)
     {
-        return inputString.equals("past") && endTime.isBefore(date);
+        return endTime.isBefore(date);
     }
 
-    public boolean isEventFuture (LocalDateTime startTime, String inputString, LocalDateTime date)
+    public boolean isEventFuture (LocalDateTime startTime, LocalDateTime date)
     {
-        return inputString.equals ("future") && startTime.isAfter(date);
+        return startTime.isAfter(date);
     }
 
-    public ArrayList<Event> search(String inputString, LocalDateTime date)
+    public ArrayList<Event> search(String input, LocalDateTime date)
     {
         LocalDateTime startTime;
         LocalDateTime endTime;
@@ -181,10 +215,10 @@ public class Calendar implements Comparator {
         for (Event e: events) {
             startTime = e.getStartTime();
             endTime = e.getEndTime();
-            if (isEventCurrent(startTime, endTime, inputString, date) ||
-                    isEventFuture(startTime, inputString, date) ||
-                        isEventPast(endTime, inputString, date) ||
-                            isEventAny(startTime, endTime, inputString, date))
+            if ((input.equals("current") && isEventCurrent(startTime, endTime, date)) ||
+                    (input.equals("future") && isEventFuture(startTime, date)) ||
+                        (input.equals("past") && isEventPast(endTime, date)) ||
+                            (input.equals("any") && isEventAny(startTime, endTime, date)))
                                 temp.add(e);
         }
         return temp;
