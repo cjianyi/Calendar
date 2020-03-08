@@ -130,11 +130,13 @@ public class Controller {
         //date, time, tag, memo, seriesame, alert, freq, duration
         System.out.println("Enter a name");
         eventName = in.nextLine();
-        System.out.println("Enter a start date");
-        String startDay = in.nextLine();
         boolean exit = false;
         do {
             try {
+        System.out.println("Enter a start date");
+        String startDay = in.nextLine();
+        
+
                 System.out.println("Enter a start time");
                 String startTime = in.nextLine();
                 startDate = LocalDateTime.parse(startDay + "T" + startTime);
@@ -194,6 +196,7 @@ public class Controller {
                 repeatedAlertMenu(description, datetime);
             }else{
                 Alert alert = new Alert(description, datetime);
+                alerts.add(alert);
             }
             System.out.println("Entering y for choosing new alert or n for end choosing alert");
             choice = in.nextLine();
@@ -487,7 +490,7 @@ public class Controller {
         } while (input == "y");
         menuStack.pop();
         }
-    }
+
 
     public void eventMenu(){
         System.out.println("\nEvent menu\n Press 1 to view past event\nPress 2 to view current events" +
@@ -518,7 +521,7 @@ public class Controller {
     }
 
     public void searchMenu(){
-        System.out.println("\nSearch menu\n Press 1 to search by day\nPress to search by tag\n" +
+        System.out.println("\nSearch menu\n Press 1 to search by day\nPress 2 to search by tag\n" +
                 "Press 3 to search by series name\n Press 4 to search events by name");
         String choice = in.nextLine();
         ArrayList<Event> events;

@@ -36,26 +36,51 @@ public class Calendar implements Comparator {
                     s.replace(s.length() - 1, s.length(), "]");
                     line = s.toString();
                 }
-                if(line.charAt(0) == '{'){
+                if(line.charAt(0) == '['){
                     StringBuilder s = new StringBuilder(line);
-                    s.replace(0, 1, "[{");
+                    s.replace(0, 1, "{");
                     line = s.toString();
                 }
                 eventGetter.add(line);
                 line = br.readLine();
             }
         }catch (IOException e){}
+        System.out.println(eventGetter.get(0));
         return eventGetter;
     }
 
     public void loadEvents(String username){
         ArrayList<String>  events = this.loadEventsFile(username);
-        for(String event:events){
-            
-        }
+        JsonArray array;
+        String eventName;
+        LocalDateTime startDate;
+        LocalDateTime endDate;
+        ArrayList<Alert> alerts = new ArrayList<>();
+        ArrayList<String> tags = new ArrayList<>();
+        ArrayList<Series> series = new ArrayList<>();
+        ArrayList<Memo> memo = new ArrayList<>();
 
+        for(String event:events){
+            array = new JsonArray(events);
+            System.out.println(array.getClass());
+            JsonObject e = array.ge
+            eventName = e.getString("name");
+            startDate = LocalDateTime.parse(e.get("startTime").toString());
+            endDate = LocalDateTime.parse(e.get("endTime").toString());
+            JsonArray tag = e.getJsonArray("tags");
+            this.loadTags(tag, tags);
+        }
     }
 
+    private void loadTags(JsonArray arr, ArrayList<String> str){
+        for(int i = 0; i<arr.length(); i++){
+            str.add(arr.get(i).toString());
+        }
+    }
+
+    private void loadAlerts(JsonArray arr, ArrayList<Alert> al){
+
+    }
 
     //Event editor menu
     public void addEvent(Event e, String username) {
