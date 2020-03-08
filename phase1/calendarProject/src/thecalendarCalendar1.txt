@@ -1,2 +1,1 @@
-[{ 'name': 'test2','startTime':'2000-01-20T10:45','endTime':'2000-01-20T10:45','alerts':[],'tags':[test3,test4],'memos':[],'series':[],
-{ 'name': 'test2','startTime':'2000-01-20T10:45','endTime':'2000-01-20T10:45','alerts':[],'tags':[test3,test4],'memos':[],'series':[]]
+[{ 'name': 'dgdgr','startTime':'2020-01-01T10:45','endTime':'2020-01-01T10:45','alerts':[],'tags':[],'memos':[],'series':[]}]

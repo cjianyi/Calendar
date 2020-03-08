@@ -138,7 +138,7 @@ public class Event implements Comparable<Event>{
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
         }
-        s.append("]");
+        s.append("]}");
         return s.toString();
     }
 }
