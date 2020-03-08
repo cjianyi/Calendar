@@ -437,11 +437,42 @@ public class Controller {
     }
 
     public void deleteEventMenu(){
-
+        System.out.println("Please type the name of the event that will be deleted\n" +
+                "Press 1 to go back to editorMenu");
+        System.out.println(currentCalendar.getAllEventNames());
+        String choice = in.nextLine();
+        do {
+            boolean switcher = false;
+                for (Event e : currentCalendar.getEvents()) {
+                    if (e.getName().equalsIgnoreCase(choice)) {
+                        eventManager.deleteEvent(currentCalendar, e);
+                        switcher = true;
+                        System.out.println("Event is deleted successfully!");
+                        break;
+                    }
+                }
+                if (!switcher) {
+                    System.out.println("Event does not exist.");
+                }
+                System.out.println("Please type the name of the event that ill be deleted or press 1 to go " +
+                    "back to editorMenu");
+                choice = in.nextLine();
+        }while(!choice.equals("1"));
+        menuStack.pop();
     }
-
+    //startTime, endTime, name, addTags removeTags, addAlerts, removeAlerts, addseries, removeseries
     public void editEventMenu(){
-
+        System.out.println("Please type the name of the event that will be edited\nPress 1 to go back to editorMenu");
+        System.out.println(currentCalendar.getAllEventNames());
+        String choice = in.nextLine();
+        boolean switcher = false;
+        if (choice.equals("1"))
+        {
+            menuStack.pop();
+        }
+        else {
+            System.out.println("Press 1 to edit event name\nPress 2 to edit ");
+        }
     }
 
     public void linkEventMenu(){
