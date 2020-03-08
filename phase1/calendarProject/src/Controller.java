@@ -127,13 +127,15 @@ public class Controller {
 
     public void createEventMenu(){
         //date, time, tag, memo, seriesame, alert, freq, duration
+        boolean exit = false;
         System.out.println("Enter a name");
         eventName = in.nextLine();
-        System.out.println("Enter a start date");
-        String startDay = in.nextLine();
-        boolean exit = false;
         do {
             try {
+        System.out.println("Enter a start date");
+        String startDay = in.nextLine();
+
+
                 System.out.println("Enter a start time");
                 String startTime = in.nextLine();
                 startDate = LocalDateTime.parse(startDay + "T" + startTime);
@@ -193,7 +195,9 @@ public class Controller {
                 repeatedAlertMenu(description, datetime);
             }else{
                 Alert alert = new Alert(description, datetime);
+                alerts.add(alert);
             }
+
             System.out.println("Entering y for choosing new alert or n for end choosing alert");
             choice = in.nextLine();
         }while(choice.equals("y"));
@@ -234,40 +238,40 @@ public class Controller {
     }
 
     public void memoMenu(boolean edit){
-        System.out.println("Enter the text for this memo");
-        String text = this.in.nextLine();
-        ArrayList<Event> events;
-        ArrayList<Memo> memos;
-        Memo m = new Memo(text);
-        String answer;
-        // selecting events
-        do{
-            System.out.println("Choose a new Event");
-            String event_name = this.in.nextLine();
-            events = currentCalendar.getEvents();
-            for (int i = 0; i < events.size(); i++){
-                if (event_name == events.get(i).getName()){
-                    m.addAssociate(events.get(i));
-                    break;
-                }
-            }
-            System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
-            answer = this.in.nextLine();
-        }while(answer.equals("y"));
-        //selecting memos
-        do{
-            System.out.println("Choose a new memo");
-            String memo_name = this.in.nextLine();
-            memos = currentCalendar.getMemos();
-            for (int i = 0; i < memos.size(); i++){
-                if (memo_name == memos.get(i).getText()){
-                    m.addAssociate(memos.get(i));
-                    break;
-                }
-            }
-            System.out.println("Enter y for choosing a new memo or enter n for end choosing event ");
-            answer = this.in.nextLine();
-        }while(answer.equals("y"));
+//        System.out.println("Enter the text for this memo");
+//        String text = this.in.nextLine();
+//        ArrayList<Event> events;
+//        ArrayList<Memo> memos;
+//        Memo m = new Memo(text);
+//        String answer;
+//        // selecting events
+//        do{
+//            System.out.println("Choose a new Event");
+//            String event_name = this.in.nextLine();
+//            events = currentCalendar.getEvents();
+//            for (int i = 0; i < events.size(); i++){
+//                if (event_name == events.get(i).getName()){
+//                    m.addAssociate(events.get(i));
+//                    break;
+//                }
+//            }
+//            System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
+//            answer = this.in.nextLine();
+//        }while(answer.equals("y"));
+//        //selecting memos
+//        do{
+//            System.out.println("Choose a new memo");
+//            String memo_name = this.in.nextLine();
+//            memos = currentCalendar.getMemos();
+//            for (int i = 0; i < memos.size(); i++){
+//                if (memo_name == memos.get(i).getText()){
+//                    m.addAssociate(memos.get(i));
+//                    break;
+//                }
+//            }
+//            System.out.println("Enter y for choosing a new memo or enter n for end choosing event ");
+//            answer = this.in.nextLine();
+//        }while(answer.equals("y"));
     }
 
     public void repeatedEventMenu(boolean edit){

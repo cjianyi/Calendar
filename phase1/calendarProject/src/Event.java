@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 public class Event implements Comparable<Event>{
     private LocalDateTime startTime;
@@ -102,7 +104,7 @@ public class Event implements Comparable<Event>{
      */
     public String eventFileFormatter(){
         StringBuilder s = new StringBuilder();
-        s.append("[{ 'name': ").append("'").append(this.name).append("',");
+        s.append("{ 'name': ").append("'").append(this.name).append("',");
         s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
         s.append("'endTime':").append("'").append(this.endTime.toString()).append("',");
         s.append("'alerts':[");
@@ -110,6 +112,18 @@ public class Event implements Comparable<Event>{
             s.append(alert.alertFileFormatter()).append(",");
         }
         s.replace(s.length()- 1, s.length(), "");
+        s.append("],");
+        s.append("'tags':[");
+        for(String tag:this.tags){
+            s.append(tag).append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        s.append("],");
+        s.append("'memos':[");
+        for(Memo memo:this.memos){
+            s.append(memo.getId()).append(",");
+        }
+        s.replace(s.length() - 1, s.length(), "");
         return s.toString();
     }
 }
