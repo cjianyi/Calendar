@@ -53,67 +53,89 @@ public class Calendar implements Comparator {
     public void editEvent(Event e) {
 
     }
-    //String input is to see whether it is tag, memo or, date, alert, series_name, or anything.
+
+    public boolean isEventTagged (Event e, String information)
+    {
+        for (String tag: e.getTags())
+        {
+            if (tag.equals(information))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEventInSeries (Event e, String information)
+    {
+        for (Series ser: e.getSeries())
+        {
+            if (ser.get_event_name().equalsIgnoreCase(information))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEventNameEqual (Event e, String information)
+    {
+        return e.getName().equalsIgnoreCase(information);
+    }
+
     public ArrayList<Event> search(String inputString, String information){
         ArrayList<Event> temp = new ArrayList<>();
+        if (inputString.equals("all"))
+        {
+            return events;
+        }
         for (Event e: events) {
-            if (inputString.equals("tag")) {
-                ArrayList<String> tags = e.getTags();
-                for (String tag : tags) {
-                    if (tag.equals(information)) {
+            if ((inputString.equals("tag") && isEventTagged(e, information)) ||
+                    (inputString.equals("series_name") && isEventInSeries(e, information)) ||
+                        (inputString.equals("name") && isEventNameEqual(e, information))) {
                         temp.add(e);
-                    }
-                }
-            }
-            else if (inputString.equals("series_name")) {
-                ArrayList<Series> series = e.getSeries();
-                for (Series ser: series)
-                {
-                    if (ser.get_event_name().equalsIgnoreCase(information)) {
-                        temp.add(e);
-                    }
-                }
-            }
-            else if (inputString.equals("name")) {
-                String v = e.getName();
-                if (v.equalsIgnoreCase(information)) {
-                    temp.add(e);
-                }
-            }
-            else if (inputString.equals("all")) {
-                return events;
             }
         }
         return temp;
     }
-    //calendar should be able to return a given day.
-    //public Day
-    //function overload so that it deals with all the search object with dates
+
+    public boolean isEventCurrent (LocalDateTime startTime, LocalDateTime endTime,
+                                   String inputString, LocalDateTime date)
+    {
+        return inputString.equals("current") && startTime.isBefore(date) && endTime.isAfter(date);
+    }
+
+    public boolean isEventAny (LocalDateTime startTime, LocalDateTime endTime,
+                               String inputString, LocalDateTime date)
+    {
+        return inputString.equals("any") && (startTime.toLocalDate().isEqual(date.toLocalDate())
+                || endTime.toLocalDate().isEqual(date.toLocalDate()));
+    }
+
+    public boolean isEventPast (LocalDateTime endTime,
+                                String inputString, LocalDateTime date)
+    {
+        return inputString.equals("past") && endTime.isBefore(date);
+    }
+
+    public boolean isEventFuture (LocalDateTime startTime, String inputString, LocalDateTime date)
+    {
+        return inputString.equals ("future") && startTime.isAfter(date);
+    }
+
     public ArrayList<Event> search(String inputString, LocalDateTime date)
     {
         LocalDateTime startTime;
         LocalDateTime endTime;
-        //also add sameDay
         ArrayList<Event> temp = new ArrayList<>();
         for (Event e: events) {
             startTime = e.getStartTime();
             endTime = e.getEndTime();
-            if ((inputString.equals("current"))
-                    && (startTime.isBefore(date) && endTime.isAfter(date)))
-            {
-                temp.add(e);
-            }
-            else if (inputString.equals("any") && (startTime.toLocalDate().isEqual(date.toLocalDate())
-            || endTime.toLocalDate().isEqual(date.toLocalDate())))
-            {
-                temp.add(e);
-            }
-            else if (inputString.equals("past") && endTime.isBefore(date)) {
-                temp.add(e);
-            }
-            else if (inputString.equals("future") && startTime.isAfter(date)) {
-                temp.add(e);
-            }
+            if (isEventCurrent(startTime, endTime, inputString, date) ||
+                    isEventFuture(startTime, inputString, date) ||
+                        isEventPast(endTime, inputString, date) ||
+                            isEventAny(startTime, endTime, inputString, date))
+                                temp.add(e);
         }
         return temp;
     }
