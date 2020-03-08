@@ -195,9 +195,7 @@ public class Controller {
                 repeatedAlertMenu(description, datetime);
             }else{
                 Alert alert = new Alert(description, datetime);
-                alerts.add(alert);
             }
-
             System.out.println("Entering y for choosing new alert or n for end choosing alert");
             choice = in.nextLine();
         }while(choice.equals("y"));
@@ -237,42 +235,102 @@ public class Controller {
         }
     }
 
-    public void memoMenu(boolean edit){
-        System.out.println("Enter the text for this memo");
-        String text = this.in.nextLine();
-        ArrayList<Event> events;
-        ArrayList<Memo> memos;
-        Memo m = new Memo(text);
-        String answer;
-        // selecting events
+    public void deleteAlertMenu(){
+        String choice;
         do{
-            System.out.println("Choose a new Event");
-            String event_name = this.in.nextLine();
-            events = currentCalendar.getEvents();
-            for (int i = 0; i < events.size(); i++){
-                if (event_name == events.get(i).getName()){
-                    m.addAssociate(events.get(i));
-                    break;
+            System.out.println("Enter the description of the alert to be deleted");
+            String des  = in.nextLine();
+            for (int i = 0; i < alerts.size(); i++){
+                if (des == alerts.get(i).getAlert()){
+                    alerts.remove(i);
                 }
             }
-            System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
-            answer = this.in.nextLine();
-        }while(answer.equals("y"));
-        //selecting memos
-        do{
-            System.out.println("Choose a new memo");
-            String memo_name = this.in.nextLine();
-            memos = currentCalendar.getMemos();
-            for (int i = 0; i < memos.size(); i++){
-                if (memo_name == memos.get(i).getText()){
-                    m.addAssociate(memos.get(i));
-                    break;
-                }
-            }
-            System.out.println("Enter y for choosing a new memo or enter n for end choosing event ");
-            answer = this.in.nextLine();
-        }while(answer.equals("y"));
+            System.out.println("Enter y for deleting a new alert or n for stop");
+            choice = in.nextLine();
+        }while(choice == "y");
     }
+
+    public void editAlertMenu(){
+        String choice;
+        do{
+            System.out.println("Enter the description of the alert to be deleted");
+            String des  = in.nextLine();
+            System.out.println("Enter 1 for changing description\nEnter 2 for changing date");
+            choice = in.nextLine();
+
+            for (int i = 0; i < alerts.size(); i++){
+                if (des == alerts.get(i).getAlert()){
+                    if (choice == "1") {
+                        System.out.println("Enter new description");
+                        des = in.nextLine();
+                        alerts.get(i).editAlert(des);
+                    }
+                    }if(choice == "2"){
+                        System.out.println("Enter a date");
+                        String date = in.nextLine();
+                        System.out.println("Enter a time");
+                        String time = in.nextLine();
+                        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                        alerts.get(i).editAlert(datetime);
+                }
+            }
+            System.out.println("Enter y for edit a new alert or n for stop");
+            choice = in.nextLine();
+        }while(choice == "y");
+    }
+
+
+    public void memoMenu(boolean edit){
+        String answer;
+        do {
+            System.out.println("Enter the text for this memo");
+            String text = this.in.nextLine();
+            Integer id = this.memos.size();
+            ArrayList<Event> events;
+            ArrayList<Memo> memos;
+            Memo m = new Memo(id, text);
+            this.memos.add(m);
+            // selecting events
+            do {
+                System.out.println("Choose a new Event");
+                String event_name = this.in.nextLine();
+                events = currentCalendar.getEvents();
+                for (int i = 0; i < events.size(); i++) {
+                    if (event_name == events.get(i).getName()) {
+                        m.addAssociate(events.get(i));
+                        events.get(i).addMemo(m);
+                        break;
+                    }
+                }
+                System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
+                answer = this.in.nextLine();
+            } while (answer.equals("y"));
+            //selecting memos
+            do {
+                System.out.println("Choose a new memo");
+                String memo_Id_1 = this.in.nextLine();
+                int memo_id = Integer.parseInt(memo_Id_1);
+                memos = currentCalendar.getMemos();
+                for (int i = 0; i < memos.size(); i++) {
+                    if (memo_id == memos.get(i).getId()) {
+                        m.addAssociate(memos.get(i));
+                        break;
+                    }
+                }
+                System.out.println("Enter y for choosing a new memo or enter n for end choosing memo ");
+                answer = this.in.nextLine();
+            } while (answer.equals("y"));
+            System.out.println("Enter y for creating a new memo or n for ending creating " );
+            answer = this.in.nextLine();
+        }while (answer == "y");
+    }
+    public void alertAnnoucements() {
+        System.out.println("---Alerts---");
+        for (int i = 0; i < alerts.size(); i++) {
+            System.out.println(alerts.get(i).getAlert());
+        }
+    }
+
 
     public void repeatedEventMenu(boolean edit){
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
@@ -412,5 +470,4 @@ public class Controller {
             }
         }
     }
-
 }
