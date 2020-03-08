@@ -64,8 +64,8 @@ public class Controller {
                     editorMenu();
 
                     break;
-                case "eventMenu":
-                    eventMenu();
+                case "viewEventMenu":
+                    viewEventMenu();
                     break;
                 case "searchMenu":
                     searchMenu();
@@ -109,7 +109,7 @@ public class Controller {
         if(choice.equals("1")){
             menuStack.push("editorMenu");
         }else if(choice.equals("2")){
-            menuStack.push("eventMenu");
+            menuStack.push("viewEventMenu");
         }else if(choice.equals("3")){
             System.out.println("Enter a date to set (yyyy/mm/dd");
             String date = in.nextLine();
@@ -456,6 +456,7 @@ public class Controller {
         String choice = in.nextLine();
     }
 
+
     public void deleteEventMenu(){
         System.out.println("Please type the name of the event that will be deleted\n" +
                 "Press 1 to go back to editorMenu");
@@ -657,7 +658,7 @@ public class Controller {
         }
 
 
-    public void eventMenu(){
+    public void viewEventMenu(){
         System.out.println("\nEvent menu\n Press 1 to view past event\nPress 2 to view current events" +
                 "\nPress 3 to view today's events \nPress 4 to view future event\nPress 5 to view all events\nPress 6 open search menu");
         String choice = in.nextLine();
