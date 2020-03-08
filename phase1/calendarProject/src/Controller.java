@@ -210,7 +210,7 @@ public class Controller {
                 Alert alert = new Alert(description, datetime);
                 alerts.add(alert);
             }
-            System.out.println("Enter y for adding another alert, n for continuing");
+            System.out.println("Enter y for adding another alert, n for stop");
             choice = in.nextLine();
         }while(choice.equals("y"));
     }
