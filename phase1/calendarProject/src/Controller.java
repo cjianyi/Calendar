@@ -100,7 +100,7 @@ public class Controller {
         }else if(choice.equals("2")){
             menuStack.push("eventMenu");
         }else if(choice.equals("3")){
-            System.out.println("Enter a date to set");
+            System.out.println("Enter a date to set (yyyy/mm/dd");
             String date = in.nextLine();
             currentDate = LocalDateTime.parse(date);
         }
@@ -134,11 +134,11 @@ public class Controller {
         boolean exit = false;
         do {
             try {
-        System.out.println("Enter a start date");
+        System.out.println("Enter a start date (yyyy-mm-dd)");
         String startDay = in.nextLine();
 
 
-                System.out.println("Enter a start time");
+                System.out.println("Enter a start time (hh:mm)");
                 String startTime = in.nextLine();
                 startDate = LocalDateTime.parse(startDay + "T" + startTime);
                 exit = true;
@@ -148,10 +148,10 @@ public class Controller {
         exit = false;
         do {
             try {
-                System.out.println("Enter an end date");
+                System.out.println("Enter an end date (yyyy-mm-dd)");
                 String endDay = in.nextLine();
 
-                System.out.println("Enter an end time");
+                System.out.println("Enter an end time (hh:mm)");
                 String endTime = in.nextLine();
                 endDate = LocalDateTime.parse(endDay + "T" + endTime);
                 exit = true;
@@ -186,9 +186,9 @@ public class Controller {
         do {
             System.out.println("Enter a description for the alert");
             String description = in.nextLine();
-            System.out.println("Enter a date");
+            System.out.println("Enter a date (yyyy-mm-dd)");
             String date = in.nextLine();
-            System.out.println("Enter a time");
+            System.out.println("Enter a time (hh:mm)");
             String time = in.nextLine();
             LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
             System.out.println("Do you want it to repeat? (y/n");
@@ -269,9 +269,9 @@ public class Controller {
                         alerts.get(i).editAlert(des);
                     }
                     }if(choice == "2"){
-                        System.out.println("Enter a date");
+                        System.out.println("Enter a date (yyyy-mm-dd)");
                         String date = in.nextLine();
-                        System.out.println("Enter a time");
+                        System.out.println("Enter a time (hh:mm)");
                         String time = in.nextLine();
                         LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
                         alerts.get(i).editDate(datetime);
@@ -487,17 +487,17 @@ public class Controller {
                 ev.setName(change);
             } else if (choice.equals("2")) {
                 System.out.println("You are changing the start time of your event.");
-                System.out.println("Enter a date");
+                System.out.println("Enter a date (yyyy-mm-dd)");
                 String date = in.nextLine();
-                System.out.println("Enter a time");
+                System.out.println("Enter a time (hh:mm)");
                 String time = in.nextLine();
                 LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
                 ev.setStartTime(datetime);
             } else if (choice.equals("3")) {
                 System.out.println("You are changing the end time of your event.");
-                System.out.println("Enter a date");
+                System.out.println("Enter a date (yyyy-mm-dd)");
                 String date = in.nextLine();
-                System.out.println("Enter a time");
+                System.out.println("Enter a time (hh:mm)");
                 String time = in.nextLine();
                 LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
                 ev.setEndTime(datetime);
@@ -578,7 +578,7 @@ public class Controller {
         ArrayList<Event> events;
         switch(choice){
             case "1":
-                System.out.println("Enter the day you want to search");
+                System.out.println("Enter the day you want to search (yyyy-mm-dd)");
                 choice = in.nextLine();
                  events = currentCalendar.search("date", choice);
                 break;
