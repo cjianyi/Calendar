@@ -475,14 +475,13 @@ public class Controller {
         do {
             Event ev = null;
             System.out.println("Press 1 to edit event name\nPress 2 to edit startTime\nPress 3 to edit endTime\n");
-            choice = in.nextLine();
+            String change = in.nextLine();
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
                     ev = e;
                 }
             }
-            String change;
-            if (choice.equals("1")) {
+            if (change.equals("1")) {
                 System.out.println("Please type the name that you want to change the event's name to: ");
                 change = in.nextLine();
                 ev.setName(change);
