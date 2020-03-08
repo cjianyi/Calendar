@@ -35,7 +35,7 @@ public class UserManager {
      * @param password the password of an user
      */
     public void createAccount(String username, String emailAddress, String password)  {
-        users.add(new User(username, emailAddress, password));
+        this.users.add(new User(username, emailAddress, password));
         try {
             FileWriter fw = new FileWriter("src\\users.txt");
             for (User user : users) {

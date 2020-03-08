@@ -78,6 +78,7 @@ public class User {
         exists = file.exists();
         try {
             if (!exists) {
+                System.out.println("test");
                 file.createNewFile();
             }
         }catch(IOException e){}

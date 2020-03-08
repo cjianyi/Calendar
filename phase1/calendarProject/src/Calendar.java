@@ -31,45 +31,41 @@ public class Calendar implements Comparator {
             br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
             while(line!=null){
-                if(line.charAt(line.length()-1) == ','){
-                    StringBuilder s = new StringBuilder(line);
-                    s.replace(s.length() - 1, s.length(), "]");
-                    line = s.toString();
-                }
-                if(line.charAt(0) == '['){
-                    StringBuilder s = new StringBuilder(line);
-                    s.replace(0, 1, "{");
-                    line = s.toString();
-                }
                 eventGetter.add(line);
                 line = br.readLine();
             }
         }catch (IOException e){}
-        System.out.println(eventGetter.get(0));
+
         return eventGetter;
     }
 
     public void loadEvents(String username){
         ArrayList<String>  events = this.loadEventsFile(username);
         JsonArray array;
-        String eventName;
-        LocalDateTime startDate;
-        LocalDateTime endDate;
+        String eventName = "";
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = LocalDateTime.now();
         ArrayList<Alert> alerts = new ArrayList<>();
         ArrayList<String> tags = new ArrayList<>();
         ArrayList<Series> series = new ArrayList<>();
         ArrayList<Memo> memo = new ArrayList<>();
 
         for(String event:events){
-            array = new JsonArray(events);
-            System.out.println(array.getClass());
-            JsonObject e = array.ge
+
+            JsonObject e = new JsonObject(event);
+
             eventName = e.getString("name");
-            startDate = LocalDateTime.parse(e.get("startTime").toString());
-            endDate = LocalDateTime.parse(e.get("endTime").toString());
-            JsonArray tag = e.getJsonArray("tags");
-            this.loadTags(tag, tags);
+            startDate = LocalDateTime.parse(e.getString("startTime"));
+            endDate = LocalDateTime.parse(e.getString("endTime"));
+            JsonArray a = e.getJsonArray("tags");
+            this.loadTags(a, tags);
+            JsonArray b = e.getJsonArray("alerts");
+            this.loadAlerts(b, alerts);
+            Event p = new Event(startDate, endDate, eventName, tags, alerts, series);
+            this.addEvent(p, username);
+            this.alerts.addAll(alerts);
         }
+
     }
 
     private void loadTags(JsonArray arr, ArrayList<String> str){
@@ -79,28 +75,40 @@ public class Calendar implements Comparator {
     }
 
     private void loadAlerts(JsonArray arr, ArrayList<Alert> al){
-
+        for(int i = 0; i<arr.length(); i++){
+            JsonObject o = arr.getJsonObject(i);
+            String desription = o.getString("description");
+            LocalDateTime d = LocalDateTime.parse(o.getString("date"));
+            Alert alert = new Alert(desription, d);
+            al.add(alert);
+        }
     }
 
     //Event editor menu
     public void addEvent(Event e, String username) {
         this.events.add(e);
+
         try {
-            FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
-            fw.write("[");
+           FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
             for (Event event : this.events) {
-                fw.write(e.eventFileFormatter());
-                if(!event.equals(this.events.get(this.events.size() - 1))){
-                    fw.write(",\n");
-                }
-
+                fw.write(event.eventFileFormatter() + "\n");
             }
-
-            fw.write("]");
             fw.close();
+
         }catch(IOException ex){
             System.out.println("error");
         }
+
+    }
+
+    public ArrayList<Alert> getAlerts(LocalDateTime date){
+        ArrayList<Alert> e = new ArrayList<>();
+        for(Alert alert:this.alerts){
+            if(alert.getDate().equals(date)){
+                e.add(alert);
+            }
+        }
+        return alerts;
     }
 
     /**

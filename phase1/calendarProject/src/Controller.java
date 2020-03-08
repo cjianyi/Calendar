@@ -135,7 +135,7 @@ public class Controller {
             try {
         System.out.println("Enter a start date");
         String startDay = in.nextLine();
-        
+
 
                 System.out.println("Enter a start time");
                 String startTime = in.nextLine();
@@ -159,11 +159,11 @@ public class Controller {
             }
         }while(!exit);
 
-//        System.out.println("Enter a tag(s) for the event, separated by commas");
-//        String tag = in.nextLine();
-//        String[] tagged = tag.split("\\s*,\\s*");
-//        tags = new ArrayList<String>();
-//        Collections.addAll(tags, tagged);
+        System.out.println("Enter a tag(s) for the event, separated by commas");
+        String tag = in.nextLine();
+        String[] tagged = tag.split("\\s*,\\s*");
+        tags = new ArrayList<String>();
+        Collections.addAll(tags, tagged);
 
         System.out.println("Would you like to add alert(s) to the event (y/n)");
         String choice = in.nextLine();
@@ -430,7 +430,7 @@ public class Controller {
     public void alertAnnoucements() {
         System.out.println("---Alerts---");
         for (int i = 0; i < alerts.size(); i++) {
-            System.out.println(alerts.get(i).getAlert());
+            System.out.println(currentCalendar.getAlerts(currentDate).get(i).getAlert());
         }
         System.out.println("-------------");
 

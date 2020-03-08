@@ -19,7 +19,10 @@ public class Alert{
 
     public String getAlert(){
         return this.description;
+    }
 
+    public LocalDateTime getDate(){
+        return this.date;
     }
 
     public String alertFileFormatter() {
