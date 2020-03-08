@@ -474,7 +474,11 @@ public class Controller {
         String choice = in.nextLine();
         do {
             Event ev = null;
-            System.out.println("Press 1 to edit event name\nPress 2 to edit startTime\nPress 3 to edit endTime\n");
+            System.out.println("Press 1 to edit event name\nPress 2 to edit event startTime\nPress 3 to edit event " +
+                    "endTime\nPress 4 to add a tag for the event\nPress 5 to remove a tag fo the event" +
+                    "\nPress 6 to add an alert for the event\nPress 7 to remove an " +
+                    "alert for the event\nPress 8 to add event to a duration series" +
+                    "\nPress 9 to remove event from a series. ");
             String change = in.nextLine();
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
@@ -484,23 +488,99 @@ public class Controller {
             if (change.equals("1")) {
                 System.out.println("Please type the name that you want to change the event's name to: ");
                 change = in.nextLine();
-                ev.setName(change);
-            } else if (choice.equals("2")) {
+                eventManager.addToEvent(ev, "name", change);
+            } else if (change.equals("2")) {
                 System.out.println("You are changing the start time of your event.");
                 System.out.println("Enter a date (yyyy-mm-dd)");
                 String date = in.nextLine();
                 System.out.println("Enter a time (hh:mm)");
                 String time = in.nextLine();
-                LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                ev.setStartTime(datetime);
-            } else if (choice.equals("3")) {
+                //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                //ev.setStartTime(datetime);
+                eventManager.addToEvent(ev, "startTime", date + "T" + time);
+            } else if (change.equals("3")) {
                 System.out.println("You are changing the end time of your event.");
                 System.out.println("Enter a date (yyyy-mm-dd)");
                 String date = in.nextLine();
                 System.out.println("Enter a time (hh:mm)");
                 String time = in.nextLine();
+                //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                //ev.setEndTime(datetime);
+                eventManager.addToEvent(ev, "endTime", date + "T" + time);
+            }
+            else if (change.equals("4"))
+            {
+                System.out.println("You are trying to add a tag to the event.");
+                change = in.nextLine();
+                eventManager.addToEvent(ev, "tag", change);
+            }
+            else if (change.equals("5"))
+            {
+                System.out.println("You are trying to remove a tag from the event.");
+                change = in.nextLine();
+                eventManager.removeTag(ev, change);
+            }
+            else if (change.equals("6"))
+            {
+                System.out.println("You are trying to add an alert to the event.");
+                System.out.println("Enter a date");
+                String date = in.nextLine();
+                System.out.println("Enter a time");
+                String time = in.nextLine();
+                System.out.println("Please enter a description of the alert.");
+                String description = in.nextLine();
+                System.out.println("Please enter the frequency of the alert.");
+                String frequency = in.nextLine();
                 LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                ev.setEndTime(datetime);
+                eventManager.addAlert(ev, description, datetime, frequency);
+            }
+            else if (change.equals("7"))
+            {
+                System.out.println("You are trying to delete an alert from the event.");
+                System.out.println("Please input the alert's description: ");
+                System.out.println(currentCalendar.showAllAlerts());
+                change = in.nextLine();
+                ArrayList<Alert> temp = currentCalendar.getAlerts();
+                for (Alert alert : temp) {
+                    if (alert.getAlert().equalsIgnoreCase(change)) {
+                        eventManager.removeAlert(ev, alert);
+                    }
+                }
+            }
+            else if (change.equals("8"))
+            {
+                System.out.println("You are trying to add this event to a duration series.");
+                System.out.println("Please enter series name: ");
+                String name = in.nextLine();
+                System.out.println("Please enter number of events in the series: ");
+                String num_series = in.nextLine();
+                System.out.println("Please enter the start date of the series: ");
+                String startDay = in.nextLine();
+                System.out.println("Please enter the start time of the series: ");
+                String startTime = in.nextLine();
+                System.out.println("Please enter the end date of the series:  ");
+                String endDay = in.nextLine();
+                System.out.println("Please enter the end time of the series: ");
+                String endTime = in.nextLine();
+                System.out.println("Please enter the frequency of this event happening in this series: ");
+                String frequency = in.nextLine();
+                LocalDateTime datetime = LocalDateTime.parse(startDay + "T" + startTime);
+                LocalDateTime datetime2 = LocalDateTime.parse(endDay + "T" + endTime);
+                eventManager.addSeries(ev, name, Integer.parseInt(num_series), datetime, datetime2, frequency);
+
+            }
+            else if (change.equals("9"))
+            {
+                System.out.println("You are trying to remove this event from a series.");
+                System.out.println("Please enter series name: ");
+                String series = in.nextLine();
+                for (Series e: ev.getSeries())
+                {
+                    if (e.getSeriesName().equals(series))
+                    {
+                        eventManager.removeSeries(ev, e);
+                    }
+                }
             }
         }while (!choice.equals("1"));
     }
