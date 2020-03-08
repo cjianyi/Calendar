@@ -37,8 +37,6 @@ public class Alert{
 
     public void editAlert(String new_description){
         this.description =  new_description;
-
-
     }
 
 }
