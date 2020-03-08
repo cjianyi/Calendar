@@ -289,11 +289,11 @@ public class Controller {
         do {
             System.out.println("Enter the text for this memo");
             String text = this.in.nextLine();
-            Integer id = this.memos.size();
+            Integer id =currentCalendar.getMemos().size();
             ArrayList<Event> events;
             ArrayList<Memo> memos;
             Memo m = new Memo(id, text);
-            this.memos.add(m);
+            currentCalendar.getMemos().add(m);
             // selecting events
             do {
                 System.out.println(currentCalendar.showAllEvents());

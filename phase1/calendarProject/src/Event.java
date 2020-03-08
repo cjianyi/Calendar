@@ -26,6 +26,7 @@ public class Event implements Comparable<Event>{
     public LocalDateTime getStartTime() {
         return startTime;
     }
+
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
@@ -48,9 +49,11 @@ public class Event implements Comparable<Event>{
     public ArrayList<String> getTags() {
         return new ArrayList<>(this.tags);
     }
+
     public void addTag(String tag) {
         this.tags.add(tag);
     }
+
     public void removeTag(String tag) {
         this.tags.remove(tag);
     }
@@ -58,10 +61,12 @@ public class Event implements Comparable<Event>{
     public ArrayList<Alert> getAlerts() {
         return new ArrayList<>(this.alerts);
     }
+
     public void addAlert(Alert alert) {
         this.alerts.add(alert);
         // point alert to this event
     }
+
     public void removeAlert(Alert alert) {
         this.alerts.remove(alert);
     }
@@ -69,18 +74,23 @@ public class Event implements Comparable<Event>{
     public ArrayList<Series> getSeries() {
         return new ArrayList<>(this.series);
     }
+
     public void addSeries(Series series) {
         this.series.add(series);
     }
+
     public void removeSeries(Series series) {
         this.series.remove(series);
     }
+
     public ArrayList<Memo> getMemos() {
         return this.memos;
     }
+
     public void addMemo(Memo newMemo) {
         this.memos.add(newMemo);
     }
+    
     public void removeMemo(Memo newMemo) {
         this.memos.remove(newMemo);
     }

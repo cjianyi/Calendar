@@ -64,6 +64,12 @@ public class Calendar implements Comparator {
             Event p = new Event(startDate, endDate, eventName, tags, alerts2, series);
             this.alerts.addAll(alerts2);
             this.addEvent(p, username);
+            JsonArray me = e.getJsonArray("memos");
+            this.loadMemos(me, memo);
+            for(Memo m: memo){
+                p.addMemo(m);
+                m.addAssociate(p);
+            }
         }
 
     }
@@ -81,6 +87,13 @@ public class Calendar implements Comparator {
             LocalDateTime d = LocalDateTime.parse(o.getString("date"));
             Alert alert = new Alert(description, d);
             al.add(alert);
+        }
+    }
+
+    private void loadMemos(JsonArray arr, ArrayList<Memo> m){
+        for(int i = 0; i<arr.length(); i++){
+            Memo memo = new Memo(i, arr.getString(i));
+            m.add(memo);
         }
     }
 
