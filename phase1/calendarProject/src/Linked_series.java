@@ -5,6 +5,7 @@ public class Linked_series extends Series {
 
     public Linked_series(String series_name, ArrayList<Event> events){
         super(series_name);
+        this.series_name = series_name;
         this.events = events;
     }
 
