@@ -1,5 +1,6 @@
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeParseException;
@@ -442,7 +443,7 @@ public class Controller {
     public void deleteEventMenu(){
         System.out.println("Please type the name of the event that will be deleted\n" +
                 "Press 1 to go back to editorMenu");
-        System.out.println(currentCalendar.getAllEventNames());
+        System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
             boolean switcher = false;
@@ -457,25 +458,49 @@ public class Controller {
                 if (!switcher) {
                     System.out.println("Event does not exist.");
                 }
-                System.out.println("Please type the name of the event that ill be deleted or press 1 to go " +
+                System.out.println("Please type the name of the event that will be deleted or press 1 to go " +
                     "back to editorMenu");
                 choice = in.nextLine();
         }while(!choice.equals("1"));
-        menuStack.pop();
     }
     //startTime, endTime, name, addTags removeTags, addAlerts, removeAlerts, addseries, removeseries
-    public void editEventMenu(){
+    //assume the event name typed by the user is valid.
+    public void editEventMenu() {
         System.out.println("Please type the name of the event that will be edited\nPress 1 to go back to editorMenu");
-        System.out.println(currentCalendar.getAllEventNames());
+        System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
-        boolean switcher = false;
-        if (choice.equals("1"))
-        {
-            menuStack.pop();
-        }
-        else {
-            System.out.println("Press 1 to edit event name\nPress 2 to edit ");
-        }
+        do {
+            Event ev = null;
+            System.out.println("Press 1 to edit event name\nPress 2 to edit startTime\nPress 3 to edit endTime\n");
+            choice = in.nextLine();
+            for (Event e : currentCalendar.getEvents()) {
+                if (e.getName().equals(choice)) {
+                    ev = e;
+                }
+            }
+            String change;
+            if (choice.equals("1")) {
+                System.out.println("Please type the name that you want to change the event's name to: ");
+                change = in.nextLine();
+                ev.setName(change);
+            } else if (choice.equals("2")) {
+                System.out.println("You are changing the start time of your event.");
+                System.out.println("Enter a date");
+                String date = in.nextLine();
+                System.out.println("Enter a time");
+                String time = in.nextLine();
+                LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                ev.setStartTime(datetime);
+            } else if (choice.equals("3")) {
+                System.out.println("You are changing the end time of your event.");
+                System.out.println("Enter a date");
+                String date = in.nextLine();
+                System.out.println("Enter a time");
+                String time = in.nextLine();
+                LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                ev.setEndTime(datetime);
+            }
+        }while (!choice.equals("1"));
     }
 
     public void linkEventMenu(){

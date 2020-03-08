@@ -129,14 +129,6 @@ public class Calendar implements Comparator {
         }
     }
 
-    public String getAllEventNames() {
-        String allEventNames = "";
-        for (Event e: events)
-        {
-            allEventNames += e.getName() + "\n";
-        }
-        return allEventNames;
-    }
     //Event editor menu
     public void editEvent(Event e) {
 
