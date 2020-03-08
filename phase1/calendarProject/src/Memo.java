@@ -6,12 +6,14 @@ public class Memo {
     private ArrayList<Memo> associatedMemos;
     private String text;
     private int idNum;
+    private static int idCounter;
 
-    public Memo(int idNum, String message) {
+    public Memo(String message) {
         associatedEvents = new ArrayList<>();
         associatedMemos = new ArrayList<>();
         this.text = message;
-        this.idNum = idNum;
+        idCounter += 1;
+        this.idNum = idCounter;
 
     }
 

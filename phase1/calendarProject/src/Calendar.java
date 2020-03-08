@@ -92,7 +92,7 @@ public class Calendar implements Comparator {
 
     private void loadMemos(JsonArray arr, ArrayList<Memo> m){
         for(int i = 0; i<arr.length(); i++){
-            Memo memo = new Memo(i, arr.getString(i));
+            Memo memo = new Memo(arr.getString(i));
             m.add(memo);
         }
     }

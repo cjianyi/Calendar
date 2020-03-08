@@ -9,7 +9,7 @@ public class MemoManager {
     }
 
     public void createMemo(int idNum, String text) {
-        memos.add(new Memo(idNum, text));
+        memos.add(new Memo(text));
     }
 
     public ArrayList<Memo> showMemos() {

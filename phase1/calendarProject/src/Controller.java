@@ -292,7 +292,7 @@ public class Controller {
             Integer id =currentCalendar.getMemos().size();
             ArrayList<Event> events;
             ArrayList<Memo> memos;
-            Memo m = new Memo(id, text);
+            Memo m = new Memo(text);
             currentCalendar.getMemos().add(m);
             // selecting events
             do {
