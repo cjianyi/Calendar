@@ -162,14 +162,6 @@ public class Calendar implements Comparator {
         }
     }
 
-    public String getAllEventNames() {
-        String allEventNames = "";
-        for (Event e: events)
-        {
-            allEventNames += e.getName() + "\n";
-        }
-        return allEventNames;
-    }
     //Event editor menu
     public void editEvent(Event e) {
 
@@ -265,7 +257,7 @@ public class Calendar implements Comparator {
     public ArrayList<Event> getEvents(){
         return this.events;
     }
-
+    //phase2
     //argument Alert a, not a static method
     public static void addAlert(/*String description, String date, Boolean repeat*/) {
         //Alert a = new Alert(description, date, repeat);
@@ -278,7 +270,7 @@ public class Calendar implements Comparator {
     public static void editAlert() {
 
     }
-
+    //phase 2
     public String getCalendarName() {
         return this.calendarName;
     }

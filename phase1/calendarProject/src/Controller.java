@@ -1,5 +1,6 @@
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeParseException;
@@ -445,7 +446,7 @@ public class Controller {
     public void deleteEventMenu(){
         System.out.println("Please type the name of the event that will be deleted\n" +
                 "Press 1 to go back to editorMenu");
-        System.out.println(currentCalendar.getAllEventNames());
+        System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
             boolean switcher = false;
@@ -460,35 +461,85 @@ public class Controller {
                 if (!switcher) {
                     System.out.println("Event does not exist.");
                 }
-                System.out.println("Please type the name of the event that ill be deleted or press 1 to go " +
+                System.out.println("Please type the name of the event that will be deleted or press 1 to go " +
                     "back to editorMenu");
                 choice = in.nextLine();
         }while(!choice.equals("1"));
-        menuStack.pop();
     }
     //startTime, endTime, name, addTags removeTags, addAlerts, removeAlerts, addseries, removeseries
-    public void editEventMenu(){
+    //assume the event name typed by the user is valid.
+    public void editEventMenu() {
         System.out.println("Please type the name of the event that will be edited\nPress 1 to go back to editorMenu");
-        System.out.println(currentCalendar.getAllEventNames());
+        System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
-        boolean switcher = false;
-        if (choice.equals("1"))
-        {
-            menuStack.pop();
-        }
-        else {
-            System.out.println("Press 1 to edit event name\nPress 2 to edit ");
-        }
+        do {
+            Event ev = null;
+            System.out.println("Press 1 to edit event name\nPress 2 to edit startTime\nPress 3 to edit endTime\n");
+            String change = in.nextLine();
+            for (Event e : currentCalendar.getEvents()) {
+                if (e.getName().equals(choice)) {
+                    ev = e;
+                }
+            }
+            if (change.equals("1")) {
+                System.out.println("Please type the name that you want to change the event's name to: ");
+                change = in.nextLine();
+                ev.setName(change);
+            } else if (choice.equals("2")) {
+                System.out.println("You are changing the start time of your event.");
+                System.out.println("Enter a date");
+                String date = in.nextLine();
+                System.out.println("Enter a time");
+                String time = in.nextLine();
+                LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                ev.setStartTime(datetime);
+            } else if (choice.equals("3")) {
+                System.out.println("You are changing the end time of your event.");
+                System.out.println("Enter a date");
+                String date = in.nextLine();
+                System.out.println("Enter a time");
+                String time = in.nextLine();
+                LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                ev.setEndTime(datetime);
+            }
+        }while (!choice.equals("1"));
     }
 
     public void linkEventMenu(){
-        String input;
-        do {
-            System.out.println("Enter 'y' to link events together, Enter 'n' to exit to editEventMenu");
-            input = in.nextLine();
+        String repeat;
 
-        } while (input == "y");
-        menuStack.pop();
+        System.out.println("Press 1 to create new Linked Event, Press 2 to edit existing event");
+        String input_1 = in.nextLine();
+        if (input_1 == "1"){
+            System.out.println("Enter the name of new Linked Event");
+            String input_2 = in.next();
+            ArrayList<Event> new_array = new ArrayList<Event>();
+            Linked_series new_link = new Linked_series(input_2, new_array);
+            series.add(new_link);
+
+        } else {
+            System.out.println("Enter the name of existing Linked Event");
+            String input_3 = in.next();
+            for (int i = 0; i < series.size(); i++){
+                if (series.get(i).getSeriesName() == input_3){
+                    Series existingSeries = series.get(i);
+                    break;
+                }
+            }
+
+            System.out.println(currentCalendar.showAllEvents());
+            System.out.println("Enter the names of two or more event that you want to link seperated by commas.");
+            String input = in.nextLine();
+            String[] eventNames = input.split(",");
+
+
+
+            }
+
+
+
+
+
         }
 
 
