@@ -124,6 +124,13 @@ public class Event implements Comparable<Event>{
             s.append(memo.getId()).append(",");
         }
         s.replace(s.length() - 1, s.length(), "");
+        s.append("],");
+        s.append("'series':[");
+        for(Series serie: this.series){
+            s.append(serie.getSeriesName()).append(";");
+        }
+        s.replace(s.length() - 1, s.length(), "");
+        s.append("]");
         return s.toString();
     }
 }

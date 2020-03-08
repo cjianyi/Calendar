@@ -29,7 +29,7 @@ public class Calendar implements Comparator {
         this.events.add(e);
         try {
             FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
-
+            
             for (Event event : this.events) {
                 fw.write("[" +e.eventFileFormatter() + "]");
             }
