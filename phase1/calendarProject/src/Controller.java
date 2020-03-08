@@ -506,13 +506,40 @@ public class Controller {
     }
 
     public void linkEventMenu(){
-        String input;
-        do {
-            System.out.println("Enter 'y' to link events together, Enter 'n' to exit to editEventMenu");
-            input = in.nextLine();
+        String repeat;
 
-        } while (input == "y");
-        menuStack.pop();
+        System.out.println("Press 1 to create new Linked Event, Press 2 to edit existing event");
+        String input_1 = in.nextLine();
+        if (input_1 == "1"){
+            System.out.println("Enter the name of new Linked Event");
+            String input_2 = in.next();
+            ArrayList<Event> new_array = new ArrayList<Event>();
+            Linked_series new_link = new Linked_series(input_2, new_array);
+            series.add(new_link);
+
+        } else {
+            System.out.println("Enter the name of existing Linked Event");
+            String input_3 = in.next();
+            for (int i = 0; i < series.size(); i++){
+                if (series.get(i).getSeriesName() == input_3){
+                    Series existingSeries = series.get(i);
+                    break;
+                }
+            }
+
+            System.out.println(currentCalendar.showAllEvents());
+            System.out.println("Enter the names of two or more event that you want to link seperated by commas.");
+            String input = in.nextLine();
+            String[] eventNames = input.split(",");
+
+
+
+            }
+
+
+
+
+
         }
 
 
