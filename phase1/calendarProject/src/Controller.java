@@ -140,6 +140,14 @@ public class Controller {
 
     public void createEventMenu(){
         //date, time, tag, memo, seriesame, alert, freq, duration
+        System.out.println("Do you want to create an individual event, or does this event repeat?" +
+                " (Note that individual events can last multiliple consecutive days " +
+                " \n Press 1 for individual\nPress 2 to repeated");
+        String choice = "";
+        choice = in.nextLine();
+        if(choice.equals("2")){
+            repeatedEventMenu(false);
+        }
         System.out.println("Enter a name");
         eventName = in.nextLine();
         boolean exit = false;
@@ -178,7 +186,7 @@ public class Controller {
         Collections.addAll(tags, tagged);
 
         System.out.println("Would you like to add alert(s) to the event (y/n)");
-        String choice = in.nextLine();
+        choice = in.nextLine();
         if(choice.equals("y")){
             alertMenu(false);
         }
@@ -450,9 +458,37 @@ public class Controller {
 
     }
 
-
-    public void repeatedEventMenu(boolean edit){
-        System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
+    public void repeatedEventMenu(boolean edit) {
+        System.out.println("Enter the name of the event");
+        eventName = in.nextLine();
+        boolean exit = false;
+        do{
+            System.out.println("Enter the date this event starts (yyyy-mm-dd)");
+            String date = in.nextLine();
+            System.out.println("Enter the time this event starts (hh:mm)");
+            String time = in.nextLine();
+            try{
+                startDate = LocalDateTime.parse(date + "T" + time);
+                exit = true;
+            }catch (DateTimeParseException e){
+                exit = false;
+            }
+                System.out.println("Wrong format");
+        }while(!exit);
+        exit = false;
+        do {
+            System.out.println("Enter the date this event ends (yyyy-mm-dd)");
+            String date = in.nextLine();
+            try {
+                endDate = LocalDateTime.parse(date);
+                exit = true;
+            }catch(DateTimeParseException e){
+                System.out.println("Wrong format");
+                exit = false;
+            }
+        }while(!exit);
+        System.out.println("When do you want it to repeat? \nPress 1 for daily\nPress 2 for weekly" +
+                "\nPress 3 for monthly\nPress 4 for yearly");
         String choice = in.nextLine();
     }
 
@@ -613,10 +649,10 @@ public class Controller {
     public void linkEventMenu(){
 
         Linked_series existingSeries = null;
-        System.out.println("Press 1 to create new Linked Event, Press 2 to edit existing event");
+        System.out.println("Press 1 to create a new group of linked events, Press 2 to an existing set of linked events");
         String input_1 = in.nextLine();
         if (input_1 == "1"){
-            System.out.println("Enter the name of new Linked Event");
+            System.out.println("Enter the name of the new group");
             String input_2 = in.next();
             ArrayList<Event> new_array = new ArrayList<Event>();
             Linked_series new_link = new Linked_series(input_2, new_array);
@@ -642,10 +678,10 @@ public class Controller {
                 String input = in.nextLine();
                 String[] eventNames = input.split(",");
 
-                for (int k = 0; k < eventNames.length; k++){
-                    for (int j = 0; j < events.size(); j++){
-                        if (eventNames[k] == events.get(j).getName()){
-                            existingSeries.add_events(events.get(j));
+                for (String name : eventNames) {
+                    for (Event event : events) {
+                        if (name.equals(event.getName())) {
+                            existingSeries.add_events(event);
                         }
                     }
                 }
