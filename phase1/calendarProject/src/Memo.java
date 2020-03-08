@@ -53,4 +53,22 @@ public class Memo {
         return associatedMemos;
     }
 
+    public String showAllEvents() {
+        String allEvents = "";
+        for (Event e: associatedEvents)
+        {
+            allEvents = allEvents + e.getName() + "\n";
+        }
+        return allEvents;
+    }
+
+    public String showAllMemos() {
+        String allEvents = "";
+        for (Memo e: associatedMemos)
+        {
+            allEvents = allEvents + e.getId() + ": " + e.getText() + "\n";
+        }
+        return allEvents;
+    }
+
 }
