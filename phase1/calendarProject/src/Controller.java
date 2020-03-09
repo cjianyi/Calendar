@@ -36,7 +36,7 @@ public class Controller {
     private static ArrayList<Linked_series> linkedSeries = new ArrayList<>();
     private static ArrayList<Series> series = new ArrayList<>();
 
-    public Controller()  {
+    public Controller() {
         in = new Scanner(System.in);
         this.userManager = new UserManager();
         menuStack.push("mainMenu");
@@ -92,7 +92,7 @@ public class Controller {
         }
     }
 
-    private void reset_parameters(){
+    private void reset_parameters() {
         eventName = "";
         tags = new ArrayList<>();
         memos = new ArrayList<>();
@@ -101,23 +101,23 @@ public class Controller {
         series = new ArrayList<>();
     }
 
-    public void calendarMenu(){
+    public void calendarMenu() {
         alertAnnoucements();
         System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
                 "the current date to a day other than today");
         String choice = in.nextLine();
-        if(choice.equals("1")){
+        if (choice.equals("1")) {
             menuStack.push("editorMenu");
-        }else if(choice.equals("2")){
+        } else if (choice.equals("2")) {
             menuStack.push("viewEventMenu");
-        }else if(choice.equals("3")){
+        } else if (choice.equals("3")) {
             System.out.println("Enter a date to set (yyyy/mm/dd");
             String date = in.nextLine();
             currentDate = LocalDateTime.parse(date);
         }
     }
 
-    public void editorMenu(){
+    public void editorMenu() {
         System.out.println("\nEditor Menu\n Press 1 to create an event\nPress 2 to delete an event" +
                 "\nPress 3 to edit an event\nPress 4 to link events");
         String choice = in.nextLine();
@@ -138,14 +138,14 @@ public class Controller {
 
     }
 
-    public void createEventMenu(){
+    public void createEventMenu() {
         //date, time, tag, memo, seriesame, alert, freq, duration
         System.out.println("Do you want to create an individual event, or does this event repeat?" +
                 " (Note that individual events can last multiliple consecutive days " +
                 " \n Press 1 for individual\nPress 2 to repeated");
         String choice = "";
         choice = in.nextLine();
-        if(choice.equals("2")){
+        if (choice.equals("2")) {
             repeatedEventMenu(false);
         }
         System.out.println("Enter a name");
@@ -153,17 +153,17 @@ public class Controller {
         boolean exit = false;
         do {
             try {
-        System.out.println("Enter a start date (yyyy-mm-dd)");
-        String startDay = in.nextLine();
-
+                System.out.println("Enter a start date (yyyy-mm-dd)");
+                String startDay = in.nextLine();
 
                 System.out.println("Enter a start time (hh:mm)");
                 String startTime = in.nextLine();
                 startDate = LocalDateTime.parse(startDay + "T" + startTime);
                 exit = true;
-            }catch (DateTimeParseException e){
-                System.out.println("wrong format");}
-        }while(!exit);
+            } catch (DateTimeParseException e) {
+                System.out.println("wrong format");
+            }
+        } while (!exit);
         exit = false;
         do {
             try {
@@ -174,10 +174,10 @@ public class Controller {
                 String endTime = in.nextLine();
                 endDate = LocalDateTime.parse(endDay + "T" + endTime);
                 exit = true;
-            }catch(DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("wrong format");
             }
-        }while(!exit);
+        } while (!exit);
 
         System.out.println("Enter a tag(s) for the event, separated by commas");
         String tag = in.nextLine();
@@ -187,20 +187,20 @@ public class Controller {
 
         System.out.println("Would you like to add alert(s) to the event (y/n)");
         choice = in.nextLine();
-        if(choice.equals("y")){
+        if (choice.equals("y")) {
             alertMenu(false);
         }
 
         System.out.println("Would you like this event to repeat? (y/n)");
         choice = in.nextLine();
-        if(choice.equals("y")){
+        if (choice.equals("y")) {
             repeatedEventMenu(false);
         }
 
-        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate,tags, alerts, series);
+        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate, tags, alerts, series);
     }
 
-    public void alertMenu(boolean edit){
+    public void alertMenu(boolean edit) {
         String choice;
         do {
             System.out.println("Enter a description for the alert");
@@ -214,43 +214,43 @@ public class Controller {
             choice = in.nextLine();
             if (choice.equals("y")) {
                 repeatedAlertMenu(description, datetime);
-            }else{
+            } else {
                 Alert alert = new Alert(description, datetime);
                 alerts.add(alert);
             }
             System.out.println("Enter y for adding another alert, n for stop");
             choice = in.nextLine();
-        }while(choice.equals("y"));
+        } while (choice.equals("y"));
     }
 
-    public void repeatedAlertMenu(String description, LocalDateTime datetime){
+    public void repeatedAlertMenu(String description, LocalDateTime datetime) {
         System.out.println("Press 1 for daily\nPress 2 for weekly\nPress 3 for monthly\nPress 4 for yearly");
         String choice = in.nextLine();
         LocalDateTime repeat = endDate.plusDays(0);
 
-        switch (choice){
+        switch (choice) {
             case "1":
-                while(datetime.isBefore(endDate)|| datetime.toLocalDate().equals(endDate.toLocalDate())){
+                while (datetime.isBefore(endDate) || datetime.toLocalDate().equals(endDate.toLocalDate())) {
                     Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime = datetime.plusDays(1);
                 }
                 break;
             case "2":
-                while(datetime.isBefore(endDate)){
+                while (datetime.isBefore(endDate)) {
                     Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusDays(7);
                 }
             case "3":
-                while (datetime.isBefore(endDate)){
+                while (datetime.isBefore(endDate)) {
                     Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusMonths(1);
                 }
                 break;
             case "4":
-                while (datetime.isBefore(endDate)){
+                while (datetime.isBefore(endDate)) {
                     Alert alert = new Alert(description, datetime);
                     alerts.add(alert);
                     datetime.plusYears(1);
@@ -259,126 +259,114 @@ public class Controller {
         }
     }
 
-    public void deleteAlertMenu(){
+    public void deleteAlertMenu() {
         String choice;
-        do{
+        do {
             System.out.println("Enter the description of the alert to be deleted");
-            String des  = in.nextLine();
-            for (int i = 0; i < alerts.size(); i++){
-                if (des == alerts.get(i).getAlert()){
+            String des = in.nextLine();
+            for (int i = 0; i < alerts.size(); i++) {
+                if (des == alerts.get(i).getAlert()) {
                     alerts.remove(i);
                 }
             }
             System.out.println("Enter y for deleting a new alert or n for stop");
             choice = in.nextLine();
-        }while(choice == "y");
+        } while (choice == "y");
     }
 
-    public void editAlertMenu(){
+    public void editAlertMenu() {
         String choice;
-        do{
+        do {
             System.out.println("Enter the description of the alert to be deleted");
-            String des  = in.nextLine();
+            String des = in.nextLine();
             System.out.println("Enter 1 for changing description\nEnter 2 for changing date");
             choice = in.nextLine();
 
-            for (int i = 0; i < alerts.size(); i++){
-                if (des == alerts.get(i).getAlert()){
+            for (int i = 0; i < alerts.size(); i++) {
+                if (des == alerts.get(i).getAlert()) {
                     if (choice == "1") {
                         System.out.println("Enter new description");
                         des = in.nextLine();
                         alerts.get(i).editAlert(des);
                     }
-                    }if(choice == "2"){
-                        System.out.println("Enter a date (yyyy-mm-dd)");
-                        String date = in.nextLine();
-                        System.out.println("Enter a time (hh:mm)");
-                        String time = in.nextLine();
-                        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                        alerts.get(i).editDate(datetime);
+                }
+                if (choice == "2") {
+                    System.out.println("Enter a date (yyyy-mm-dd)");
+                    String date = in.nextLine();
+                    System.out.println("Enter a time (hh:mm)");
+                    String time = in.nextLine();
+                    LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                    alerts.get(i).editDate(datetime);
                 }
             }
             System.out.println("Enter y for edit a new alert or n for stop");
             choice = in.nextLine();
-        }while(choice == "y");
+        } while (choice == "y");
     }
 
 
-    public void memoMenu(boolean edit){
+    public void memoMenu(boolean edit, Event e) {
         String answer;
         do {
             System.out.println("Enter the text for this memo");
             String text = this.in.nextLine();
-            Integer id =currentCalendar.getMemos().size();
-            ArrayList<Event> events;
-            ArrayList<Memo> memos;
             Memo m = new Memo(text);
-            currentCalendar.getMemos().add(m);
+            this.memos.add(m);
             // selecting events
-            do {
-                System.out.println(currentCalendar.showAllEvents());
-                System.out.println("Choose a new Event");
-                String event_name = this.in.nextLine();
-                events = currentCalendar.getEvents();
-                for (int i = 0; i < events.size(); i++) {
-                    if (event_name == events.get(i).getName()) {
-                        m.addAssociate(events.get(i));
-                        events.get(i).addMemo(m);
-                        break;
-                    }
-                }
-                System.out.println("Enter y for choosing a new event or enter n for end choosing event ");
-                answer = this.in.nextLine();
-            } while (answer.equals("y"));
+            m.addAssociate(e);
+            System.out.println(e.getMemos());
             //selecting memos
-            do {
-                System.out.println(currentCalendar.showAllMemos());
-                System.out.println("Choose a new memo");
-                String memo_Id_1 = this.in.nextLine();
-                int memo_id = Integer.parseInt(memo_Id_1);
-                memos = currentCalendar.getMemos();
-                for (int i = 0; i < memos.size(); i++) {
-                    if (memo_id == memos.get(i).getId()) {
-                        m.addAssociate(memos.get(i));
-                        break;
+            System.out.println("Do you want this memo associate with other memos(y/n)");
+            answer = in.nextLine();
+            if (answer.equals("y")) {
+                do {
+                    System.out.println(currentCalendar.showAllMemos());
+                    System.out.println("Choose a new memo");
+                    String memo_Id_1 = this.in.nextLine();
+                    int memo_id = Integer.parseInt(memo_Id_1);
+                    for (int i = 0; i < currentCalendar.getMemos().size(); i++){
+                        if (memo_id == currentCalendar.getMemos().get(i).getId()){
+                            m.addAssociate(currentCalendar.getMemos().get(i));
+                            currentCalendar.getMemos().get(i).addAssociate(m);
+                        }
                     }
-                }
-                System.out.println("Enter y for choosing a new memo or enter n for end choosing memo ");
-                answer = this.in.nextLine();
-            } while (answer.equals("y"));
-            System.out.println("Enter y for creating a new memo or n for ending creating " );
+                    System.out.println("Enter y for choosing a new memo or enter n for end choosing memo ");
+                    answer = this.in.nextLine();
+                } while (answer.equals("y"));
+            }
+            System.out.println("Enter y for creating a new memo or n for ending creating ");
             answer = this.in.nextLine();
-        }while (answer == "y");
+        } while (answer.equals("y"));
     }
 
-    public void deleteMemoMenu(){
+    public void deleteMemoMenu() {
         String choice;
-        do{
+        do {
             System.out.println(currentCalendar.showAllMemos());
             System.out.println("Enter the id of the memo to be deleted");
-            String memo_1  = in.nextLine();
+            String memo_1 = in.nextLine();
             int memo_id = Integer.parseInt(memo_1);
-            for (int i = 0; i < memos.size(); i++){
-                if (memo_id == memos.get(i).getId()){
+            for (int i = 0; i < memos.size(); i++) {
+                if (memo_id == memos.get(i).getId()) {
                     memos.remove(i);
                 }
             }
-            System.out.println("Enter y for deleting a new memo or n for stop");
+            System.out.println("Enter y1 for deleting a new memo or n for stop");
             choice = in.nextLine();
-        }while(choice == "y");
+        } while (choice == "y1");
     }
 
-    public void editMemoMenu(){
+    public void editMemoMenu() {
         String choice;
-        do{
+        do {
             System.out.println(currentCalendar.showAllMemos());
             System.out.println("Enter the id of the memo to be deleted");
-            String memo_1  = in.nextLine();
+            String memo_1 = in.nextLine();
             int memo_id = Integer.parseInt(memo_1);
             System.out.println("Enter 1 for changing text\nEnter 2 for changing event\nEnter 3 for changing memo");
             choice = in.nextLine();
 
-            for (int i = 0; i < memos.size(); i++){
+            for (int i = 0; i < memos.size(); i++) {
                 if (memo_id == memos.get(i).getId()) {
                     if (choice == "1") {
                         System.out.println("Enter new text");
@@ -412,17 +400,18 @@ public class Controller {
 
                                 }
                         }
-                    }if (choice == "3"){
+                    }
+                    if (choice == "3") {
                         System.out.println("Enter 1 for deleting memo\nEnter 2 for adding memo");
                         String choice_1 = in.nextLine();
-                        switch (choice_1){
+                        switch (choice_1) {
                             case "1":
                                 System.out.println(memos.get(i).showAllMemos());
                                 System.out.println("Select a memo");
                                 String memo_temp = in.nextLine();
                                 int memo_id_2 = Integer.parseInt(memo_temp);
-                                for (int j = 0; j < memos.get(i).getAssociatedMemos().size(); j++){
-                                    if (memo_id_2 == memos.get(i).getAssociatedMemos().get(j).getId()){
+                                for (int j = 0; j < memos.get(i).getAssociatedMemos().size(); j++) {
+                                    if (memo_id_2 == memos.get(i).getAssociatedMemos().get(j).getId()) {
                                         memos.get(i).getAssociatedMemos().get(j).removeAssociate(memos.get(i));
                                         memos.get(i).removeAssociate(memos.get(i).getAssociatedMemos().get(j));
                                     }
@@ -433,8 +422,8 @@ public class Controller {
                                 System.out.println("Select a memo");
                                 memo_temp = in.nextLine();
                                 memo_id_2 = Integer.parseInt(memo_temp);
-                                for (int j = 0; j < currentCalendar.getMemos().size(); j++){
-                                    if (memo_id_2 == currentCalendar.getMemos().get(j).getId()){
+                                for (int j = 0; j < currentCalendar.getMemos().size(); j++) {
+                                    if (memo_id_2 == currentCalendar.getMemos().get(j).getId()) {
                                         memos.get(i).addAssociate(currentCalendar.getMemos().get(j));
                                         currentCalendar.getMemos().get(j).addAssociate(memos.get(i));
                                     }
@@ -445,7 +434,7 @@ public class Controller {
             }
             System.out.println("Enter y for edit a new alert or n for stop");
             choice = in.nextLine();
-        }while(choice == "y");
+        } while (choice == "y");
     }
 
 
@@ -462,19 +451,19 @@ public class Controller {
         System.out.println("Enter the name of the event");
         eventName = in.nextLine();
         boolean exit = false;
-        do{
+        do {
             System.out.println("Enter the date this event starts (yyyy-mm-dd)");
             String date = in.nextLine();
             System.out.println("Enter the time this event starts (hh:mm)");
             String time = in.nextLine();
-            try{
+            try {
                 startDate = LocalDateTime.parse(date + "T" + time);
                 exit = true;
-            }catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 exit = false;
             }
-                System.out.println("Wrong format");
-        }while(!exit);
+            System.out.println("Wrong format");
+        } while (!exit);
         exit = false;
         do {
             System.out.println("Enter the date this event ends (yyyy-mm-dd)");
@@ -482,44 +471,44 @@ public class Controller {
             try {
                 endDate = LocalDateTime.parse(date);
                 exit = true;
-            }catch(DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("Wrong format");
                 exit = false;
             }
-        }while(!exit);
+        } while (!exit);
         System.out.println("When do you want it to repeat? \nPress 1 for daily\nPress 2 for weekly" +
                 "\nPress 3 for monthly\nPress 4 for yearly");
         String choice = in.nextLine();
     }
 
 
-    public void deleteEventMenu(){
+    public void deleteEventMenu() {
         System.out.println("Please type the name of the event that will be deleted\n" +
                 "Press 1 to go back to editorMenu");
         System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
-            if (choice.equals("1"))
-            {
+            if (choice.equals("1")) {
                 break;
             }
             boolean switcher = false;
-                for (Event e : currentCalendar.getEvents()) {
-                    if (e.getName().equalsIgnoreCase(choice)) {
-                        eventManager.deleteEvent(currentCalendar, e);
-                        switcher = true;
-                        System.out.println("Event is deleted successfully!");
-                        break;
-                    }
+            for (Event e : currentCalendar.getEvents()) {
+                if (e.getName().equalsIgnoreCase(choice)) {
+                    eventManager.deleteEvent(currentCalendar, e);
+                    switcher = true;
+                    System.out.println("Event is deleted successfully!");
+                    break;
                 }
-                if (!switcher) {
-                    System.out.println("Event does not exist.");
-                }
-                System.out.println("Please type the name of the event that will be deleted or press 1 to go " +
+            }
+            if (!switcher) {
+                System.out.println("Event does not exist.");
+            }
+            System.out.println("Please type the name of the event that will be deleted or press 1 to go " +
                     "back to editorMenu");
-                choice = in.nextLine();
-        }while(!choice.equals("1"));
+            choice = in.nextLine();
+        } while (!choice.equals("1"));
     }
+
     //startTime, endTime, name, addTags removeTags, addAlerts, removeAlerts, addseries, removeseries
     //assume the event name typed by the user is valid.
     public void editEventMenu() {
@@ -527,15 +516,15 @@ public class Controller {
         System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
-            if (choice.equals("1"))
-            {
+            if (choice.equals("1")) {
                 break;
             }
             Event ev = null;
             System.out.println("Press 1 to edit event name\nPress 2 to edit event startTime\nPress 3 to edit event " +
                     "endTime\nPress 4 to add a tag for the event\nPress 5 to remove a tag fo the event" +
                     "\nPress 6 to add an alert for the event\nPress 7 to remove an " +
-                    "alert for the event\nPress 8 to remove event from a series.\nPress 9 to go back to editorMenu.");
+                    "alert for the event\nPress 8 to remove event from a series.\nPress" +
+                    "9 to add a memo\nPress 10 to go back to editorMenu.");
             String change = in.nextLine();
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
@@ -616,19 +605,23 @@ public class Controller {
                         }
                     }
                     break;
-                case "9":
+                case "10":
                     choice = "1";
                     break;
+                case "9":
+                    memoMenu(true, ev);
+                    break;
+
             }
-        }while (!choice.equals("1"));
+        } while (!choice.equals("1"));
     }
 
-    public void linkEventMenu(){
+    public void linkEventMenu() {
 
         Linked_series existingSeries = null;
         System.out.println("Press 1 to create a new group of linked events, Press 2 to an existing set of linked events");
         String input_1 = in.nextLine();
-        if (input_1 == "1"){
+        if (input_1 == "1") {
             System.out.println("Enter the name of the new group");
             String input_2 = in.next();
             ArrayList<Event> new_array = new ArrayList<Event>();
@@ -639,44 +632,44 @@ public class Controller {
             System.out.println("Enter the name of existing Linked Event");
             String input_3 = in.nextLine();
 
-            for (int i = 0; i < linkedSeries.size(); i++){
-                if (linkedSeries.get(i).getlinkedSeriesname() == input_3){
+            for (int i = 0; i < linkedSeries.size(); i++) {
+                if (linkedSeries.get(i).getlinkedSeriesname() == input_3) {
                     existingSeries = linkedSeries.get(i);
 
                 }
 
-            if (i == linkedSeries.size()){ //name does not exist
-                System.out.println("Name does not exist");
+                if (i == linkedSeries.size()) { //name does not exist
+                    System.out.println("Name does not exist");
 
-            }else{
-                ArrayList<Event> events = currentCalendar.getEvents();
-                System.out.println("Enter the names of two or more events below that you want to link separated by commas.");
-                System.out.println(currentCalendar.showAllEvents());
-                String input = in.nextLine();
-                String[] eventNames = input.split(",");
+                } else {
+                    ArrayList<Event> events = currentCalendar.getEvents();
+                    System.out.println("Enter the names of two or more events below that you want to link separated by commas.");
+                    System.out.println(currentCalendar.showAllEvents());
+                    String input = in.nextLine();
+                    String[] eventNames = input.split(",");
 
-                for (String name : eventNames) {
-                    for (Event event : events) {
-                        if (name.equals(event.getName())) {
-                            existingSeries.add_events(event);
+                    for (String name : eventNames) {
+                        for (Event event : events) {
+                            if (name.equals(event.getName())) {
+                                existingSeries.add_events(event);
+                            }
                         }
                     }
                 }
             }
-            }
 
-
-            }
 
         }
 
+    }
 
-    public void viewEventMenu(){
+
+    public void viewEventMenu() {
         System.out.println("\nEvent menu\n Press 1 to view past event\nPress 2 to view current events" +
                 "\nPress 3 to view today's events \nPress 4 to view future event\nPress 5 to view all events\nPress 6 open search menu");
         String choice = in.nextLine();
         ArrayList<Event> events;
-        switch(choice){
+        switch (choice) {
             case "1":
                 //this.currentCalendar.search("past", )
                 events = this.currentCalendar.search("past", currentDate);
@@ -699,14 +692,14 @@ public class Controller {
         }
     }
 
-    public void searchMenu(){
+    public void searchMenu() {
         System.out.println("\nSearch menu\n Press 1 to search by day\nPress 2 to search by tag\n" +
                 "Press 3 to search by series name\n Press 4 to search events by name");
         String choice = in.nextLine();
         ArrayList<Event> events;
         boolean format = false;
         LocalDateTime date = LocalDateTime.now();
-        switch(choice){
+        switch (choice) {
             case "1":
                 do {
                     try {
@@ -719,8 +712,8 @@ public class Controller {
                         System.out.println("Wrong format");
                         format = false;
                     }
-                }while(!format);
-                 events = currentCalendar.search("date", date);
+                } while (!format);
+                events = currentCalendar.search("date", date);
                 break;
             case "2":
                 System.out.println("Enter the tag you want to search");
@@ -738,7 +731,7 @@ public class Controller {
         choice = in.nextLine();
     }
 
-    private void accountGetter()  {
+    private void accountGetter() {
         boolean valid = false;
         boolean available = false;
         do {
@@ -747,50 +740,50 @@ public class Controller {
             username = username.trim();
             available = userManager.userNameAvailable(username);
             valid = username.matches("^[^,]\\w+[^,]$");
-            if(!valid){
+            if (!valid) {
                 System.out.println("Wrong format");
             }
-            if(!available){
+            if (!available) {
                 System.out.println("Username taken");
             }
-        }while(!available || !valid);
+        } while (!available || !valid);
         do {
             System.out.println("Enter your email");
             email = in.nextLine();
             available = userManager.emailAvailable(email);
             valid = email.matches("^[^,]\\w+@\\w+\\.(ca|com|net|org)$");
-            if(!valid){
+            if (!valid) {
                 System.out.println("Wrong format");
             }
-            if(!available){
+            if (!available) {
                 System.out.println("email taken");
             }
-        }while(!available || !valid);
+        } while (!available || !valid);
         do {
             System.out.println("Enter a password. Must be longer than 7 character");
             password = in.nextLine();
             valid = password.matches("^[^,][a-zA-Z0-9!@#$%&*]{6,}$");
-            if(!valid){
+            if (!valid) {
                 System.out.println("Wrong format");
             }
-        }while(!valid);
+        } while (!valid);
         userManager.createAccount(username, email, password);
     }
 
-    public void mainMenu()  {
-            System.out.println("\nMain Menu\nEnter 1 to log in, 2 to create new account, -1 to exit");
-            String log = in.nextLine();
-            if (log.equals("1")) {
-                menuStack.push("logInMenu");
-            } else if (log.equals("2")) {
-                menuStack.push("accountGetter");
-            }else if (log.equals("-1")){
-                exit = true;
-            }
+    public void mainMenu() {
+        System.out.println("\nMain Menu\nEnter 1 to log in, 2 to create new account, -1 to exit");
+        String log = in.nextLine();
+        if (log.equals("1")) {
+            menuStack.push("logInMenu");
+        } else if (log.equals("2")) {
+            menuStack.push("accountGetter");
+        } else if (log.equals("-1")) {
+            exit = true;
+        }
     }
 
 
-    private void logInMenu()  {
+    private void logInMenu() {
         System.out.println("\nLogin Menu\nEnter your username, or enter -1 to go back to the main menu");
         username = in.nextLine();
         if (username.equals("-1")) {
