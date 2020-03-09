@@ -223,7 +223,7 @@ public class Calendar implements Comparator {
     }
 
     public void addSeries(Series s){
-
+        this.series.add(s);
     }
 
     public ArrayList<Event> search(String input, String info){
