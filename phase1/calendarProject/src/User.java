@@ -25,7 +25,7 @@ public class User {
      * @param password the password of an user
      */
     public User(String username, String emailAddress, String password) {
-        calendars = new ArrayList<Calendar>();
+        calendars = new ArrayList<>();
         this.username = username;
         this.emailAddress = emailAddress;
         this.password = password;
@@ -92,18 +92,6 @@ public class User {
      */
     public ArrayList<Calendar> getCalendars(){
         return this.calendars;
-    }
-
-    public void deleteCalendar(Calendar c) {
-        for (int i = 0; i < calendars.size(); i++)
-        {
-            if (calendars.get(i) == c)
-            {
-                calendars.remove(i);
-                break;
-            }
-
-        }
     }
 
 }

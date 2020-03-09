@@ -2,10 +2,16 @@ import java.util.ArrayList;
 
 public class Memo {
 
+    /** An ArrayList of Events this memo is associated with. */
     private ArrayList<Event> associatedEvents;
+    /** An ArrayList of Memos this memo is associated with. */
     private ArrayList<Memo> associatedMemos;
+    /** The content of this Memo. */
     private String text;
+    /** The id number associated with this Memo. */
     private int idNum;
+
+    /** A counter for instanced of this class created. */
     private static int idCounter;
 
     public Memo(String message) {
@@ -17,19 +23,39 @@ public class Memo {
 
     }
 
+    /**
+     * Get the contents of this Memo.
+     *
+     * @return the text in this Memo.
+     */
     public String getText(){
         return this.text;
     }
 
+    /**
+     * Get the id of this memo.
+     *
+     * @return The id of this memo.
+     */
     public int getId() {
         return this.idNum;
     }
 
+    /**
+     * Add an Event to associate with this Memo.
+     *
+     * @param e An Event.
+     */
     public void addAssociate(Event e) {
         this.associatedEvents.add(e);
         e.addMemo(this);
     }
 
+    /**
+     * Add a Memo to associate with this Memo.
+     *
+     * @param m A memo.
+     */
     public void addAssociate(Memo m) {
         this.associatedMemos.add(m);
     }

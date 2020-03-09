@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import com.restfb.json.*;
 
-public class Calendar implements Comparator {
+public class Calendar {
     /** The name of a calendar. */
     private String calendarName;
     /** An array list that stores all the events in a calendar. */
@@ -317,10 +317,5 @@ public class Calendar implements Comparator {
     public String toString() {
         //print event.date(), event, alert.date(), alert.
         return this.calendarName;
-    }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return 0;
     }
 }
