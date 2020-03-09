@@ -226,6 +226,10 @@ public class Calendar {
         this.series.add(s);
     }
 
+    public ArrayList<Series> getSeries(){
+        return this.series;
+    }
+
     public ArrayList<Event> search(String input, String info){
         ArrayList<Event> temp = new ArrayList<>();
         if (input.equals("all"))

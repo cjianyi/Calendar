@@ -645,21 +645,36 @@ public class Controller {
         if (input_1 == "1"){
             System.out.println("Enter the name of the new group");
             String input_2 = in.next();
-            ArrayList<Event> new_array = new ArrayList<Event>();
+            ArrayList<Event> new_array = new ArrayList<>();
             Linked_series new_link = new Linked_series(input_2, new_array);
-            linkedSeries.add(new_link);
+            ArrayList<Event> events = currentCalendar.getEvents();
+            System.out.println("Enter the names of two or more events below that you want to link separated by commas.");
+            System.out.println(currentCalendar.showAllEvents());
+            String input = in.nextLine();
+            String[] eventNames = input.split("\\w*,\\w*");
+
+            for (String name : eventNames) {
+                for (Event event : events) {
+                    if (name.equals(event.getName())) {
+                        new_link.add_events(event);
+                        event.addSeries(input_2);
+                    }
+                }
+            }
+            currentCalendar.addSeries(new_link);
 
         } else {
             System.out.println("Enter the name of existing Linked Event");
             String input_3 = in.nextLine();
 
-            for (int i = 0; i < linkedSeries.size(); i++){
-                if (linkedSeries.get(i).getlinkedSeriesname() == input_3){
+            for (int i = 0; i < currentCalendar.getSeries().size(); i++) {
+                if (currentCalendar.getSeries().get(i).getSeriesName().equals(input_3)) {
                     existingSeries = linkedSeries.get(i);
-
+                    break;
                 }
+            }
 
-            if (i == linkedSeries.size()){ //name does not exist
+            if (existingSeries == null){ //name does not exist
                 System.out.println("Name does not exist");
 
             }else{
@@ -673,16 +688,18 @@ public class Controller {
                     for (Event event : events) {
                         if (name.equals(event.getName())) {
                             existingSeries.add_events(event);
+                            event.addSeries(input_3);
                         }
                     }
                 }
+                currentCalendar.addSeries(existingSeries);
             }
             }
 
 
             }
 
-        }
+
 
 
     public void viewEventMenu(){
