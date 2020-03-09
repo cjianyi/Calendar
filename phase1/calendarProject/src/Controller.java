@@ -97,7 +97,7 @@ public class Controller {
     }
 
     public void calendarMenu() {
-        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
+        System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to view events\n Press 3 to set " +
                 "the current date to a day other than today");
         String choice = in.nextLine();
         switch (choice) {
