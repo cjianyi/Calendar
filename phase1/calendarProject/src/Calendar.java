@@ -1,10 +1,11 @@
-import java.io.*;
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
-import java.util.*;
-import com.restfb.json.*;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
 
-public class Calendar implements Comparator {
+import java.io.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class Calendar {
     /** The name of a calendar. */
     private String calendarName;
     /** An array list that stores all the events in a calendar. */
@@ -23,6 +24,12 @@ public class Calendar implements Comparator {
         this.alerts = new ArrayList<>();
     }
 
+    /**
+     * Loads all of the events of a user stored in a file.
+     *
+     * @param username the user's username
+     * @return an array list of strings that contain the information of each event that the user has
+     */
     private ArrayList<String> loadEventsFile(String username){
         File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
         ArrayList<String> eventGetter = new ArrayList<>();
@@ -39,6 +46,12 @@ public class Calendar implements Comparator {
         return eventGetter;
     }
 
+    /**
+     * Convert the events from loadEventsFile(username) which is an array list of strings to appropriate data types
+     * so that the program cna use the information.
+     *
+     * @param username the user with this username should have those events
+     */
     public void loadEvents(String username){
         ArrayList<String>  events = this.loadEventsFile(username);
         JsonArray array;
@@ -74,12 +87,24 @@ public class Calendar implements Comparator {
 
     }
 
+    /**
+     * Loads all the tags stored in a file.
+     *
+     * @param arr an array of tags to be loaded
+     * @param str an array of tags that are converted to strings
+     */
     private void loadTags(JsonArray arr, ArrayList<String> str){
         for(int i = 0; i<arr.length(); i++){
             str.add(arr.get(i).toString());
         }
     }
 
+    /**
+     * Loads all the alerts stored in a file.
+     *
+     * @param arr an array of alerts to be loaded
+     * @param al an array of alerts that have type Alert
+     */
     private void loadAlerts(JsonArray arr, ArrayList<Alert> al){
         for(int i = 0; i<arr.length(); i++){
             JsonObject o = arr.getJsonObject(i);
@@ -90,6 +115,12 @@ public class Calendar implements Comparator {
         }
     }
 
+    /**
+     * Loads all the memos in a file
+     *
+     * @param arr an array of memos to be loaded
+     * @param m an array of memos that have type Memo
+     */
     private void loadMemos(JsonArray arr, ArrayList<Memo> m){
         for(int i = 0; i<arr.length(); i++){
             Memo memo = new Memo(arr.getString(i));
@@ -97,7 +128,12 @@ public class Calendar implements Comparator {
         }
     }
 
-    //Event editor menu
+    /**
+     * Add an event to a list of events in this calendar and into a user's calendar text file.
+     *
+     * @param e the event that will be added to that user's calendar
+     * @param username the username of that user
+     */
     public void addEvent(Event e, String username) {
         this.events.add(e);
 
@@ -114,6 +150,12 @@ public class Calendar implements Comparator {
 
     }
 
+    /**
+     * Gets all the alerts in the calendar that happens on a particular date.
+     *
+     * @param date a particular date
+     * @return an array list of alerts that happen on the date specified by the method parameter.
+     */
     public ArrayList<Alert> getAlerts(LocalDateTime date){
         ArrayList<Alert> e = new ArrayList<>();
         for(Alert alert:this.alerts){
@@ -128,7 +170,7 @@ public class Calendar implements Comparator {
     /**
      * Shows all the events inside this calendar.
      *
-     * @return returns a string that will contain all the event names of the events in this calendar.
+     * @return a string that will contain all the event names of the events in this calendar.
      */
     public String showAllEvents() {
         String allEvents = "";
@@ -142,7 +184,7 @@ public class Calendar implements Comparator {
     /**
      * Shows all the memos inside this calendar.
      *
-     * @return returns a string that will contain all the memo names and memo ids that
+     * @return a string that will contain all the memo names and memo ids that
      * are associated with the events in this calendar.
      */
     public String showAllMemos() {
@@ -156,6 +198,11 @@ public class Calendar implements Comparator {
         return allMemos;
     }
 
+    /**
+     * Shows all the alerts inside this calendar.
+     *
+     * @return a string that will contain all the alerts. Each alert occupies one line.
+     */
     public String showAllAlerts() {
         String allAlerts = "";
         for (Event e: events)
@@ -181,18 +228,25 @@ public class Calendar implements Comparator {
         }
         return memos;
     }
-    //Event editor menu
+
+    /**
+     * Deletes an event from the calendar.
+     *
+     * @param e the event that will be deleted.
+     */
     public void deleteEvent(Event e) {
         if (events.contains(e)) {
                 this.events.remove(e);
         }
     }
 
-    //Event editor menu
-    public void editEvent(Event e) {
-
-    }
-
+    /**
+     * Checks if an event is tagged.
+     *
+     * @param e the event that will be checked
+     * @param info the tag that is being searched
+     * @return true if the event has the tag info; false otherwise.
+     */
     public boolean isEventTagged (Event e, String info)
     {
         for (String tag: e.getTags())
@@ -205,6 +259,13 @@ public class Calendar implements Comparator {
         return false;
     }
 
+    /**
+     * Checks if an event is in a series.
+     *
+     * @param e the event that will be checked
+     * @param info the series that will be checked whether the event is in that series or not
+     * @return true if event is in that series named info; false otherwise.
+     */
     public boolean isEventInSeries (Event e, String info)
     {
         for (Series ser: e.getSeries())
@@ -217,11 +278,24 @@ public class Calendar implements Comparator {
         return false;
     }
 
+    /**
+     * Checks if an event has that event name.
+     *
+     * @param e the event that will be checked
+     * @param info the name that we will check if it is the same as the event's name.
+     * @return true if info and event name are the same; false otherwise.
+     */
     public boolean isEventNameEqual (Event e, String info)
     {
         return e.getName().equalsIgnoreCase(info);
     }
 
+    /**
+     * Searches all the events that satisfies the user input.
+     * @param input variable that indicates if we are searching all events, by tag, by series name, or by event name.
+     * @param info the user input and the search is based on that input
+     * @return a list of events that satisfies the searches
+     */
     public ArrayList<Event> search(String input, String info){
         ArrayList<Event> temp = new ArrayList<>();
         if (input.equals("all"))
@@ -238,26 +312,68 @@ public class Calendar implements Comparator {
         return temp;
     }
 
+    /**
+     * Checks if the event is a current event.
+     *
+     * @param startTime the start time of the event
+     * @param endTime the end time of the event
+     * @param date the date that the event will be compared to.
+     * @return true if the event is happening on that date; false otherwise.
+     */
     public boolean isEventCurrent (LocalDateTime startTime, LocalDateTime endTime, LocalDateTime date)
     {
         return startTime.isBefore(date) && endTime.isAfter(date);
     }
 
+    /**
+     * Checks if the event has happened/is going to happen on that day.
+     * <p>
+     * This is different from a current event because a current event is happening right now.
+     * </p>
+     *
+     * @param startTime the start time of that event
+     * @param endTime the end time of that event
+     * @param date the date that we are comparing the event date to
+     * @return true if the event has happened/is going to happen on that day; false otherwise.
+     */
     public boolean isEventAny (LocalDateTime startTime, LocalDateTime endTime, LocalDateTime date)
     {
         return startTime.toLocalDate().isEqual(date.toLocalDate()) || endTime.toLocalDate().isEqual(date.toLocalDate());
     }
 
+    /**
+     * Checks if the event has happened already.
+     *
+     * @param endTime the end time of the event
+     * @param date the date that we compare the end time of the event to
+     * @return true if the date is after the end time of the event; false otherwise
+     */
     public boolean isEventPast (LocalDateTime endTime, LocalDateTime date)
     {
         return endTime.isBefore(date);
     }
 
+    /**
+     * Checks if the event is going to happen in the future.
+     *
+     * @param startTime the start time of the event
+     * @param date the date to which we are comparing the start time
+     * @return true if the date is after the start time of the event; false otherwise
+     */
     public boolean isEventFuture (LocalDateTime startTime, LocalDateTime date)
     {
         return startTime.isAfter(date);
     }
 
+    /**
+     * Another search method that searches events that satisfy the user input
+     *
+     * @param input tells us if we want current events, future events, past events, or events that happen
+     *              on a particular date.
+     * @param date  the date that we will base the search on
+     * @return a list of events that happen before a certain date, on a certain date, after a certain date,
+     * or right now depending on the input string. The if statements decide that.
+     */
     public ArrayList<Event> search(String input, LocalDateTime date)
     {
         LocalDateTime startTime;
@@ -284,6 +400,11 @@ public class Calendar implements Comparator {
         return this.events;
     }
 
+    /**
+     * Getter that gets all the alerts in a calendar.
+     *
+     * @return a list of alerts
+     */
     public ArrayList<Alert> getAlerts() {
         ArrayList<Alert> alertArrayList = new ArrayList<>();
         for (Event e: events)
@@ -292,31 +413,14 @@ public class Calendar implements Comparator {
         }
         return alertArrayList;
     }
-    //phase2
-    //argument Alert a, not a static method
-    public static void addAlert(/*String description, String date, Boolean repeat*/) {
-        //Alert a = new Alert(description, date, repeat);
-    }
-    //argument Alert a, not static
-    public static void deleteAlert() {
 
-    }
-    //argument Alert a, not a static method
-    public static void editAlert() {
-
-    }
-    //phase 2
-    public String getCalendarName() {
-        return this.calendarName;
-    }
-
-    public String toString() {
-        //print event.date(), event, alert.date(), alert.
-        return this.calendarName;
-    }
-
+    /**
+     * Override toString() method so that print calendar will give the name of the calendar.
+     *
+     * @return the name of this calendar
+     */
     @Override
-    public int compare(Object o1, Object o2) {
-        return 0;
+    public String toString() {
+        return this.calendarName;
     }
 }
