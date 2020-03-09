@@ -7,7 +7,7 @@ public class EventManager {
 
     // too many variables. Could probably move some up or down hierarchy
     public void createEvent(Calendar cal, String user, String name, LocalDateTime start, LocalDateTime end,
-                            ArrayList<String> tags, ArrayList<Alert> alerts, ArrayList<Series> series) {
+                            ArrayList<String> tags, ArrayList<Alert> alerts, String series) {
         Event newEvent = new Event(start, end, name, tags, alerts, series);
         cal.addEvent(newEvent, user);
     }
@@ -54,17 +54,13 @@ public class EventManager {
     }
 
     public void addSeries(Event event, String name, ArrayList<Event> events) {
-        event.addSeries(new Linked_series(name, events));
+        event.addSeries(name);
     }
 
-    // Change Date to LocalDateTime
-    public void addSeries(Event event, String name, Integer num_series, LocalDateTime start, LocalDateTime end,
-                          String frequency) {
-        event.addSeries(new Duration_series(name, num_series, start, end, frequency));
-    }
 
-    public void removeSeries(Event event, Series series) {
-        event.removeSeries(series);
+
+    public void removeSeries(Event event, String name) {
+        event.removeSeries(name);
     }
 
 

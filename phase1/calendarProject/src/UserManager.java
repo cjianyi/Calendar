@@ -84,19 +84,6 @@ public class UserManager {
         return true;
     }
 
-
-
-    public void deleteAccount(User u) {
-        for (int i = 0; i < users.size(); i++)
-        {
-            if (users.get(i) == u)
-            {
-                users.remove(u);
-                break;
-            }
-        }
-    }
-
     /**
      * Checks if the user inputted the correct username and password to login. Both username and
      * password must match the username and password stored in the user object for that user.

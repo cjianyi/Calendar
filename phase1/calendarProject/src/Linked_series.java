@@ -1,5 +1,10 @@
 import java.util.*;
 public class Linked_series extends Series {
+    /**
+     * This class dealing with linked_series
+     * @para series_name representing the name for linked events
+     * @para events list of events linked together under the series name
+     */
     private String series_name;
     private ArrayList<Event> events;
 

@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 import com.restfb.json.*;
 
-public class Calendar implements Comparator {
+public class Calendar {
     /** The name of a calendar. */
     private String calendarName;
     /** An array list that stores all the events in a calendar. */
     private ArrayList<Event> events;
     /** An array list that stores all the alerts in a calendar. */
     private ArrayList<Alert> alerts;
+    private ArrayList<Series> series;
 
     /**
      * Constructor for a calendar. Creates an empty calendar with a name.
@@ -41,13 +42,12 @@ public class Calendar implements Comparator {
 
     public void loadEvents(String username){
         ArrayList<String>  events = this.loadEventsFile(username);
-        JsonArray array;
         String eventName = "";
-        LocalDateTime startDate = LocalDateTime.now();
-        LocalDateTime endDate = LocalDateTime.now();
+        LocalDateTime startDate;
+        LocalDateTime endDate;
         ArrayList<Alert> alerts2 = new ArrayList<>();
         ArrayList<String> tags = new ArrayList<>();
-        ArrayList<Series> series = new ArrayList<>();
+        String series = "";
         ArrayList<Memo> memo = new ArrayList<>();
 
         for(String event:events){
@@ -207,9 +207,9 @@ public class Calendar implements Comparator {
 
     public boolean isEventInSeries (Event e, String info)
     {
-        for (Series ser: e.getSeries())
+        for (String ser: e.getSeries())
         {
-            if (ser.get_event_name().equalsIgnoreCase(info))
+            if (ser.equalsIgnoreCase(info))
             {
                 return true;
             }
@@ -220,6 +220,14 @@ public class Calendar implements Comparator {
     public boolean isEventNameEqual (Event e, String info)
     {
         return e.getName().equalsIgnoreCase(info);
+    }
+
+    public void addSeries(Series s){
+        this.series.add(s);
+    }
+
+    public ArrayList<Series> getSeries(){
+        return this.series;
     }
 
     public ArrayList<Event> search(String input, String info){
@@ -313,10 +321,5 @@ public class Calendar implements Comparator {
     public String toString() {
         //print event.date(), event, alert.date(), alert.
         return this.calendarName;
-    }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return 0;
     }
 }

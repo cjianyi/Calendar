@@ -1,4 +1,4 @@
-MUST HAVE INSTALLED package com.restfb (version 1.6.9) (from Maven) to run, as it is used for loading calendar events from a file.
+MUST HAVE INSTALLED packege com.restfb (version 1.6.9) (from Maven) to run, as it is used for loading calendar events from a file.
 
 At the start, the user has the option to create an account, or log in
 

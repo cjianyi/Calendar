@@ -2,6 +2,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Duration_series extends Series {
+    /**
+     * This class representing the duration class
+     * @para series_name the name for the series
+     * @para num_series total number of series in that duration
+     * @para starttime
+     * @para endtime
+     * starttime and endtime together representing the duration
+     * @para frequency representing the frequency of the series
+     */
     private String series_name;
     private Integer num_series;
     private LocalDateTime starttime;
