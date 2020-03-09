@@ -1,26 +1,25 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
+
 public class Event implements Comparable<Event>{
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String name;
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
-    private ArrayList<Series> series;
+    private ArrayList<String> series;
     private ArrayList<Memo> memos = new ArrayList<>();
 
     public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
-                 ArrayList<Alert> alerts, ArrayList<Series> series) {
+                 ArrayList<Alert> alerts, String series) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
         this.tags = tags;
         this.alerts = alerts;
-        this.series = series;
-
+        this.series = new ArrayList<>();
+        this.series.add(series);
     }
 
     public LocalDateTime getStartTime() {
@@ -71,16 +70,16 @@ public class Event implements Comparable<Event>{
         this.alerts.remove(alert);
     }
 
-    public ArrayList<Series> getSeries() {
+    public ArrayList<String> getSeries() {
         return new ArrayList<>(this.series);
     }
 
-    public void addSeries(Series series) {
+    public void addSeries(String series) {
         this.series.add(series);
     }
 
-    public void removeSeries(Series series) {
-        this.series.remove(series);
+    public void removeSeries(String name) {
+        this.series.remove(name);
     }
 
     public ArrayList<Memo> getMemos() {
@@ -110,7 +109,7 @@ public class Event implements Comparable<Event>{
 
     /**
      *
-     * @return
+     * @return a string representing the event in file
      */
     public String eventFileFormatter(){
         StringBuilder s = new StringBuilder();
@@ -142,8 +141,8 @@ public class Event implements Comparable<Event>{
         }
         s.append("],");
         s.append("'series':[");
-        for(Series serie: this.series){
-            s.append(serie.getSeriesName()).append(";");
+        for(String serie: this.series){
+            s.append(serie);
         }
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
