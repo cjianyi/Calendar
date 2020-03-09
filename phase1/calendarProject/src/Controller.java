@@ -34,7 +34,7 @@ public class Controller {
     private static ArrayList<Alert> alerts = new ArrayList<>();
     private static ArrayList<Memo> memos = new ArrayList<>();
     private static ArrayList<Linked_series> linkedSeries = new ArrayList<>();
-    private static ArrayList<Series> series = new ArrayList<>();
+    private static String series = "";
 
     public Controller() {
         in = new Scanner(System.in);
@@ -98,7 +98,7 @@ public class Controller {
         memos = new ArrayList<>();
         alerts = new ArrayList<>();
         linkedSeries = new ArrayList<>();
-        series = new ArrayList<>();
+        series = "";
     }
 
     public void calendarMenu() {
@@ -193,7 +193,8 @@ public class Controller {
 
 
 
-        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate,tags, alerts, series);
+        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName,
+                startDate, endDate,tags, alerts, series);
     }
 
     public void alertMenu(boolean edit){
@@ -523,8 +524,7 @@ public class Controller {
         System.out.println(currentCalendar.showAllEvents());
         String choice = in.nextLine();
         do {
-            if (choice.equals("1"))
-            {
+            if (choice.equals("1")) {
                 break;
             }
             Event ev = null;
@@ -536,88 +536,93 @@ public class Controller {
             for (Event e : currentCalendar.getEvents()) {
                 if (e.getName().equals(choice)) {
                     ev = e;
+                    break;
                 }
             }
-            switch (change) {
-                case "1":
-                    System.out.println("Please type the name that you want to change the event's name to: ");
-                    change = in.nextLine();
-                    eventManager.addToEvent(ev, "name", change);
-                    break;
-                case "2": {
-                    System.out.println("You are changing the start time of your event.");
-                    System.out.println("Enter a date (yyyy-mm-dd)");
-                    String date = in.nextLine();
-                    System.out.println("Enter a time (hh:mm)");
-                    String time = in.nextLine();
-                    //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                    //ev.setStartTime(datetime);
-                    eventManager.addToEvent(ev, "startTime", date + "T" + time);
-                    break;
-                }
-                case "3": {
-                    System.out.println("You are changing the end time of your event.");
-                    System.out.println("Enter a date (yyyy-mm-dd)");
-                    String date = in.nextLine();
-                    System.out.println("Enter a time (hh:mm)");
-                    String time = in.nextLine();
-                    //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                    //ev.setEndTime(datetime);
-                    eventManager.addToEvent(ev, "endTime", date + "T" + time);
-                    break;
-                }
-                case "4":
-                    System.out.println("You are trying to add a tag to the event.");
-                    change = in.nextLine();
-                    eventManager.addToEvent(ev, "tag", change);
-                    break;
-                case "5":
-                    System.out.println("You are trying to remove a tag from the event.");
-                    change = in.nextLine();
-                    eventManager.removeTag(ev, change);
-                    break;
-                case "6": {
-                    System.out.println("You are trying to add an alert to the event.");
-                    System.out.println("Enter a date");
-                    String date = in.nextLine();
-                    System.out.println("Enter a time");
-                    String time = in.nextLine();
-                    System.out.println("Please enter a description of the alert.");
-                    String description = in.nextLine();
-                    System.out.println("Please enter the frequency of the alert.");
-                    String frequency = in.nextLine();
-                    LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
-                    eventManager.addAlert(ev, description, datetime, frequency);
-                    break;
-                }
-                case "7":
-                    System.out.println("You are trying to delete an alert from the event.");
-                    System.out.println("Please input the alert's description: ");
-                    System.out.println(currentCalendar.showAllAlerts());
-                    change = in.nextLine();
-                    ArrayList<Alert> temp = currentCalendar.getAlerts();
-                    for (Alert alert : temp) {
-                        if (alert.getAlert().equalsIgnoreCase(change)) {
-                            eventManager.removeAlert(ev, alert);
-                        }
+            if (ev != null) {
+                switch (change) {
+                    case "1":
+                        System.out.println("Please type the name that you want to change the event's name to: ");
+                        change = in.nextLine();
+                        eventManager.addToEvent(ev, "name", change);
+                        break;
+                    case "2": {
+                        System.out.println("You are changing the start time of your event.");
+                        System.out.println("Enter a date (yyyy-mm-dd)");
+                        String date = in.nextLine();
+                        System.out.println("Enter a time (hh:mm)");
+                        String time = in.nextLine();
+                        //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                        //ev.setStartTime(datetime);
+                        eventManager.addToEvent(ev, "startTime", date + "T" + time);
+                        break;
                     }
-                    break;
-                case "8":
-                    System.out.println("You are trying to remove this event from a series.");
-                    System.out.println("Please enter series name: ");
-                    String series = in.nextLine();
-                    for (Series e : ev.getSeries()) {
-                        if (e.getSeriesName().equals(series)) {
-                            eventManager.removeSeries(ev, e);
-                        }
+                    case "3": {
+                        System.out.println("You are changing the end time of your event.");
+                        System.out.println("Enter a date (yyyy-mm-dd)");
+                        String date = in.nextLine();
+                        System.out.println("Enter a time (hh:mm)");
+                        String time = in.nextLine();
+                        //LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                        //ev.setEndTime(datetime);
+                        eventManager.addToEvent(ev, "endTime", date + "T" + time);
+                        break;
                     }
-                    break;
-                case "9":
-                    choice = "1";
-                    break;
+                    case "4":
+                        System.out.println("You are trying to add a tag to the event.");
+                        change = in.nextLine();
+                        eventManager.addToEvent(ev, "tag", change);
+                        break;
+                    case "5":
+                        System.out.println("You are trying to remove a tag from the event.");
+                        change = in.nextLine();
+                        eventManager.removeTag(ev, change);
+                        break;
+                    case "6": {
+                        System.out.println("You are trying to add an alert to the event.");
+                        System.out.println("Enter a date");
+                        String date = in.nextLine();
+                        System.out.println("Enter a time");
+                        String time = in.nextLine();
+                        System.out.println("Please enter a description of the alert.");
+                        String description = in.nextLine();
+                        System.out.println("Please enter the frequency of the alert.");
+                        String frequency = in.nextLine();
+                        LocalDateTime datetime = LocalDateTime.parse(date + "T" + time);
+                        eventManager.addAlert(ev, description, datetime, frequency);
+                        break;
+                    }
+                    case "7":
+                        System.out.println("You are trying to delete an alert from the event.");
+                        System.out.println("Please input the alert's description: ");
+                        System.out.println(currentCalendar.showAllAlerts());
+                        change = in.nextLine();
+                        ArrayList<Alert> temp = currentCalendar.getAlerts();
+                        for (Alert alert : temp) {
+                            if (alert.getAlert().equalsIgnoreCase(change)) {
+                                eventManager.removeAlert(ev, alert);
+                            }
+                        }
+                        break;
+                    case "8":
+                        System.out.println("You are trying to remove this event from a series.");
+                        System.out.println("Please enter series name: ");
+                        String series = in.nextLine();
+                        for (String se : ev.getSeries()) {
+                            if (se.equals(series)) {
+                                eventManager.removeSeries(ev, se);
+                            }
+                        }
+                        break;
+                    case "9":
+                        choice = "1";
+                        break;
+                }
             }
-        }while (!choice.equals("1"));
-    }
+            }
+            while (!choice.equals("1")) ;
+        }
+
 
     public void linkEventMenu(){
 

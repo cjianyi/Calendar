@@ -1,8 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
+
 public class Event implements Comparable<Event>{
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -13,14 +12,14 @@ public class Event implements Comparable<Event>{
     private ArrayList<Memo> memos = new ArrayList<>();
 
     public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
-                 ArrayList<Alert> alerts, ArrayList<String> series) {
+                 ArrayList<Alert> alerts, String series) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
         this.tags = tags;
         this.alerts = alerts;
-
-
+        this.series = new ArrayList<>();
+        this.series.add(series);
     }
 
     public LocalDateTime getStartTime() {
@@ -72,15 +71,15 @@ public class Event implements Comparable<Event>{
     }
 
     public ArrayList<String> getSeries() {
-        return new ArrayList<String>(this.series);
+        return new ArrayList<>(this.series);
     }
 
     public void addSeries(String series) {
         this.series.add(series);
     }
 
-    public void removeSeries(Series series) {
-        this.series.remove(series);
+    public void removeSeries(String name) {
+        this.series.remove(name);
     }
 
     public ArrayList<Memo> getMemos() {
@@ -110,7 +109,7 @@ public class Event implements Comparable<Event>{
 
     /**
      *
-     * @return
+     * @return a string representing the event in file
      */
     public String eventFileFormatter(){
         StringBuilder s = new StringBuilder();

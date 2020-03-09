@@ -11,6 +11,7 @@ public class Calendar implements Comparator {
     private ArrayList<Event> events;
     /** An array list that stores all the alerts in a calendar. */
     private ArrayList<Alert> alerts;
+    private ArrayList<Series> series;
 
     /**
      * Constructor for a calendar. Creates an empty calendar with a name.
@@ -47,7 +48,7 @@ public class Calendar implements Comparator {
         LocalDateTime endDate = LocalDateTime.now();
         ArrayList<Alert> alerts2 = new ArrayList<>();
         ArrayList<String> tags = new ArrayList<>();
-        ArrayList<Series> series = new ArrayList<>();
+        String series = "";
         ArrayList<Memo> memo = new ArrayList<>();
 
         for(String event:events){
@@ -207,9 +208,9 @@ public class Calendar implements Comparator {
 
     public boolean isEventInSeries (Event e, String info)
     {
-        for (Series ser: e.getSeries())
+        for (String ser: e.getSeries())
         {
-            if (ser.get_event_name().equalsIgnoreCase(info))
+            if (ser.equalsIgnoreCase(info))
             {
                 return true;
             }
@@ -220,6 +221,10 @@ public class Calendar implements Comparator {
     public boolean isEventNameEqual (Event e, String info)
     {
         return e.getName().equalsIgnoreCase(info);
+    }
+
+    public void addSeries(Series s){
+
     }
 
     public ArrayList<Event> search(String input, String info){
