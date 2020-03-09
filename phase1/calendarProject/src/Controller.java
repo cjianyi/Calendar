@@ -138,66 +138,62 @@ public class Controller {
 
     }
 
-    public void createEventMenu(){
+    public void createEventMenu() {
         //date, time, tag, memo, seriesame, alert, freq, duration
         System.out.println("Do you want to create an individual event, or does this event repeat?" +
                 " (Note that individual events can last multiliple consecutive days " +
                 " \n Press 1 for individual\nPress 2 to repeated");
         String choice = "";
         choice = in.nextLine();
-        if(choice.equals("2")){
+        if (choice.equals("2")) {
             repeatedEventMenu(false);
-        }
-        System.out.println("Enter a name");
-        eventName = in.nextLine();
-        boolean exit = false;
-        do {
-            try {
-        System.out.println("Enter a start date (yyyy-mm-dd)");
-        String startDay = in.nextLine();
+        } else {
+            System.out.println("Enter a name");
+            eventName = in.nextLine();
+            boolean exit = false;
+            do {
+                try {
+                    System.out.println("Enter a start date (yyyy-mm-dd)");
+                    String startDay = in.nextLine();
 
 
-                System.out.println("Enter a start time (hh:mm)");
-                String startTime = in.nextLine();
-                startDate = LocalDateTime.parse(startDay + "T" + startTime);
-                exit = true;
-            }catch (DateTimeParseException e){
-                System.out.println("wrong format");}
-        }while(!exit);
-        exit = false;
-        do {
-            try {
-                System.out.println("Enter an end date (yyyy-mm-dd)");
-                String endDay = in.nextLine();
+                    System.out.println("Enter a start time (hh:mm)");
+                    String startTime = in.nextLine();
+                    startDate = LocalDateTime.parse(startDay + "T" + startTime);
+                    exit = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("wrong format");
+                }
+            } while (!exit);
+            exit = false;
+            do {
+                try {
+                    System.out.println("Enter an end date (yyyy-mm-dd)");
+                    String endDay = in.nextLine();
 
-                System.out.println("Enter an end time (hh:mm)");
-                String endTime = in.nextLine();
-                endDate = LocalDateTime.parse(endDay + "T" + endTime);
-                exit = true;
-            }catch(DateTimeParseException e){
-                System.out.println("wrong format");
+                    System.out.println("Enter an end time (hh:mm)");
+                    String endTime = in.nextLine();
+                    endDate = LocalDateTime.parse(endDay + "T" + endTime);
+                    exit = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("wrong format");
+                }
+            } while (!exit);
+
+            System.out.println("Enter a tag(s) for the event, separated by commas");
+            String tag = in.nextLine();
+            String[] tagged = tag.split("\\s*,\\s*");
+            tags = new ArrayList<String>();
+            Collections.addAll(tags, tagged);
+
+            System.out.println("Would you like to add alert(s) to the event (y/n)");
+            choice = in.nextLine();
+            if (choice.equals("y")) {
+                alertMenu(false);
             }
-        }while(!exit);
 
-        System.out.println("Enter a tag(s) for the event, separated by commas");
-        String tag = in.nextLine();
-        String[] tagged = tag.split("\\s*,\\s*");
-        tags = new ArrayList<String>();
-        Collections.addAll(tags, tagged);
-
-        System.out.println("Would you like to add alert(s) to the event (y/n)");
-        choice = in.nextLine();
-        if(choice.equals("y")){
-            alertMenu(false);
+            eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate, tags, alerts, series);
         }
-
-        System.out.println("Would you like this event to repeat? (y/n)");
-        choice = in.nextLine();
-        if(choice.equals("y")){
-            repeatedEventMenu(false);
-        }
-
-        eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate,tags, alerts, series);
     }
 
     public void alertMenu(boolean edit){
