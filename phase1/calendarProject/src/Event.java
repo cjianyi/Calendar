@@ -9,17 +9,17 @@ public class Event implements Comparable<Event>{
     private String name;
     private ArrayList<String> tags;
     private ArrayList<Alert> alerts;
-    private ArrayList<Series> series;
+    private ArrayList<String> series;
     private ArrayList<Memo> memos = new ArrayList<>();
 
     public Event(LocalDateTime start, LocalDateTime end, String name, ArrayList<String> tags,
-                 ArrayList<Alert> alerts, ArrayList<Series> series) {
+                 ArrayList<Alert> alerts, ArrayList<String> series) {
         this.startTime = start;
         this.endTime = end;
         this.name = name;
         this.tags = tags;
         this.alerts = alerts;
-        this.series = series;
+
 
     }
 
@@ -71,11 +71,11 @@ public class Event implements Comparable<Event>{
         this.alerts.remove(alert);
     }
 
-    public ArrayList<Series> getSeries() {
-        return new ArrayList<>(this.series);
+    public ArrayList<String> getSeries() {
+        return new ArrayList<String>(this.series);
     }
 
-    public void addSeries(Series series) {
+    public void addSeries(String series) {
         this.series.add(series);
     }
 
@@ -142,8 +142,8 @@ public class Event implements Comparable<Event>{
         }
         s.append("],");
         s.append("'series':[");
-        for(Series serie: this.series){
-            s.append(serie.getSeriesName()).append(";");
+        for(String serie: this.series){
+            s.append(serie);
         }
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");

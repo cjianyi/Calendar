@@ -191,11 +191,7 @@ public class Controller {
             alertMenu(false);
         }
 
-        System.out.println("Would you like this event to repeat? (y/n)");
-        choice = in.nextLine();
-        if(choice.equals("y")){
-            repeatedEventMenu(false);
-        }
+
 
         eventManager.createEvent(this.currentCalendar, this.currentUser.getUsername(), eventName, startDate, endDate,tags, alerts, series);
     }
