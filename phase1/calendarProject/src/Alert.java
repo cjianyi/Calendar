@@ -1,7 +1,7 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 
 import java.time.LocalDateTime;
-import java.util.*;
+
 
 public class Alert{
 
@@ -26,10 +26,8 @@ public class Alert{
     }
 
     public String alertFileFormatter() {
-        StringBuilder s = new StringBuilder();
-        s.append("{").append("'description':").append("'").append(this.description).append("',");
-        s.append("'date':").append("'").append(this.date.toString()).append("'}");
-        return s.toString();
+        return "{" + "'description':" + "'" + this.description + "'," +
+                "'date':" + "'" + this.date.toString() + "'}";
     }
 
 
