@@ -42,10 +42,9 @@ public class Calendar implements Comparator {
 
     public void loadEvents(String username){
         ArrayList<String>  events = this.loadEventsFile(username);
-        JsonArray array;
         String eventName = "";
-        LocalDateTime startDate = LocalDateTime.now();
-        LocalDateTime endDate = LocalDateTime.now();
+        LocalDateTime startDate;
+        LocalDateTime endDate;
         ArrayList<Alert> alerts2 = new ArrayList<>();
         ArrayList<String> tags = new ArrayList<>();
         String series = "";

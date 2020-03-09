@@ -1,30 +1,25 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
-import javax.xml.bind.SchemaOutputResolver;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeParseException;
 import java.util.*;
-import java.text.DateFormat;
+
 
 import java.time.LocalDateTime;
 
 public class Controller {
     Scanner in;
-    static java.lang.reflect.Method method;
+
     UserManager userManager;
     static EventManager eventManager = new EventManager();
     User currentUser;
     Calendar currentCalendar;
     LocalDateTime currentDate = LocalDateTime.now();
 
-    static Stack<String> menuStack = new Stack<String>();
+    static Stack<String> menuStack = new Stack<>();
 
 
     private static String username = "";
     private static String password = "";
     private static String email = "";
-    private static boolean exit = false;
+
     private static boolean loggedIn = false;
 
     private static String eventName = "";
@@ -44,7 +39,7 @@ public class Controller {
     }
 
     public void displayMenu() {
-        while (true) {
+        while (!menuStack.peek().equals("exit")) {
             switch (menuStack.peek()) {
                 case "mainMenu":
                     mainMenu();
@@ -105,14 +100,27 @@ public class Controller {
         System.out.println("\nCalendar Menu\nPress 1 to open event editor\n Press 2 to open to events\n Press 3 to set " +
                 "the current date to a day other than today");
         String choice = in.nextLine();
-        if (choice.equals("1")) {
-            menuStack.push("editorMenu");
-        } else if (choice.equals("2")) {
-            menuStack.push("viewEventMenu");
-        }else if(choice.equals("3")){
-            System.out.println("Enter a date to set (yyyy/mm/dd");
-            String date = in.nextLine();
-            currentDate = LocalDateTime.parse(date);
+        switch (choice) {
+            case "1":
+                menuStack.push("editorMenu");
+                break;
+            case "2":
+                menuStack.push("viewEventMenu");
+                break;
+            case "3":
+                boolean exit = false;
+                do {
+                    System.out.println("Enter a date to set (yyyy/mm/dd)");
+                    String date = in.nextLine();
+                    try {
+                        currentDate = LocalDateTime.parse(date + "T" + "00:00:00");
+                        exit = true;
+                    } catch (DateTimeParseException e) {
+                        System.out.println("wrong format");
+                        exit = false;
+                    }
+                } while (!exit);
+                break;
         }
     }
 
@@ -491,6 +499,7 @@ public class Controller {
         System.out.println("When do you want it to repeat? \nPress 1 for daily\nPress 2 for weekly" +
                 "\nPress 3 for monthly\nPress 4 for yearly");
         String choice = in.nextLine();
+
     }
 
 
@@ -789,13 +798,17 @@ public class Controller {
     public void mainMenu()  {
             System.out.println("\nMain Menu\nEnter 1 to log in, 2 to create new account, -1 to exit");
             String log = in.nextLine();
-            if (log.equals("1")) {
+        switch (log) {
+            case "1":
                 menuStack.push("logInMenu");
-            } else if (log.equals("2")) {
+                break;
+            case "2":
                 menuStack.push("accountGetter");
-            }else if (log.equals("-1")){
-                exit = true;
-            }
+                break;
+            case "-1":
+                menuStack.push("exit");
+                break;
+        }
     }
 
 
