@@ -489,7 +489,7 @@ public class Controller {
             System.out.println("Enter the date this event ends (yyyy-mm-dd)");
             String date = in.nextLine();
             try {
-                endDate = LocalDateTime.parse(date);
+                endDate = LocalDateTime.parse(date + "T" + "00:00:00");
                 exit = true;
             }catch(DateTimeParseException e){
                 System.out.println("Wrong format");

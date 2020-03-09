@@ -57,12 +57,7 @@ public class EventManager {
         event.addSeries(name);
     }
 
-    // Change Date to LocalDateTime
-    public void addSeries(Event event, String name, Integer num_series, LocalDateTime start, LocalDateTime end,
-                          String frequency, Calendar cal) {
-        event.addSeries(name);
-        cal.addSeries(new Duration_series(name, num_series, start, end, frequency));
-    }
+
 
     public void removeSeries(Event event, String name) {
         event.removeSeries(name);
