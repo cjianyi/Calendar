@@ -223,7 +223,11 @@ public class Calendar {
     }
 
     public void addSeries(Series s){
+        this.series.add(s);
+    }
 
+    public ArrayList<Series> getSeries(){
+        return this.series;
     }
 
     public ArrayList<Event> search(String input, String info){
