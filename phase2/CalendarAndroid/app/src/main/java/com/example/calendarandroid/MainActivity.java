@@ -2,6 +2,7 @@ package com.example.calendarandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     }
     String data = "";
 
+
+
     public void login(View view){
         String currentUserName = username.getText().toString();
         String currentPassword = password.getText().toString();
@@ -47,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
         }else{
             passwordMessage.setText(R.string.incorrect_password_message);
         }
+    }
 
-
-
+    public void createAccount(View view){
+        Intent intent = new Intent(this, createAccountActivity.class);
+        startActivity(intent);
     }
 }
