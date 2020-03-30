@@ -1,29 +1,54 @@
 package com.example.calendarandroid;
 
+import android.content.Context;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.io.*;
 
-public class UserManager {
+public class UserManager  {
     /** This is an array list that stores all the users of the program. */
-    public ArrayList<User> users;
+    private ArrayList<User> users;
 
     /**
      * Constructor for UserManager. It creates an arrayList of users and it loads
      * users' username, email, and password stored in users.txt to the program.
      */
-    public UserManager()  {
+    UserManager(Context context)  {
         this.users = new ArrayList<>();
-        File file = new File("src\\users.txt");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String st;
-            String[] user = new String[0];
-            while ((st = br.readLine()) != null) {
-                user = st.split("\\s*,");
-                this.createAccount(user[0], user[1], user[2]);
-            }
-            br.close();
-        }catch(IOException e){}
+//        File file = new File("com\\example\\calendarandroid\\users.txt");
+//
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader(file));
+//            String st;
+//            String[] user = new String[0];
+//            while ((st = br.readLine()) != null) {
+//
+//                user = st.split("\\s*,");
+//                this.createAccount(user[0], user[1], user[2]);
+//            }
+//            br.close();
+//        }catch(IOException e){
+//
+//        }
+
+        String data = "";
+        StringBuffer db = new StringBuffer();
+        InputStream is = context.getResources().openRawResource(R.raw.users);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        if(is != null){
+            try{
+                while((data = reader.readLine()) != null){
+                    String[] s = data.split(",");
+                    s[0] = s[0].trim();
+                    s[1] = s[1].trim();
+                    s[2] = s[2].trim();
+                    this.createAccount(s[0], s[1], s[2]);
+                }
+            }catch(Exception e){}
+        }
     }
 
     /**

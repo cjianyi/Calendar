@@ -3,4 +3,8 @@
     <string name="btn_login">Login</string>
     <string name="btn_signup">Sign Up</string>
     <string name="sign_up_message">Don\'t have an account?</string>
+    <string name="username_hint">username</string>
+    <string name="password_hint">password</string>
+    <string name="incorrect_password_message">wrong password</string>
+    <string name="correct_password_message">correct!</string>
 </resources>
