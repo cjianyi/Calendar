@@ -2,6 +2,7 @@ package com.example.calendarandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -144,7 +145,11 @@ public class createAccountActivity extends AppCompatActivity {
     public void createAccount(View view){
         if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()){
             userManager.createAccount(username.getText().toString(), "", password.getText().toString());
+            finish();
         }
+
+
+
 
     }
 }
