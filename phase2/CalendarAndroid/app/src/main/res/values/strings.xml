@@ -8,4 +8,5 @@
     <string name="incorrect_password_message">wrong password</string>
     <string name="correct_password_message">correct!</string>
     <string name="comfirm_password_hint">confirm password</string>
+    <string name="create_username_message">wrong format</string>
 </resources>

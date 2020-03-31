@@ -17,11 +17,14 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
+
     private TextView passwordMessage;
+
     private Button loginButton;
     private Button signUpButton;
 
-    UserManager userManager;
+    public static UserManager userManager;
+
 
 
     @Override
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createAccount(View view){
         Intent intent = new Intent(this, createAccountActivity.class);
+
         startActivity(intent);
     }
 }
