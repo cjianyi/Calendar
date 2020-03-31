@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,17 +58,19 @@ public class createAccountActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String name = username.getText().toString();
                 if (name.matches("^[A-Za-z0-9_]{5,20}$")){
-                    if (!userManager.userNameAvailable(name)){
+                    if (!usernameAvailable()){
                         usernameMessage.setText(R.string.username_not_available);
                     }else{
                         usernameMessage.setText(R.string.username_available);
                     }
-                }else{
+                }else if(usernameVaild()){
                     usernameMessage.setText(R.string.create_username_error_message);
                 }
             }
         };
         username.addTextChangedListener(usernameWtacher);
+
+
 
         TextWatcher passwordWatcher = new TextWatcher() {
             @Override
@@ -82,8 +85,7 @@ public class createAccountActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String pass = password.getText().toString();
-                if (pass.matches("^([^,]{0,7}|[^,]{20,}|[^0-9]*|[^a-z]*|[^A-Z]*|[^!@#$%^&*]*)$")){
+                if (passwordInvalid()){
                     passwordErrorMessage.setText(R.string.password_not_correct_format);
                 }else{
                     passwordErrorMessage.setText(R.string.password_correct_format);
@@ -107,7 +109,7 @@ public class createAccountActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String pass = password.getText().toString();
                 String comfirm = confirmPassword.getText().toString();
-                if(pass.equals(comfirm)){
+                if(passwordsMatch()){
                     confirmPasswordMessage.setText(R.string.passwords_match);
                 }
                 else{
@@ -116,5 +118,33 @@ public class createAccountActivity extends AppCompatActivity {
             }
         };
         confirmPassword.addTextChangedListener(passwordMatchWatcher);
+    }
+
+    private boolean passwordsMatch(){
+        String pass = password.getText().toString();
+        String confirm = confirmPassword.getText().toString();
+        return pass.equals(confirm);
+    }
+
+    private boolean usernameVaild(){
+        String name = username.getText().toString();
+        return (name.matches("^[A-Za-z0-9]$"));
+    }
+
+    private boolean usernameAvailable(){
+        String name = username.getText().toString();
+        return userManager.userNameAvailable(name);
+    }
+
+    private boolean passwordInvalid(){
+        String pass = password.getText().toString();
+        return pass.matches("^([^,]{0,7}|[^,]{20,}|[^0-9]*|[^a-z]*|[^A-Z]*|[^!@#$%^&*]*)$");
+    }
+
+    public void createAccount(View view){
+        if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()){
+            userManager.createAccount(username.getText().toString(), "", password.getText().toString());
+        }
+
     }
 }
