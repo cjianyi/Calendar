@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private Button signUpButton;
 
     public static UserManager userManager;
+    
+    public static User currentUser;
+
+    public static Calendar currentCalendar;
 
 
 
@@ -47,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view){
         String currentUserName = username.getText().toString();
         String currentPassword = password.getText().toString();
-        User u = userManager.logIn(currentUserName, currentPassword);
-        if(u != null){
+        currentUser = userManager.logIn(currentUserName, currentPassword);
+        if(currentUser != null){
             passwordMessage.setText(R.string.correct_password_message);
+            currentCalendar = currentUser.getCalendars().get(0);
+            currentCalendar.loadEvents(currentUser.getUsername());
         }else{
             passwordMessage.setText(R.string.incorrect_password_message);
         }
