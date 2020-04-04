@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signUpButton;
 
     public static UserManager userManager;
-    
+
     public static User currentUser;
 
     public static Calendar currentCalendar;
