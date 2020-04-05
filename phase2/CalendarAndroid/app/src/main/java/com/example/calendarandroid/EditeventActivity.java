@@ -1,4 +1,5 @@
 package com.example.calendarandroid;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,7 +15,7 @@ import org.w3c.dom.Text;
 
 public class EditeventActivity extends AppCompatActivity{
     private  EditText event_name;
-    private Event e;
+    public static Event e;
     private TextView event_message;
     private Button back_b;
     private Button event_b;
@@ -23,7 +24,7 @@ public class EditeventActivity extends AppCompatActivity{
     private Button series_b;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_event);
         event_name = findViewById(R.id.editeventname);
@@ -35,33 +36,36 @@ public class EditeventActivity extends AppCompatActivity{
         series_b = findViewById(R.id.button5);
 
 
-    }
-    TextWatcher name = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        TextWatcher name_watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (matched_name()){
-                event_message.setText(R.string.wrong_event_name);
-            }else{
-                event_message.setText(R.string.correct_event_name);
             }
-        }
-    };
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (matched_name()) {
+                    event_message.setText(R.string.wrong_event_name);
+                } else {
+                    event_message.setText(R.string.correct_event_name);
+                }
+            }
+        };
+        event_name.addTextChangedListener(name_watcher);
+    }
+
+
 
     public boolean matched_name(){
-        String name= event_name.getText().toString();
+        String name = event_name.getText().toString();
         boolean flag = false;
         for (Event e : MainActivity.currentCalendar.getEvents()){
-            if (e.getName().equals(event_name)) {
+            if (e.getName().equals(name)) {
                 this.e = e;
                 flag = true;
                 break;
@@ -71,6 +75,10 @@ public class EditeventActivity extends AppCompatActivity{
             this.e = null;
         }
         return (this.e.equals(null));
+    }
+
+    public static Event get_e(){
+        return e;
     }
 
 
