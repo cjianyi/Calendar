@@ -41,59 +41,80 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvSunday"
-                android:layout_width="wrap_content"
+                android:gravity="center"
                 android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+
+                android:text="@string/day_Sunday" />
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvMonday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+
+                android:text="@string/day_Monday" />
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvTuesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+
+                android:text="@string/day_Tuesday" />
 
             <TextView
                 android:id="@+id/tvWednesday"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+
+                android:text="@string/day_Wednesday"
+                android:textSize="10sp" />
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvThursday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+
+                android:text="@string/day_Thursday" />
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvFriday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+
+                android:text="@string/day_Friday" />
 
             <TextView
+                android:textSize="10sp"
                 android:id="@+id/tvSaturday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+
+                android:text="@string/day_Saturday" />
         </LinearLayout>
     </LinearLayout>
 
