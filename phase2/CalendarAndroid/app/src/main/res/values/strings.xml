@@ -19,6 +19,11 @@
     <string name="passwords_match">passwords match</string>
     <string name="password_not_correct_format">password is not of correct format</string>
     <string name="password_correct_format">correct format</string>
-    <string name = "wrong_event_name">cannot find corresponding event name</string>
-    <string name = "correct_event_name">find the corresponding event name</string>
+    <string name="wrong_event_name">cannot find corresponding event name</string>
+    <string name="correct_event_name">find the corresponding event name</string>
+    <string name="back_to_week">Back to Week</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="enter_date">(current date here)</string>
+    <string name="create_account">Create Account</string>
 </resources>

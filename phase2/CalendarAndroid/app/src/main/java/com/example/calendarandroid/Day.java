@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collections;
 
-public class Day implements Comparable<Day>{
+public class Day  implements Comparable<Day>{
     private LocalDate date;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
