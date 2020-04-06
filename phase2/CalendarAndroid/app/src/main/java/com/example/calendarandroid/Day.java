@@ -14,16 +14,30 @@ public class Day  implements Comparable<Day>{
     private LocalDate date;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
-    private static ArrayList<Pair<String, Integer>> day = getMonth(LocalDate.now());
+    private String name;
+    private String month;
+
 
     public Day(LocalDate date) {
         this.date = date;
-        this.getMonth(date);
+        this.name = date.getDayOfWeek().name();
+        this.month = Integer.toString(date.getDayOfMonth());
+
     }
 
-    public static ArrayList<Pair<String, Integer>> getCal(){
-        return day;
+    public String getDayName(){
+        return this.name;
     }
+
+    public int getWeekNum(){
+        return this.date.getDayOfWeek().getValue();
+    }
+
+    public String getMonthDayNumber(){
+        return this.month;
+    }
+
+
 
     public void addEvent(Event event) {
         this.events.add(event);
@@ -52,17 +66,5 @@ public class Day  implements Comparable<Day>{
         return this.date.compareTo(other.date);
     }
 
-     private static ArrayList<Pair<String, Integer>> getMonth(LocalDate d){
-        int m = d.getMonthValue();
-        while (d.getDayOfMonth() > 1){
-            d = d.minusDays(1);
-        }
-        while (m == d.getMonthValue()){
-            Pair p = new Pair(d.getMonth().toString(), d.getDayOfMonth());
 
-            day.add(p);
-            d = d.plusDays(1);
-        }
-        return day;
-    }
 }
