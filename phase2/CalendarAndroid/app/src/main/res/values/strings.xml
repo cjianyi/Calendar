@@ -8,7 +8,7 @@
     <string name="password_hint">password</string>
 
 
-    
+
     <string name="wrong_event_name">cannot find corresponding event name</string>
     <string name="correct_event_name">find the corresponding event name</string>
     <string name="back_to_week">Back to Week</string>

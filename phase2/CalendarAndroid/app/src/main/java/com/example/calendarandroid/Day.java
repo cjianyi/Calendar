@@ -14,10 +14,15 @@ public class Day  implements Comparable<Day>{
     private LocalDate date;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
-    private ArrayList<Pair<String, Integer>> day = new ArrayList<>();
+    private static ArrayList<Pair<String, Integer>> day = getMonth(LocalDate.now());
 
     public Day(LocalDate date) {
         this.date = date;
+        this.getMonth(date);
+    }
+
+    public static ArrayList<Pair<String, Integer>> getCal(){
+        return day;
     }
 
     public void addEvent(Event event) {
@@ -47,7 +52,7 @@ public class Day  implements Comparable<Day>{
         return this.date.compareTo(other.date);
     }
 
-    public ArrayList<Pair<String, Integer>> getMonth(LocalDate d){
+     private static ArrayList<Pair<String, Integer>> getMonth(LocalDate d){
         int m = d.getMonthValue();
         while (d.getDayOfMonth() > 1){
             d = d.minusDays(1);
@@ -55,9 +60,9 @@ public class Day  implements Comparable<Day>{
         while (m == d.getMonthValue()){
             Pair p = new Pair(d.getMonth().toString(), d.getDayOfMonth());
 
-            this.day.add(p);
+            day.add(p);
             d = d.plusDays(1);
         }
-        return this.day;
+        return day;
     }
 }
