@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collections;
 
-public class Day  implements Comparable<Day>{
+public class Day implements Comparable<Day>{
     private LocalDate date;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
@@ -22,7 +22,6 @@ public class Day  implements Comparable<Day>{
         this.date = date;
         this.name = date.getDayOfWeek().name();
         this.month = Integer.toString(date.getDayOfMonth());
-
     }
 
     public String getDayName(){
@@ -36,8 +35,6 @@ public class Day  implements Comparable<Day>{
     public String getMonthDayNumber(){
         return this.month;
     }
-
-
 
     public void addEvent(Event event) {
         this.events.add(event);

@@ -6,9 +6,6 @@
 
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
-
-
-
     <string name="wrong_event_name">cannot find corresponding event name</string>
     <string name="correct_event_name">find the corresponding event name</string>
     <string name="back_to_week">Back to Week</string>
@@ -16,6 +13,8 @@
     <string name="forward"><![CDATA[->]]></string>
     <string name="enter_date">(current date here)</string>
     <string name="create_account">Create Account</string>
+    <string name="next">NEXT</string>
+    <string name="prev">PREV</string>
 
 
 

@@ -8,7 +8,7 @@ public class Month {
     private int monthVal;
     private String monthName;
 
-    public Month(LocalDate d){
+    Month(LocalDate d){
         this.month = new ArrayList<>();
         this.monthVal = d.getMonthValue();
         this.monthName = d.getMonth().toString();
@@ -24,10 +24,13 @@ public class Month {
             d = d.plusDays(1);
             month.add(day);
         }
-
     }
 
-    public String getMonthName(){
+    public Month(ArrayList<Day> month){
+        this.month = month;
+    }
+
+    String getMonthName(){
         return this.monthName;
     }
 
@@ -35,7 +38,7 @@ public class Month {
         return this.monthVal;
     }
 
-    public ArrayList<Day> getMonth(){
+    ArrayList<Day> getMonth(){
         return this.month;
     }
 

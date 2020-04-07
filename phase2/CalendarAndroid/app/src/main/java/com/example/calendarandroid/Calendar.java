@@ -2,6 +2,7 @@ package com.example.calendarandroid;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import com.restfb.json.*;
@@ -14,6 +15,10 @@ public class Calendar {
     /** An array list that stores all the alerts in a calendar. */
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
+    private ArrayList<Month> months;
+    private LocalDate d;
+
+    private ArrayList<Day> day;
 
     private ArrayList<String> totalDurationSeries = new ArrayList<>();
     private ArrayList<String> totalLinkedSeries = new ArrayList<>();
@@ -28,6 +33,23 @@ public class Calendar {
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
         this.series = new ArrayList<>();
+
+        months = new ArrayList<>();
+        day = new ArrayList<>();
+        d = d.minusYears(1);
+        d = d.withMonth(1);
+        d = d.withDayOfMonth(1);
+        LocalDate max = d.plusYears(3);
+
+        while(d.isBefore(max)){
+            day.add(new Day(d));
+            if(d.plusDays(1).getMonthValue() != d.getMonthValue()){
+                Month m = new Month(day);
+                day.removeAll(day);
+                this.months.add(m);
+            }
+            d = d.plusDays(1);
+        }
     }
 
     private ArrayList<String> loadEventsFile(String username){

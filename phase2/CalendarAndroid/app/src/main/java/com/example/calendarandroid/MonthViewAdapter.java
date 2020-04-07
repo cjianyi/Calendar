@@ -40,7 +40,7 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
         Event e = new Event();
         ArrayList<Event> g = new ArrayList<>();
         g.add(e);
-        EventViewAdapter adapter = new EventViewAdapter(context, g);
+        EventViewAdapter adapter = new EventViewAdapter(context, arrayList.get(position).getEvents());
         holder.r.setLayoutManager(l);
         holder.r.setAdapter(adapter);
         holder.t.setText(arrayList.get(position).getMonthDayNumber());
