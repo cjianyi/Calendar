@@ -11,7 +11,6 @@ import java.io.*;
 public class UserManager  {
     /** This is an array list that stores all the users of the program. */
     private ArrayList<User> users;
-
     /**
      * Constructor for UserManager. It creates an arrayList of users and it loads
      * users' username, email, and password stored in users.txt to the program.
@@ -39,6 +38,7 @@ public class UserManager  {
         InputStream is = context.getResources().openRawResource(R.raw.users);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         if(is != null){
+
             try{
                 while((data = reader.readLine()) != null){
                     String[] s = data.split(",");
@@ -47,8 +47,13 @@ public class UserManager  {
                     s[2] = s[2].trim();
                     this.createAccount(s[0], s[1], s[2]);
                 }
-            }catch(Exception e){}
+                is.close();
+                reader.close();
+            }catch(IOException e){
+                Log.d("create users", "wtf");
+            }
         }
+
     }
 
     /**
@@ -66,10 +71,12 @@ public class UserManager  {
         try {
             FileWriter fw = new FileWriter("src\\users.txt");
             for (User user : users) {
-                fw.write(user.getUsername() + " ," + user.getEmailAddress() + " ," + user.getPassword() + "\n");
+                fw.write(user.getUsername() + "," + user.getEmailAddress() + "," + user.getPassword() + "\n");
             }
             fw.close();
-        }catch(IOException e){}
+        }catch(IOException e){
+            Log.d("myTag", "cannot read file");
+        }
     }
 
     /**
@@ -120,17 +127,17 @@ public class UserManager  {
      * @return true if both the username and password match; false otherwise.
      */
     public User logIn(String username, String password){
-        //place holder to make code run
-        // return new User(username, "holder", password);
         if (!users.isEmpty()) {
             for (User user : users) {
                 if (user.getUsername().equals(username) &&
                         user.getPassword().equals(password)) {
-
                     return user;
                 }
             }
+        }else if(users.isEmpty()){
+            Log.d("myTag", "empty");
         }
+
         return null;
     }
 

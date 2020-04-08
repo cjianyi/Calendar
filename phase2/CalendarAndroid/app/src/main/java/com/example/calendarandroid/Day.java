@@ -18,10 +18,17 @@ public class Day implements Comparable<Day>{
     private String month;
 
 
+
+
     public Day(LocalDate date) {
         this.date = date;
         this.name = date.getDayOfWeek().name();
         this.month = Integer.toString(date.getDayOfMonth());
+        this.events = new ArrayList<>();
+    }
+
+    public LocalDate getDay(){
+        return this.date;
     }
 
     public String getDayName(){
@@ -38,7 +45,7 @@ public class Day implements Comparable<Day>{
 
     public void addEvent(Event event) {
         this.events.add(event);
-        Collections.sort(this.events);
+        //Collections.sort(this.events);
     }
     public void removeEvent(Event event) {
         this.events.remove(event);

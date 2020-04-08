@@ -72,7 +72,7 @@ public class User {
      * @param name the name of that calendar
      */
     public void createCalendar(String name) {
-        Calendar cal = new Calendar (name);
+        Calendar cal = new Calendar(name);
         this.calendars.add(cal);
         String fileName = "src\\" + this.username + "calendar" + name + ".txt";
         File file = new File(fileName);

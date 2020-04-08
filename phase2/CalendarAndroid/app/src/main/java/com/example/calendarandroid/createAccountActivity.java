@@ -58,14 +58,14 @@ public class createAccountActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String name = username.getText().toString();
-                if (!name.matches("([a-zA-Z]*) [0-9].*") && name.matches("([a-zA-Z]+) (([0-9]))\\3\\3\\3")){
-                    usernameMessage.setText("valid");
-//                    if (!usernameAvailable()){
-//                        usernameMessage.setText(R.string.username_not_available);
-//                    }else{
-//                        usernameMessage.setText(R.string.username_available);
-//                    }
-                }else if(name.matches("([a-zA-Z]*) [0-9].*") || !name.matches("([a-zA-Z]+) (([0-9]))\\3\\3\\3")){
+                if (usernameVaild()){
+
+                    if (!usernameAvailable()){
+                        usernameMessage.setText(R.string.username_not_available);
+                    }else{
+                        usernameMessage.setText(R.string.username_available);
+                    }
+                }else if(!usernameVaild()){
                     usernameMessage.setText(R.string.create_username_error_message);
                 }
             }
@@ -130,7 +130,7 @@ public class createAccountActivity extends AppCompatActivity {
 
     private boolean usernameVaild(){
         String name = username.getText().toString();
-        return (name.matches("^[A-Za-z0-9]$"));
+        return (name.matches("^[A-Za-z0-9]{5,}$"));
     }
 
     private boolean usernameAvailable(){

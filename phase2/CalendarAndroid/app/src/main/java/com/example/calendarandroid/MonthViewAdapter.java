@@ -1,74 +1,101 @@
 package com.example.calendarandroid;
 import android.content.Context;
-import androidx.core.util.Pair;
+
+import androidx.annotation.NonNull;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.flexbox.FlexboxLayoutManager;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.ViewHolder> {
+public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.ViewHolder> implements EventViewAdapter.OnEventsClickListener  {
 
     Context context;
-    ArrayList<Day> arrayList;
+    ArrayList<Day> days;
+    private OnDayClickListener mOnDayClickListener;
+    CustomLinearLayoutManager l;
 
-    public MonthViewAdapter(Context context, ArrayList<Day> arrayList) {
+    public MonthViewAdapter(Context context, ArrayList<Day> arrayList, OnDayClickListener onDayClickListener) {
+        this.mOnDayClickListener = onDayClickListener;
         this.context = context;
-        this.arrayList = arrayList;
+        this.days = arrayList;
     }
 
-
-
+    @NonNull
     @Override
     public MonthViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.content_events, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, this.mOnDayClickListener);
     }
 
     @Override
     public void onBindViewHolder(MonthViewAdapter.ViewHolder holder, int position) {
-        LinearLayoutManager l = new LinearLayoutManager(context);
-        Event e = new Event();
-        ArrayList<Event> g = new ArrayList<>();
-        g.add(e);
-        EventViewAdapter adapter = new EventViewAdapter(context, arrayList.get(position).getEvents());
-        holder.r.setLayoutManager(l);
-        holder.r.setAdapter(adapter);
-        holder.t.setText(arrayList.get(position).getMonthDayNumber());
+//        LinearLayoutManager l = new LinearLayoutManager(context);
+//        l.setOrientation(RecyclerView.VERTICAL);
 
-//        if(arrayList.get(position).getWeekNum()==7){
-//            ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-//            FlexboxLayoutManager.LayoutParams flexboxLp = (FlexboxLayoutManager.LayoutParams) lp;
-//            flexboxLp.setWrapBefore(true);
-//        }
+
+//        Event e = new Event();
+//        ArrayList<Event> g = new ArrayList<>();
+//        g.add(e);
+        l = new CustomLinearLayoutManager(context, LinearLayout.VERTICAL, false);
+        ViewGroup.LayoutParams params=holder.r.getLayoutParams();
+        params.height=100;
+        holder.r.setLayoutParams(params);
+        holder.r.setLayoutManager(l);
+        EventViewAdapter adapter = new EventViewAdapter(context, days.get(position).getEvents(), this.mOnDayClickListener);
+
+        holder.r.setAdapter(adapter);
+        holder.t.setText(days.get(position).getMonthDayNumber());
+
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return days.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onEventsClick() {
+
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RecyclerView r;
         TextView t;
         FrameLayout f;
-        TextView day;
+        LinearLayout l;
 
-        public ViewHolder(View itemView) {
+        OnDayClickListener onDayClickListener;
+
+        public ViewHolder(View itemView, OnDayClickListener onDayClickListener) {
             super(itemView);
+            l = itemView.findViewById(R.id.dayView);
             t = itemView.findViewById(R.id.dayNum);
-            r  = itemView.findViewById(R.id.monthDayView);
-            f = itemView.findViewById(R.id.monthDay);
-            day = itemView.findViewById(R.id.tvMonday);
+            r  = itemView.findViewById(R.id.eventDayView);
+//            f = itemView.findViewById(R.id.monthDay);
+
+
+            this.onDayClickListener = onDayClickListener;
+            t.setOnClickListener(this);
+            r.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onDayClickListener.onDayClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnDayClickListener{
+        void onDayClick(int position);
+        void onDayClick();
     }
 }

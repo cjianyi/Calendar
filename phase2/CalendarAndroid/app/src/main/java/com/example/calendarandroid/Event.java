@@ -28,8 +28,8 @@ public class Event implements Comparable<Event>{
         this.durationSeriesNames.addAll(series);
     }
 
-    public Event(){
-        this.name = "test";
+    public Event(String name){
+        this.name = name;
     }
 
     public LocalDateTime getStartTime() {
