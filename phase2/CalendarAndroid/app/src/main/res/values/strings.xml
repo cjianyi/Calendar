@@ -1,24 +1,21 @@
 <resources>
     <string name="app_name">CalendarAndroid</string>
 
-    <string name="btn_login">Login</string>
+
     <string name="btn_signup">Sign Up</string>
-    <string name="sign_up_message">Don\'t have an account?</string>
+
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
-    <string name="incorrect_password_message">wrong password</string>
-    <string name="correct_password_message">correct!</string>
+    <string name="wrong_event_name">cannot find corresponding event name</string>
+    <string name="correct_event_name">find the corresponding event name</string>
+    <string name="back_to_week">Back to Week</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="enter_date">(current date here)</string>
+    <string name="create_account">Create Account</string>
+    <string name="next">NEXT</string>
+    <string name="prev">PREV</string>
 
-    <string name="comfirm_password_hint">confirm password</string>
-    <string name="create_username_error_message">wrong format</string>
-    <string name="username_not_available">username not available</string>
-    <string name="username_available">available</string>
-    <string name="password_contains_message">password must contain at least one number,
-        lowercase letter, uppercase letter, number, and special symbol. Must be aet least</string>
-    <string name="passwords_dont_match">passwords do not match</string>
-    <string name="passwords_match">passwords match</string>
-    <string name="password_not_correct_format">password is not of correct format</string>
-    <string name="password_correct_format">correct format</string>
-    <string name = "wrong_event_name">cannot find corresponding event name</string>
-    <string name = "correct_event_name">find the corresponding event name</string>
+
+
 </resources>

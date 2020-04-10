@@ -1,7 +1,10 @@
 package com.example.calendarandroid;
 
+import android.util.Log;
+
 import java.io.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import com.restfb.json.*;
@@ -14,6 +17,13 @@ public class Calendar {
     /** An array list that stores all the alerts in a calendar. */
     private ArrayList<Alert> alerts;
     private ArrayList<Series> series;
+    private ArrayList<Month> months;
+    private LocalDate d;
+
+    private ArrayList<Day> day;
+    private ArrayList<Day> wrapBeforeDays;
+    private ArrayList<Day> wrapAfterDays;
+    private Month currentMonth;
 
     private ArrayList<String> totalDurationSeries = new ArrayList<>();
     private ArrayList<String> totalLinkedSeries = new ArrayList<>();
@@ -28,6 +38,86 @@ public class Calendar {
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
         this.series = new ArrayList<>();
+        d = LocalDate.now();
+
+        months = new ArrayList<>();
+        day = new ArrayList<>();
+        d = d.minusYears(1);
+        d = d.withMonth(1);
+        d = d.withDayOfMonth(1);
+        LocalDate max = d.plusYears(3);
+
+        while(d.isBefore(max)){
+            day.add(new Day(d));
+            if(d.plusDays(1).getMonthValue() != d.getMonthValue()){
+                Month m = new Month(day);
+                day.removeAll(day);
+                this.months.add(m);
+            }
+            d = d.plusDays(1);
+        }
+        this.setCurrentMonth(LocalDate.now());
+
+
+        this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
+        for(int i = 1; i < this.months.size(); i++){
+            int wrap = this.months.get(i).getWrapBeforeSize();
+            int size = this.months.get(i - 1).getMonth().size();
+            if (wrap > 0) {
+                this.months.get(i).addDaysBefore(this.months.get(i - 1).getMonth().subList(size - wrap, size));
+            }
+        }
+
+        for(int i = 0; i < this.months.size() - 1; i++){
+            int wrapStartIndex = this.months.get(i + 1).getWrapBeforeSize();
+            int wrapLength = this.months.get(i).getWrapAfterSize();
+            this.months.get(i).addDaysAfter(this.months.get(i + 1).getMonth().subList(wrapStartIndex, wrapStartIndex + wrapLength));
+        }
+    }
+
+    public Month getCurrentMonth(){
+        return this.currentMonth;
+    }
+
+    public Month getNextMoth(){
+        int i = this.months.indexOf(this.currentMonth);
+        this.currentMonth = this.months.get(i + 1);
+        return this.currentMonth;
+    }
+
+    public Month getPrevMonth(){
+        int i = this.months.indexOf(this.currentMonth);
+        this.currentMonth = this.months.get(i - 1);
+        return this.currentMonth;
+    }
+
+    private ArrayList<Day> wrapBeforeFirstMonth(){
+        ArrayList<Day> dates = new ArrayList<>();
+        LocalDate d = this.months.get(0).getMonth().get(0).getDay();
+        while(d.getDayOfWeek().getValue() != 7){
+            d = d.minusDays(1);
+        }
+        int m = d.getMonthValue();
+        while (m == d.getMonthValue()){
+            dates.add(new Day(d));
+            d = d.plusDays(1);
+        }
+        Log.d("wrapBeforeFirstMonth", "finished");
+        return dates;
+
+    }
+
+
+    public void setCurrentMonth(LocalDate d){
+        for(Month m: this.months){
+            for(Day day: m.getMonth()){
+                if(d.equals(day.getDay())){
+                    this.currentMonth = m;
+                    break;
+                }
+            }
+        }
+
     }
 
     private ArrayList<String> loadEventsFile(String username){

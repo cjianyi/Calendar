@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="comfirm_password_hint">confirm password</string>
+    <string name="create_username_error_message">wrong format</string>
+    <string name="username_not_available">username not available</string>
+    <string name="username_available">available</string>
+    <string name="password_contains_message">password must contain at least one number,
+        lowercase letter, uppercase letter, number, and special symbol. Must be aet least</string>
+    <string name="passwords_dont_match">passwords do not match</string>
+    <string name="passwords_match">passwords match</string>
+    <string name="password_not_correct_format">password is not of correct format</string>
+    <string name="password_correct_format">correct format</string>
+</resources>
