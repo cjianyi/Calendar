@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/next_date"
-        android:text="There are no events today" />
+        android:text="@string/no_events" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

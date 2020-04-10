@@ -15,7 +15,8 @@
     <string name="create_account">Create Account</string>
     <string name="next">NEXT</string>
     <string name="prev">PREV</string>
-
+    <string name="placeholder">Placeholder</string>
+    <string name="no_events">There are no events today</string>
 
 
 </resources>

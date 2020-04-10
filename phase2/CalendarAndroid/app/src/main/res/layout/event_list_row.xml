@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:ellipsize="marquee"
-        android:text="00:00"
+        android:text="@string/placeholder"
         android:textSize="12sp"
         android:singleLine="true" />
 
@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:gravity="center_vertical"
-        android:text="Example Event"
+        android:text="@string/placeholder"
         android:textSize="16sp" />
 
 </RelativeLayout>
