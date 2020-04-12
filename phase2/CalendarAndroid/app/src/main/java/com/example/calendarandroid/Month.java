@@ -15,6 +15,8 @@ public class Month {
     private String monthName;
     private int wrapBeforeSize;
     private int wrapAfterSize;
+    private Month next;
+    private Month prev;
 
     Month(LocalDate d){
         this.month = new ArrayList<>();
@@ -26,12 +28,30 @@ public class Month {
         while (d.getMonthValue() == m || d.getDayOfWeek().getValue() != 7){
             d = d.minusDays(1);
         }
+        this.prev = this;
+        this.next = this;
         //d.getMonthValue() <= m ||d.getDayOfWeek().getValue() != 5
         while(this.month.size() != 42){
             Day day = new Day(d);
             d = d.plusDays(1);
             month.add(day);
         }
+    }
+
+    public void setNext(Month m){
+        this.next = m;
+    }
+
+    public void setPrev(Month m){
+        this.prev = m;
+    }
+
+    public Month getNext(){
+        return this.next;
+    }
+
+    public Month getPrev(){
+        return this.prev;
     }
 
     public Month(ArrayList<Day> month){

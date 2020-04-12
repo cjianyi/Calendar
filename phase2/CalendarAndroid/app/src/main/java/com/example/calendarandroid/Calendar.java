@@ -56,9 +56,9 @@ public class Calendar {
             }
             d = d.plusDays(1);
         }
-        this.setCurrentMonth(LocalDate.now());
-        this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
 
+        this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
+        this.setCurrentMonth(LocalDate.now());
 
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
@@ -66,12 +66,17 @@ public class Calendar {
             if (wrap > 0) {
                 this.months.get(i).addDaysBefore(this.months.get(i - 1).getMonth().subList(size - wrap, size));
             }
+            if(this.months.get(i - 1) == null){
+                Log.d("null month", "what the fuck");
+            }
+            this.months.get(i).setPrev(this.months.get(i - 1));
         }
 
         for(int i = 0; i < this.months.size() - 1; i++){
             int wrapStartIndex = this.months.get(i + 1).getWrapBeforeSize();
             int wrapLength = this.months.get(i).getWrapAfterSize();
             this.months.get(i).addDaysAfter(this.months.get(i + 1).getMonth().subList(wrapStartIndex, wrapStartIndex + wrapLength));
+            this.months.get(i).setNext(this.months.get(i + 1));
         }
     }
 
@@ -81,13 +86,13 @@ public class Calendar {
 
     public Month getNextMonth(){
         int i = this.months.indexOf(this.currentMonth);
-        this.currentMonth = this.months.get(i + 1);
+        this.currentMonth = new Month(this.months.get(i + 1).getMonth());
         return this.currentMonth;
     }
 
     public Month getPrevMonth(){
         int i = this.months.indexOf(this.currentMonth);
-        this.currentMonth = this.months.get(i - 1);
+        this.currentMonth = new Month(this.months.get(i - 1).getMonth());
         return this.currentMonth;
     }
 

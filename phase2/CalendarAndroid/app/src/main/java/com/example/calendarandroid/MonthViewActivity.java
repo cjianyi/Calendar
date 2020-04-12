@@ -58,7 +58,7 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
         currentCalendar= MainActivity.currentCalendar;
 
         currentMonth = currentCalendar.getCurrentMonth();
-
+        currentMonthDays = new ArrayList<>();
         ArrayList<Day> day = new ArrayList<>();
         LocalDate dd = LocalDate.now();
         Day d1 = new Day(dd);
@@ -76,27 +76,35 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
         currentMonth.getMonth().get(0).addEvent(new Event("b"));
         currentMonth.getMonth().get(0).addEvent(new Event("c"));
         currentMonth.getMonth().get(0).addEvent(new Event("d"));
-        currentMonthDays = currentMonth.getMonth();
+        for(int i = 0; i <=41; i++){
+            currentMonthDays.add(currentMonth.getMonth().get(i));
+        }
+
         t.setText(currentMonth.getMonthName());
         adapter = new MonthViewAdapter(this, currentMonthDays, this);
         month.setAdapter(adapter);
     }
     public void nextMonth(View view){
         monthViewDate = monthViewDate.plusMonths(1);
-        currentMonth = currentCalendar.getNextMonth();
+        currentMonth = currentMonth.getNext();
+        currentMonthDays.clear();
         for(int i = 0; i <=41; i++){
-            currentMonthDays.set(i, currentMonth.getMonth().get(i));
+            currentMonthDays.add(currentMonth.getMonth().get(i));
         }
-        adapter.notifyDataSetChanged();
+
         adapter.notifyDataSetChanged();
         t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(0).getDay().getYear()));
     }
 
     public void prevMonth(View view){
         monthViewDate = monthViewDate.minusMonths(1);
-        currentMonth = currentCalendar.getPrevMonth();
+        currentMonth = currentMonth.getPrev();
+        if(currentMonth == null){
+            Log.d("null", "why :(");
+        }
+        currentMonthDays.clear();
         for(int i = 0; i <=41; i++){
-            currentMonthDays.set(i, currentMonth.getMonth().get(i));
+            currentMonthDays.add(currentMonth.getMonth().get(i));
         }
         adapter.notifyDataSetChanged();
         t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(0).getDay().getYear()));
