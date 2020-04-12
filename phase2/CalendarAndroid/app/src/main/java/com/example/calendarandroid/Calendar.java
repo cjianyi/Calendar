@@ -51,15 +51,15 @@ public class Calendar {
             day.add(new Day(d));
             if(d.plusDays(1).getMonthValue() != d.getMonthValue()){
                 Month m = new Month(day);
-                day.removeAll(day);
                 this.months.add(m);
+                day = new ArrayList<>();
             }
             d = d.plusDays(1);
         }
         this.setCurrentMonth(LocalDate.now());
-
-
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
+
+
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
             int size = this.months.get(i - 1).getMonth().size();
@@ -79,7 +79,7 @@ public class Calendar {
         return this.currentMonth;
     }
 
-    public Month getNextMoth(){
+    public Month getNextMonth(){
         int i = this.months.indexOf(this.currentMonth);
         this.currentMonth = this.months.get(i + 1);
         return this.currentMonth;
@@ -106,7 +106,6 @@ public class Calendar {
         return dates;
 
     }
-
 
     public void setCurrentMonth(LocalDate d){
         for(Month m: this.months){

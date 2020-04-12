@@ -58,6 +58,20 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
         currentCalendar= MainActivity.currentCalendar;
 
         currentMonth = currentCalendar.getCurrentMonth();
+
+        ArrayList<Day> day = new ArrayList<>();
+        LocalDate dd = LocalDate.now();
+        Day d1 = new Day(dd);
+        Day d2 = new Day(dd.plusDays(1));
+        Day d3 = new Day(dd.plusDays(2));
+        d1.addEvent(new Event("a"));
+        d1.addEvent(new Event("b"));
+        d1.addEvent(new Event("c"));
+        day.add(d1);
+        day.add(d2);
+        day.add(d3);
+
+
         currentMonth.getMonth().get(0).addEvent(new Event("b"));
         currentMonth.getMonth().get(0).addEvent(new Event("b"));
         currentMonth.getMonth().get(0).addEvent(new Event("c"));
@@ -69,12 +83,13 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
     }
     public void nextMonth(View view){
         monthViewDate = monthViewDate.plusMonths(1);
-        currentMonth = currentCalendar.getNextMoth();
+        currentMonth = currentCalendar.getNextMonth();
         for(int i = 0; i <=41; i++){
             currentMonthDays.set(i, currentMonth.getMonth().get(i));
         }
         adapter.notifyDataSetChanged();
-        t.setText(currentMonth.getMonthName());
+        adapter.notifyDataSetChanged();
+        t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(0).getDay().getYear()));
     }
 
     public void prevMonth(View view){
@@ -84,7 +99,7 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
             currentMonthDays.set(i, currentMonth.getMonth().get(i));
         }
         adapter.notifyDataSetChanged();
-        t.setText(currentMonth.getMonthName());
+        t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(0).getDay().getYear()));
     }
 
 

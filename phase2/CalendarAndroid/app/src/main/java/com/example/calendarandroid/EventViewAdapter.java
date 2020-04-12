@@ -19,25 +19,29 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
 
     Context context;
     ArrayList<Event> events;
-    MonthViewAdapter.OnDayClickListener mOnEventsClickListener;
+    static MonthViewAdapter.OnDayClickListener mOnEventsClickListener;
 
     public EventViewAdapter (Context context, ArrayList<Event> arrayList, MonthViewAdapter.OnDayClickListener onEventsClickListener) {
         this.context = context;
         this.events = arrayList;
-        this.mOnEventsClickListener = onEventsClickListener;
+        mOnEventsClickListener = onEventsClickListener;
     }
 
     @Override
     public EventViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.content_single_event, parent, false);
-        return new ViewHolder(view, this.mOnEventsClickListener);
+        return new ViewHolder(view, mOnEventsClickListener);
     }
 
     @Override
     public void onBindViewHolder(EventViewAdapter.ViewHolder holder, int position) {
         Log.d("event", Integer.toString(events.size()));
-        holder.eventName.setText(events.get(position).getName());
-
+        int l = this.events.size();
+        int count = 0;
+        for(TextView t: holder.eventNames){
+            t.setText(this.events.get(count).getName());
+            count += 1;
+        }
     }
 
     @Override
@@ -45,23 +49,38 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         return events.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView eventName;
         MonthViewAdapter.OnDayClickListener onEventListener;
         LinearLayout linearLayout;
+        RecyclerView r;
 
-        public ViewHolder(View itemView, MonthViewAdapter.OnDayClickListener onDayClickListener) {
+        TextView event1;
+        TextView event2;
+        TextView event3;
+        TextView event4;
+        ArrayList<TextView> eventNames;
+
+        public  ViewHolder(View itemView, MonthViewAdapter.OnDayClickListener onDayClickListener) {
             super(itemView);
             eventName = itemView.findViewById(R.id.eventName);
             linearLayout = itemView.findViewById(R.id.showEvents);
             this.onEventListener = onDayClickListener;
             linearLayout.setOnClickListener(this);
+            event1 = itemView.findViewById(R.id.event1);
+            event2 = itemView.findViewById(R.id.event2);
+            event3 = itemView.findViewById(R.id.event3);
+            event4 = itemView.findViewById(R.id.event4);
+            eventNames.add(event1);
+            eventNames.add(event2);
+            eventNames.add(event3);
+            eventNames.add(event4);
         }
 
 
         @Override
         public void onClick(View v) {
-            RecyclerView r = (RecyclerView) v.getParent();
+            r = (RecyclerView) v.getParent();
             ViewHolder currentViewHolder = (ViewHolder) r.getChildViewHolder(v);
 
             mOnEventsClickListener.onDayClick(currentViewHolder.getAdapterPosition());
