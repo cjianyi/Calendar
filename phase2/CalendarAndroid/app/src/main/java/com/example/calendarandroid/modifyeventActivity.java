@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 
 public class modifyeventActivity extends AppCompatActivity {
@@ -18,6 +19,9 @@ public class modifyeventActivity extends AppCompatActivity {
     private EditText new_name;
     private EditText new_start;
     private EditText new_end;
+    private EditText new_start_time;
+    private EditText new_end_time;
+    private TextView wrong_time;
     private Button back_main;
     private Button back_edit;
     private Event e;
@@ -28,8 +32,11 @@ public class modifyeventActivity extends AppCompatActivity {
         new_name = findViewById(R.id.enternewstart);
         new_start = findViewById(R.id.enternewstart);
         new_end = findViewById(R.id.enternewend);
+        new_start_time  = findViewById(R.id.ednewstarttime);
+        new_end_time = findViewById(R.id.ednewendtime);
         back_main = findViewById(R.id.button8);
         back_edit = findViewById(R.id.button8);
+        wrong_time = findViewById(R.id.wrong_start);
         this.e = EditeventActivity.get_e();
 
 
@@ -65,12 +72,30 @@ public class modifyeventActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                set_start();
             }
         };
+        new_start_time.addTextChangedListener(start_time);
+        new_start.addTextChangedListener(start_time);
 
+        TextWatcher end_time = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                set_end();
+            }
+        };
+        new_end.addTextChangedListener(end_time);
+        new_end_time.addTextChangedListener(end_time);
 
 
     }
@@ -80,7 +105,27 @@ public class modifyeventActivity extends AppCompatActivity {
     }
 
     public void set_start(){
+        String start_time = new_start_time.getText().toString();
+        String start_date = new_start.getText().toString();
+        LocalDateTime start;
+        try {
+            start = LocalDateTime.parse(start_date + "T" + start_time);
+            e.setStartTime(start);
+        }catch (DateTimeParseException x){
+            wrong_time.setText(R.string.wrong_time);
+        }
+    }
 
+    public void set_end(){
+        String end_time = new_end_time.getText().toString();
+        String end_date = new_end.getText().toString();
+        LocalDateTime end;
+        try {
+            end = LocalDateTime.parse(end_date + "T" + end_time);
+            e.setStartTime(end);
+        }catch (DateTimeParseException x){
+            wrong_time.setText(R.string.wrong_time);
+        }
     }
 
 }
