@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+
 public class EditeventActivity extends AppCompatActivity{
     private  EditText event_name;
     public static Event e;
@@ -24,7 +25,7 @@ public class EditeventActivity extends AppCompatActivity{
     private Button series_b;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_event);
         event_name = findViewById(R.id.editeventname);
