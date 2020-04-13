@@ -145,7 +145,6 @@ public class Calendar {
         ParseObject calendar;
         // Query Parameters
         ArrayList<String> event = new ArrayList<>();
-
         query.whereEqualTo("userID", ParseUser.getCurrentUser());
         try {
             cal = query.find();
@@ -156,18 +155,7 @@ public class Calendar {
                 Log.d("finding object", "found a few");
                 if(calendars.get("calendarName").toString().equals(ParseUser.getCurrentUser().getUsername() + "1")){
                     calendar = calendars;
-                    ParseRelation<ParseObject> r = calendar.getRelation("events");
-                    ParseObject p = new ParseObject("Event");
-                    p.put("eventName", "hello");
-                    p.put("startDate", "2020-04-01T10:45");
-                    p.put("endDate", "2020-04-01T11:45");
-                    p.put("tags", "[]");
-                    p.put("memos", "[]");
-                    p.put("series", "[[],[]]");
-                    p.put("alerts", "[]");
-                    p.save();
-                    r.add(p);
-                    calendar.save();
+
                     Log.d("Calenda", "found");
                     final ParseQuery<ParseObject> query2 =  calendar.getRelation("events").getQuery();
                     List<ParseObject> events = query2.find();

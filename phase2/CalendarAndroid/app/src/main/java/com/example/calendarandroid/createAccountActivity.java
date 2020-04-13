@@ -26,7 +26,10 @@ import com.parse.ParseUser;
 import com.parse.ParseRelation;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import com.parse.ParseException;
@@ -52,12 +55,28 @@ public class createAccountActivity extends AppCompatActivity {
     private Button signUp;
 
     private UserManager userManager = MainActivity.userManager;
+    private ArrayList<String> usernames;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        ParseQuery<ParseObject>  query = ParseQuery.getQuery("_User");
+
+        try {
+            usernames = new ArrayList<>();
+            List<ParseObject> users =query.find();
+            for(ParseObject u: users){
+                usernames.add(u.get("username").toString());
+            }
+        }catch(ParseException p){
+            Log.d("users", "could not find");
+        }
+
+
         username = findViewById(R.id.edCreateUserName);
         password = findViewById(R.id.edCreatedPassword);
         confirmPassword = findViewById(R.id.edConfirmPassword);
@@ -156,7 +175,7 @@ public class createAccountActivity extends AppCompatActivity {
 
     private boolean usernameAvailable(){
         String name = username.getText().toString();
-        return userManager.userNameAvailable(name);
+        return !usernames.contains(name);
     }
 
     private boolean passwordInvalid(){
@@ -165,9 +184,9 @@ public class createAccountActivity extends AppCompatActivity {
     }
 
     public void createAccount(View view){
+        final boolean exit = false;
         if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()){
 //            userManager.createAccount(username.getText().toString(), "", password.getText().toString());
-
 
             final ParseUser user = new ParseUser();
 // Set the user's username and password, which can be obtained by a forms
@@ -177,6 +196,7 @@ public class createAccountActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
+
                         Log.d("create account", "success");
                         ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
                             @Override
@@ -194,6 +214,7 @@ public class createAccountActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        Log.d("reate account", "failed");
                         ParseUser.logOut();
                         Toast.makeText(createAccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
