@@ -1,17 +1,40 @@
 package com.example.calendarandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import org.w3c.dom.Text;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.ParseRelation;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
+import java.util.Date;
+
+
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.SaveCallback;
 
 public class createAccountActivity extends AppCompatActivity {
 
@@ -71,8 +94,6 @@ public class createAccountActivity extends AppCompatActivity {
             }
         };
         username.addTextChangedListener(usernameWtacher);
-
-
 
         TextWatcher passwordWatcher = new TextWatcher() {
             @Override
@@ -145,11 +166,58 @@ public class createAccountActivity extends AppCompatActivity {
 
     public void createAccount(View view){
         if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()){
-            userManager.createAccount(username.getText().toString(), "", password.getText().toString());
-            finish();
+//            userManager.createAccount(username.getText().toString(), "", password.getText().toString());
+
+
+            final ParseUser user = new ParseUser();
+// Set the user's username and password, which can be obtained by a forms
+            user.setUsername(username.getText().toString());
+            user.setPassword(password.getText().toString());
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        Log.d("create account", "success");
+                        ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
+                            @Override
+                            public void done(ParseUser parseUser, ParseException e) {
+                                if (parseUser != null) {
+                                    Log.d("login", "success");
+                                    createCalendar();
+                                    Log.d("calendar createed", "success");
+                                    ParseUser.logOut();
+
+                                } else {
+                                    ParseUser.logOut();
+                                    Toast.makeText(createAccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    } else {
+                        ParseUser.logOut();
+                        Toast.makeText(createAccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
+        finish();
+    }
+
+    private void createCalendar(){
+        final ParseUser u = ParseUser.getCurrentUser();
+        final ParseObject entity = new ParseObject("Calendar");
+        entity.put("calendarName", u.getUsername() + "1");
+        entity.put("userID", ParseUser.getCurrentUser());
+        ParseRelation<ParseObject> r = u.getRelation("Calendars");
 
 
+        try {
+            entity.save();
+            r.add(entity);
+            u.save();
+        }catch (ParseException e){
+            Log.d("calendar creation", "save failed");
+        }
 
 
     }

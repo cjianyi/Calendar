@@ -7,6 +7,14 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 import com.restfb.json.*;
 
 public class Calendar {
@@ -21,8 +29,7 @@ public class Calendar {
     private LocalDate d;
 
     private ArrayList<Day> day;
-    private ArrayList<Day> wrapBeforeDays;
-    private ArrayList<Day> wrapAfterDays;
+
     private Month currentMonth;
 
     private ArrayList<String> totalDurationSeries = new ArrayList<>();
@@ -60,6 +67,8 @@ public class Calendar {
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.setCurrentMonth(LocalDate.now());
 
+
+
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
             int size = this.months.get(i - 1).getMonth().size();
@@ -84,17 +93,7 @@ public class Calendar {
         return this.currentMonth;
     }
 
-    public Month getNextMonth(){
-        int i = this.months.indexOf(this.currentMonth);
-        this.currentMonth = new Month(this.months.get(i + 1).getMonth());
-        return this.currentMonth;
-    }
 
-    public Month getPrevMonth(){
-        int i = this.months.indexOf(this.currentMonth);
-        this.currentMonth = new Month(this.months.get(i - 1).getMonth());
-        return this.currentMonth;
-    }
 
     private ArrayList<Day> wrapBeforeFirstMonth(){
         ArrayList<Day> dates = new ArrayList<>();
@@ -124,24 +123,72 @@ public class Calendar {
 
     }
 
-    private ArrayList<String> loadEventsFile(String username){
-        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
-        ArrayList<String> eventGetter = new ArrayList<>();
-        BufferedReader br;
-        try{
-            br = new BufferedReader(new FileReader(file));
-            String line = br.readLine();
-            while(line!=null){
-                eventGetter.add(line);
-                line = br.readLine();
-            }
-        }catch (IOException e){}
+    public List<ParseObject> loadEventsFile() {
+//        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
+//        ArrayList<String> eventGetter = new ArrayList<>();
+//        BufferedReader br;
+//        try{
+//            br = new BufferedReader(new FileReader(file));
+//            String line = br.readLine();
+//            while(line!=null){
+//                eventGetter.add(line);
+//                line = br.readLine();
+//            }
+//        }catch (IOException e){
+//            Log.d("loading events", "could not find file");
+//        }
+//
+//        return eventGetter;
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Calendar");
+        final ParseUser u = ParseUser.getCurrentUser();
+        List<ParseObject> cal;
+        ParseObject calendar;
+        // Query Parameters
+        ArrayList<String> event = new ArrayList<>();
 
-        return eventGetter;
+        query.whereEqualTo("userID", ParseUser.getCurrentUser());
+        try {
+            cal = query.find();
+            Log.d("test", "test");
+            Log.d("length", Integer.toString(cal.size()));
+
+            for(ParseObject calendars: cal){
+                Log.d("finding object", "found a few");
+                if(calendars.get("calendarName").toString().equals(ParseUser.getCurrentUser().getUsername() + "1")){
+                    calendar = calendars;
+                    ParseRelation<ParseObject> r = calendar.getRelation("events");
+                    ParseObject p = new ParseObject("Event");
+                    p.put("eventName", "hello");
+                    p.put("startDate", "2020-04-01T10:45");
+                    p.put("endDate", "2020-04-01T11:45");
+                    p.put("tags", "[]");
+                    p.put("memos", "[]");
+                    p.put("series", "[[],[]]");
+                    p.put("alerts", "[]");
+                    p.save();
+                    r.add(p);
+                    calendar.save();
+                    Log.d("Calenda", "found");
+                    final ParseQuery<ParseObject> query2 =  calendar.getRelation("events").getQuery();
+                    List<ParseObject> events = query2.find();
+                    Log.d("events length", Integer.toString(events.size()));
+                    return events;
+
+                }
+            }
+        }catch(ParseException e){
+            Log.d("error", ":(");
+
+        }
+        return null;
     }
 
+
+
+
+
     public void loadEvents(String username){
-        ArrayList<String>  events = this.loadEventsFile(username);
+        List<ParseObject>  events = this.loadEventsFile();
         String eventName = "";
         LocalDateTime startDate;
         LocalDateTime endDate;
@@ -156,7 +203,7 @@ public class Calendar {
         totalLinkedSeries = new ArrayList<>();
 
 
-        for(String event:events){
+        for(ParseObject event:events){
             tags = new ArrayList<>();
             alerts2 = new ArrayList<>();
             memo = new ArrayList<>();
@@ -165,21 +212,21 @@ public class Calendar {
 
             JsonObject e = new JsonObject(event);
 
-            eventName = e.getString("name");
-            startDate = LocalDateTime.parse(e.getString("startTime"));
-            endDate = LocalDateTime.parse(e.getString("endTime"));
-            JsonArray a = e.getJsonArray("tags");
+            eventName = event.get("eventName").toString();
+            startDate = LocalDateTime.parse(event.get("startDate").toString());
+            endDate = LocalDateTime.parse(event.get("endDate").toString());
+            JsonArray a = new JsonArray(event.get("tags").toString());
             this.loadTags(a, tags);
-            JsonArray b = e.getJsonArray("alerts");
+            JsonArray b = new JsonArray(event.get("alerts").toString());
             this.loadAlerts(b, alerts2);
-            JsonArray s = e.getJsonArray("series");
+            JsonArray s = new JsonArray(event.get("series").toString());
             this.loadSeries(s, durationSeriesString, linkedSeriesString);
             //series = durationSeriesString.get(0);
             Event p = new Event(startDate, endDate, eventName, tags, alerts2, durationSeriesString);
 
             this.alerts.addAll(alerts2);
             this.addEvent(p, username);
-            JsonArray me = e.getJsonArray("memos");
+            JsonArray me = new JsonArray(event.get("memos").toString());
             this.loadMemos(me, memo);
             for(Memo m: memo){
                 p.addMemo(m);
@@ -188,6 +235,24 @@ public class Calendar {
         }
         createDurationSeries(durationSeriesString);
         createLinkedSeries(linkedSeriesString);
+        this.addEventsToDays();
+
+    }
+
+    private void addEventsToDays(){
+        for(Month m: this.months){
+            for(Day d: m.getMonth()){
+                for(Event e: this.events){
+                    if((e.getStartTime().toLocalDate().isBefore(d.getDay()) ||e.getStartTime().toLocalDate().isEqual(d.getDay()))
+                            && (e.getEndTime().toLocalDate().isAfter(d.getDay())|| e.getEndTime().toLocalDate().isEqual(d.getDay())))
+                    {
+                        if (!d.getEvents().contains(e)) {
+                            d.addEvent(e);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -245,6 +310,7 @@ public class Calendar {
         }
     }
 
+
     private void createLinkedSeries(ArrayList<String> series){
         for(String s:totalLinkedSeries){
             Linked_series l = new Linked_series(s);
@@ -262,7 +328,7 @@ public class Calendar {
         this.events.add(e);
 
         try {
-           FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
+            FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
             for (Event event : this.events) {
                 fw.write(event.eventFileFormatter() + "\n");
             }
@@ -346,7 +412,7 @@ public class Calendar {
     //Event editor menu
     public void deleteEvent(Event e) {
         if (events.contains(e)) {
-                this.events.remove(e);
+            this.events.remove(e);
         }
     }
 
@@ -400,8 +466,8 @@ public class Calendar {
         for (Event e: events) {
             if ((input.equals("tag") && isEventTagged(e, info)) ||
                     (input.equals("series_name") && isEventInSeries(e, info)) ||
-                        (input.equals("name") && isEventNameEqual(e, info))) {
-                            temp.add(e);
+                    (input.equals("name") && isEventNameEqual(e, info))) {
+                temp.add(e);
             }
         }
         return temp;
@@ -437,9 +503,9 @@ public class Calendar {
             endTime = e.getEndTime();
             if ((input.equals("current") && isEventCurrent(startTime, endTime, date)) ||
                     (input.equals("future") && isEventFuture(startTime, date)) ||
-                        (input.equals("past") && isEventPast(endTime, date)) ||
-                            (input.equals("any") && isEventAny(startTime, endTime, date)))
-                                temp.add(e);
+                    (input.equals("past") && isEventPast(endTime, date)) ||
+                    (input.equals("any") && isEventAny(startTime, endTime, date)))
+                temp.add(e);
         }
         return temp;
     }
