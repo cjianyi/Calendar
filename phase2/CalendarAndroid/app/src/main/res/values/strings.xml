@@ -11,7 +11,7 @@
     <string name="back_to_week">Back to Week</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
-    <string name="enter_date">(current date here)</string>
+    <string name="enter_date">Today</string>
     <string name="create_account">Create Account</string>
     <string name="next">NEXT</string>
     <string name="prev">PREV</string>
