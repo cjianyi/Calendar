@@ -1,6 +1,5 @@
 package com.example.calendarandroid;
 
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class EventListAdopter extends RecyclerView.Adapter<EventListAdopter.ViewHolder> {
-    private List<String> values;
+public class DateListAdopter extends RecyclerView.Adapter<DateListAdopter.ViewHolder> {
+    private List<Event> values;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtHeader;
@@ -27,11 +27,11 @@ public class EventListAdopter extends RecyclerView.Adapter<EventListAdopter.View
         }
     }
 
-    public EventListAdopter(List<String> eventData) {
+    public DateListAdopter(List<Event> eventData) {
         values = eventData;
     }
 
-    public void add(int position, String item) {
+    public void add(int position, Event item) {
         values.add(position, item);
         notifyItemInserted(position);
     }
@@ -41,8 +41,13 @@ public class EventListAdopter extends RecyclerView.Adapter<EventListAdopter.View
         notifyItemRemoved(position);
     }
 
+    public void updateList(List<Event> data) {
+        values = data;
+        notifyDataSetChanged();
+    }
+
     @Override
-    public EventListAdopter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DateListAdopter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.event_list_row, parent, false);
         return new ViewHolder(v);
@@ -50,15 +55,17 @@ public class EventListAdopter extends RecyclerView.Adapter<EventListAdopter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final String name = values.get(position);
-        holder.txtHeader.setText((name));
+        final Event event = values.get(position);
+        // Set item header to event name
+        holder.txtHeader.setText((event.getName()));
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 remove(position);
             }
         });
-        holder.txtFooter.setText("Footer: " + name);
+        // Set item footer to event Start Time
+        holder.txtFooter.setText(event.getStartTime().format(DateTimeFormatter.ISO_LOCAL_TIME));
     }
 
     @Override

@@ -4,36 +4,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.ListView;
-import android.widget.Toast;
 
+import android.os.Bundle;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DateActivity extends AppCompatActivity {
 
+    Calendar currentCalendar;
+    LocalDateTime date;
+    DateListAdopter eLAdapter;
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.event_list);
+        recyclerView = (RecyclerView) findViewById(R.id.event_list);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<String> input = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            input.add("Test" + i);
-        }// define an adapter
-        EventListAdopter eLAdapter = new EventListAdopter(input);
+
+        currentCalendar = MainActivity.currentCalendar;
+
+        // TODO: change this so date refers to whichever date was clicked on in MonthView
+        date = LocalDateTime.now();
+
+
+        List<Event> input = currentCalendar.search("any", date);
+        // define an adapter
+        eLAdapter = new DateListAdopter(input);
         recyclerView.setAdapter(eLAdapter);
+    }
+
+    public void nextDate() {
+        // change the date to the next one
+
     }
 }
