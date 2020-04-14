@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Month {
+public class Month implements Comparable<Month>{
     private ArrayList<Day> month;
     private int monthVal;
     private String monthName;
@@ -60,8 +60,9 @@ public class Month {
         this.wrapBeforeSize = this.findWrapBeforeSize();
 
         this.wrapAfterSize = this.findWrapAfterSize();
-        Log.d("month class", "wrap after");
+
         this.monthName = month.get(0).getDay().getMonth().toString();
+        this.monthVal = month.get(0).getDay().getMonthValue();
 
     }
 
@@ -73,7 +74,7 @@ public class Month {
             d = d.minusDays(1);
             count += 1;
         }
-        Log.d("month class", "wrap before end");
+
         return count;
     }
 
@@ -110,5 +111,9 @@ public class Month {
     }
 
 
+    @Override
+    public int compareTo(Month o) {
+        return this.getMonth().get(0).compareTo(o.getMonth().get(0));
 
+    }
 }

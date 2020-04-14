@@ -57,6 +57,7 @@ public class Calendar {
         while(d.isBefore(max)){
             day.add(new Day(d));
             if(d.plusDays(1).getMonthValue() != d.getMonthValue()){
+//                Log.d("new month!",  Integer.toString(d.getYear()) +  Integer.toString(d.getMonthValue()));
                 Month m = new Month(day);
                 this.months.add(m);
                 day = new ArrayList<>();
@@ -64,10 +65,11 @@ public class Calendar {
             d = d.plusDays(1);
         }
 
+        for(int i = 0; i < months.size(); i++){
+            Log.d("month array",  Integer.toString(months.get(i).getMonth().get(0).getDay().getYear()) +  Integer.toString(months.get(i).getMonth().get(0).getDay().getMonthValue()));
+        }
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.setCurrentMonth(LocalDate.now());
-
-
 
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
@@ -92,8 +94,6 @@ public class Calendar {
     public Month getCurrentMonth(){
         return this.currentMonth;
     }
-
-
 
     private ArrayList<Day> wrapBeforeFirstMonth(){
         ArrayList<Day> dates = new ArrayList<>();
