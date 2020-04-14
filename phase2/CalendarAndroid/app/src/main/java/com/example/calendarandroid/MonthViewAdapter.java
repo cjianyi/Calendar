@@ -40,6 +40,7 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
         View view = LayoutInflater.from(parent.getContext()).inflate(layout.content_events, parent, false);
 
         return new ViewHolder(view, this.mOnDayClickListener);
+
     }
 
     @Override
@@ -81,7 +82,7 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
         }
         holder.t.setText(days.get(position).getMonthDayNumber());
 
-        EventViewAdapter adapter =new EventViewAdapter(context, days.get(position).getEvents());
+        EventInMonthViewAdapter adapter =new EventInMonthViewAdapter(context, days.get(position).getEvents());
 
 
         CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);

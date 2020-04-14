@@ -15,26 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.ViewHolder> {
+public class EventInMonthViewAdapter extends RecyclerView.Adapter<EventInMonthViewAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Event> events;
 
 
-    public EventViewAdapter (Context context, ArrayList<Event> arrayList) {
+    public EventInMonthViewAdapter (Context context, ArrayList<Event> arrayList) {
         this.context = context;
         this.events = arrayList;
 
     }
 
     @Override
-    public EventViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventInMonthViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.content_single_event, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(EventViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(EventInMonthViewAdapter.ViewHolder holder, int position) {
         Log.d("event", Integer.toString(events.size()));
         int l = this.events.size();
         int count = 0;
