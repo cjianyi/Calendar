@@ -12,6 +12,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text="@string/back_to_cal"
+        android:onClick="backToCal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,6 +23,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:text="@string/back"
+        android:onClick="previousDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +34,7 @@
         android:layout_marginStart="300dp"
         android:layout_marginTop="80dp"
         android:text="@string/forward"
+        android:onClick="nextDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +63,7 @@
 
 
     <TextView
-        android:id="@android:id/empty"
+        android:id="@+id/empty_ls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
