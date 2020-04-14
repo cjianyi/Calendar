@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import static com.example.calendarandroid.R.*;
 
-public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.ViewHolder>   {
+public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.ViewHolder> implements EventViewAdapter.OnEventsClickListener  {
 
     Context context;
     ArrayList<Day> days;
@@ -81,10 +81,11 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
         }
         holder.t.setText(days.get(position).getMonthDayNumber());
 
-        EventViewAdapter adapter =new EventViewAdapter(context, days.get(position).getEvents());
+        EventViewAdapter adapter =new EventViewAdapter(context, days.get(position).getEvents(), this.mOnDayClickListener);
 
 
         CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
 
     }
 
@@ -93,7 +94,10 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
         return days.size();
     }
 
+    @Override
+    public void onEventsClick() {
 
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RecyclerView r;
