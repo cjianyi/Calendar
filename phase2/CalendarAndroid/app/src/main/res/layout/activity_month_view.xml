@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".MonthViewActivity">
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:onClick="logout"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
     <LinearLayout
         android:layout_width="match_parent"
 
@@ -130,4 +140,6 @@
         android:layout_height="581dp"
 
         android:layout_gravity="bottom" />
+
+
 </FrameLayout>

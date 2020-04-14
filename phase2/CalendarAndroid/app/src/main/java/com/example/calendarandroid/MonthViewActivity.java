@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxItemDecoration;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
@@ -119,5 +120,10 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
     @Override
     public void onDayClick() {
         Log.d("day click", "l");
+    }
+
+    public void logout(View view){
+        ParseUser.logOut();
+        finish();
     }
 }
