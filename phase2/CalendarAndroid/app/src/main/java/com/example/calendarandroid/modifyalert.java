@@ -21,6 +21,7 @@ public class modifyalert extends AppCompatActivity implements View.OnClickListen
     private Button remove_alert;
     private Button modify_alert;
     private TextView wrong_alert;
+    public static Alert a;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,8 @@ public class modifyalert extends AppCompatActivity implements View.OnClickListen
             case R.id.addalert:
                 break;
             case R.id.modifyalert:
-                break;
+                Intent intent = new Intent(this, alert_modifymenu.class);
+                startActivity(intent);
 
         }
 
@@ -83,10 +85,15 @@ public class modifyalert extends AppCompatActivity implements View.OnClickListen
         String alertname = alert_name.getText().toString();
         for (Alert a: e.getAlerts()){
             if (a.getAlert() == alertname){
+                this.a = a;
                 return a;
             }
         }
         return null;
+    }
+
+    public static Alert getter_alert(){
+        return a;
     }
 
 }

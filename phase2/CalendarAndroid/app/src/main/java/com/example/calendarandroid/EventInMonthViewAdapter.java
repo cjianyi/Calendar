@@ -15,26 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.ViewHolder> {
+public class EventInMonthViewAdapter extends RecyclerView.Adapter<EventInMonthViewAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Event> events;
-    static MonthViewAdapter.OnDayClickListener mOnEventsClickListener;
 
-    public EventViewAdapter (Context context, ArrayList<Event> arrayList, MonthViewAdapter.OnDayClickListener onEventsClickListener) {
+
+    public EventInMonthViewAdapter (Context context, ArrayList<Event> arrayList) {
         this.context = context;
         this.events = arrayList;
-        mOnEventsClickListener = onEventsClickListener;
+
     }
 
     @Override
-    public EventViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventInMonthViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.content_single_event, parent, false);
-        return new ViewHolder(view, mOnEventsClickListener);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(EventViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(EventInMonthViewAdapter.ViewHolder holder, int position) {
         Log.d("event", Integer.toString(events.size()));
         int l = this.events.size();
         int count = 0;
@@ -49,7 +49,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         return events.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView eventName;
         MonthViewAdapter.OnDayClickListener onEventListener;
         LinearLayout linearLayout;
@@ -61,12 +61,12 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         TextView event4;
         ArrayList<TextView> eventNames;
 
-        public  ViewHolder(View itemView, MonthViewAdapter.OnDayClickListener onDayClickListener) {
+        public  ViewHolder(View itemView) {
             super(itemView);
             eventName = itemView.findViewById(R.id.eventName);
             linearLayout = itemView.findViewById(R.id.showEvents);
-            this.onEventListener = onDayClickListener;
-            linearLayout.setOnClickListener(this);
+
+
             event1 = itemView.findViewById(R.id.event1);
             event2 = itemView.findViewById(R.id.event2);
             event3 = itemView.findViewById(R.id.event3);
@@ -78,18 +78,10 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         }
 
 
-        @Override
-        public void onClick(View v) {
-            r = (RecyclerView) v.getParent();
-            ViewHolder currentViewHolder = (ViewHolder) r.getChildViewHolder(v);
 
-            mOnEventsClickListener.onDayClick(currentViewHolder.getAdapterPosition());
-        }
     }
 
-    public interface OnEventsClickListener{
-        void onEventsClick();
-    }
+
 
 
 }
