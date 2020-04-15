@@ -72,7 +72,8 @@ public class modifyalert extends AppCompatActivity implements View.OnClickListen
             case R.id.addalert:
                 break;
             case R.id.modifyalert:
-                break;
+                Intent intent = new Intent(this, alert_modifymenu.class);
+                startActivity(intent);
 
         }
 
