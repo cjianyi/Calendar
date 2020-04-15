@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the id of the memo"
+            android:ems="10"
+            android:id="@+id/edidmemo" android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@+id/edback" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="66dp"/>
+    <Button
+            android:text="back to edit menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/edback"
+            android:layout_marginBottom="36dp"
+            app:layout_constraintBottom_toTopOf="@+id/edidmemo" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="236dp"/>
+    <TextView
+            android:text=" "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/wrongmemoname"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="51dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="71dp"/>
+    <Button
+            android:text="remove this memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/removememo"
+            android:layout_marginTop="55dp"
+            app:layout_constraintTop_toBottomOf="@+id/edidmemo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="66dp"/>
+    <Button
+            android:text="add a new memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/addmemo"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/removememo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="66dp"/>
+    <Button
+            android:text="edit this memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/editmemo"
+            android:layout_marginTop="27dp"
+            app:layout_constraintTop_toBottomOf="@+id/addmemo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="66dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
