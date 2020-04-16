@@ -38,6 +38,7 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set up view with menu bar
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -134,11 +135,13 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
 
     @Override
     int getContentViewId() {
+        // set to this activity's layout
         return R.layout.activity_month_view;
     }
 
     @Override
     int getNavigationMenuItemId() {
+        // the id of the menu button
         return R.id.action_month;
     }
 
