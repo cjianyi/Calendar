@@ -7,4 +7,5 @@
     <string name="day_Thursday">Thursday</string>
     <string name="day_Friday">Friday</string>
     <string name="day_Saturday">Saturday</string>
+    <string name="delete_event">DELETE</string>
 </resources>

@@ -4,21 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ViewEventsAdapter extends  RecyclerView.Adapter<ViewEventsAdapter.ViewHolder>  {
     Context context;
-    ArrayList<Event> events;
+    ArrayList<String[]> events;
     private OnEventClickListener mOnEventClickListener;
 
-    public ViewEventsAdapter(Context context, ArrayList<Event> events, OnEventClickListener onEventClickListener){
+    public ViewEventsAdapter(Context context, ArrayList<String[]> events, OnEventClickListener onEventClickListener){
         this.context = context;
         this.events = events;
         this.mOnEventClickListener = onEventClickListener;
@@ -34,7 +37,16 @@ public class ViewEventsAdapter extends  RecyclerView.Adapter<ViewEventsAdapter.V
 
     @Override
     public void onBindViewHolder(@NonNull ViewEventsAdapter.ViewHolder holder, int position) {
-        holder.t.setText(this.events.get(position).getName());
+        holder.name.setText(this.events.get(position)[0]);
+        LocalDateTime s = LocalDateTime.parse(this.events.get(position)[1]);
+        LocalDateTime e = LocalDateTime.parse(this.events.get(position)[2]);
+        StringBuilder time = new StringBuilder(s.toLocalTime().toString());
+        time.append(" - ");
+        if(s.toLocalDate().equals(e.toLocalDate())){
+            time.append(e.toLocalTime().toString());
+        }
+        holder.time.setText(time.toString());
+
     }
 
     @Override
@@ -43,18 +55,20 @@ public class ViewEventsAdapter extends  RecyclerView.Adapter<ViewEventsAdapter.V
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView t;
-        FrameLayout l;
+        TextView name;
+        ConstraintLayout c;
+        TextView time;
         OnEventClickListener clicks;
 
         public ViewHolder(@NonNull View itemView, OnEventClickListener onEventClickListener) {
             super(itemView);
-            t = itemView.findViewById(R.id.eventText);
-            l = itemView.findViewById(R.id.eventsView);
+            name = itemView.findViewById(R.id.eventText);
+            c = itemView.findViewById(R.id.eventsView);
 
             this.clicks = onEventClickListener;
-            l.setOnClickListener(this);
+            c.setOnClickListener(this);
             itemView.setOnClickListener(this);
+            time = itemView.findViewById(R.id.eventTime);
 
         }
 

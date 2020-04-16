@@ -31,7 +31,7 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
         memo_id = findViewById(R.id.edidmemo);
         remove = findViewById(R.id.removememo);
         add = findViewById(R.id.addmemo);
-        edit = findViewById(R.id.edidmemo);
+        //edit = findViewById(R.id.edidmemo);
         e = EditeventActivity.get_e();
 
         TextWatcher memo = new TextWatcher() {
@@ -49,7 +49,7 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
             public void afterTextChanged(Editable s) {
                 boolean flag = verifyname();
                 if (flag == false){
-                    wrong_memo.setText(R.string.wrong_memo_id);
+               //     wrong_memo.setText(R.string.wrong_memo_id);
                 }
             }
         };
@@ -70,7 +70,7 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
             }
             return false;
         }catch (NumberFormatException n){
-            wrong_memo.setText(R.string.wrong_memo_id_f);
+            //wrong_memo.setText(R.string.wrong_memo_id_f);
             return false;
         }
     }

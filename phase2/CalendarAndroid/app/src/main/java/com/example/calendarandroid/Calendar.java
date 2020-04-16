@@ -3,7 +3,7 @@ package com.example.calendarandroid;
 import android.util.Log;
 
 import java.io.*;
-import java.lang.reflect.Array;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -66,10 +66,12 @@ public class Calendar {
         }
 
         for(int i = 0; i < months.size(); i++){
-            Log.d("month array",  Integer.toString(months.get(i).getMonth().get(0).getDay().getYear()) +  Integer.toString(months.get(i).getMonth().get(0).getDay().getMonthValue()));
+            Log.d("month array",  Integer.toString(months.get(i).getMonth().get(0).getDay().getYear())
+                    +  Integer.toString(months.get(i).getMonth().get(0).getDay().getMonthValue()));
         }
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.setCurrentMonth(LocalDate.now());
+        this.loadEvents("");
 
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
@@ -91,7 +93,7 @@ public class Calendar {
         }
     }
 
-    public Month getCurrentMonth(){
+    Month getCurrentMonth(){
         return this.currentMonth;
     }
 
@@ -111,7 +113,7 @@ public class Calendar {
 
     }
 
-    public void setCurrentMonth(LocalDate d){
+    private void setCurrentMonth(LocalDate d){
         for(Month m: this.months){
             for(Day day: m.getMonth()){
                 if(d.equals(day.getDay())){
@@ -123,7 +125,7 @@ public class Calendar {
 
     }
 
-    public List<ParseObject> loadEventsFile() {
+    private List<ParseObject> loadEventsFile() {
 //        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
 //        ArrayList<String> eventGetter = new ArrayList<>();
 //        BufferedReader br;
@@ -145,12 +147,13 @@ public class Calendar {
         ParseObject calendar;
         // Query Parameters
         ArrayList<String> event = new ArrayList<>();
-        query.whereEqualTo("userID", ParseUser.getCurrentUser());
+        query.whereEqualTo("userID", u);
+        query.whereEqualTo("calendarName", u.getUsername() + "1");
         try {
             cal = query.find();
             Log.d("test", "test");
             Log.d("length", Integer.toString(cal.size()));
-
+            calendar = cal.get(0);
             for(ParseObject calendars: cal){
                 Log.d("finding object", "found a few");
                 if(calendars.get("calendarName").toString().equals(ParseUser.getCurrentUser().getUsername() + "1")){
@@ -170,10 +173,6 @@ public class Calendar {
         }
         return null;
     }
-
-
-
-
 
     public void loadEvents(String username){
         List<ParseObject>  events = this.loadEventsFile();
@@ -224,7 +223,6 @@ public class Calendar {
         createDurationSeries(durationSeriesString);
         createLinkedSeries(linkedSeriesString);
         this.addEventsToDays();
-
     }
 
     private void addEventsToDays(){

@@ -141,6 +141,6 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.View
 
     public interface OnDayClickListener{
         void onDayClick(int position);
-        void onDayClick();
+//        void onDayClick();
     }
 }

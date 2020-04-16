@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,12 +35,14 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
     ArrayList<Day> currentMonthDays;
     LocalDate monthViewDate;
     Calendar currentCalendar;
+    int whichCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month_view);
         t = findViewById(R.id.monthName);
+        whichCal = 1;
         currentDate = LocalDate.now();
         monthViewDate = LocalDate.now();
 //        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
@@ -115,12 +118,36 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
     @Override
     public void onDayClick(int position) {
         Log.d("day click", Integer.toString(position));
+        Intent intent = new Intent(this, ViewEventsOnClickActivity.class);
+        Day d = this.currentMonthDays.get(position);
+        int len = d.getEvents().size();
+        ArrayList<Event> events = d.getEvents();
+        String[] eventNames = new String[len];
+        String[] eventStartDate = new String[len];
+        String[] eventEndDate = new String[len];
+        String calName = ParseUser.getCurrentUser().getUsername() + this.whichCal;
+        for(int i = 0; i < len; i++){
+            eventNames[i] = events.get(i).getName();
+            eventStartDate[i] = events.get(i).getStartTime().toString();
+            eventEndDate[i] = events.get(i).getEndTime().toString();
+        }
+        intent.putExtra("name", eventNames);
+        intent.putExtra("startDate", eventStartDate);
+        intent.putExtra("endDate", eventEndDate);
+        intent.putExtra("calendar", calName);
+        startActivity(intent);
+
+
     }
 
-    @Override
-    public void onDayClick() {
-        Log.d("day click", "l");
+    public void setCal(int i){
+        this.whichCal = i;
     }
+
+//    @Override
+//    public void onDayClick() {
+//        Log.d("day click", "l");
+//    }
 
     public void logout(View view){
         ParseUser.logOut();

@@ -32,6 +32,12 @@ public class Event implements Comparable<Event>{
         this.name = name;
     }
 
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime){
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
