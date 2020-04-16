@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import org.w3c.dom.Text;
 import android.app.AlertDialog;
@@ -19,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.material.chip.ChipGroup;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -28,7 +31,9 @@ import com.parse.ParseRelation;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +75,16 @@ public class Addeventmenu extends AppCompatActivity{
         add_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                add_Event();
+                if (hour.isChecked()){
+                    add_Event("hours");
+
+                }else if(day.isChecked()){
+                    add_Event("days");
+                }else if(week.isChecked()){
+                    add_Event("weeks");
+                }else{
+                    add_Event("None");
+                }
 
             }
 
@@ -79,8 +93,18 @@ public class Addeventmenu extends AppCompatActivity{
 
     }
 
-    public void add_Event(){
+    public void add_Event(String alerts){
+        String startTime = start_time.getText().toString();
+        String endTime = end_time.getText().toString();
+        LocalDateTime start;
+        start = LocalDateTime.parse(startTime);
+        LocalDateTime end;
+        end = LocalDateTime.parse(endTime);
 
+        String name = event_name.getText().toString();
+        String tags = event_tags.getText().toString();
+        ArrayList<String> tags_list = new ArrayList<String>(Arrays.asList(tags.split(",")));
+        Event newEvent = new Event(start, end, name, tags_list, null, null);
     }
 
 
