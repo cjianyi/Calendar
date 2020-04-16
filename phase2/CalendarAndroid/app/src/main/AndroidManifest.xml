@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".WeekActivity" />
         <activity android:name=".DateActivity" />
+        <activity android:name=".MenuActivity" />
         <meta-data
             android:name="com.parse.SERVER_URL"
             android:value="@string/back4app_server_url" />

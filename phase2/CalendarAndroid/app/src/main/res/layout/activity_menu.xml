@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:elevation="10dp"
+    android:background="@color/white"
+    android:id="@+id/menu_bar"
+    android:paddingTop="5dp"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:foregroundGravity="bottom">
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <RadioButton
+            android:id="@+id/month_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@android:drawable/ic_menu_month"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="Month"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/week_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@android:drawable/ic_menu_week"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="Week"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/day_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@android:drawable/ic_menu_today"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="Day"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@android:drawable/ic_menu_search"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="Search"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
+    </RadioGroup>
+
+</LinearLayout>
+
+
