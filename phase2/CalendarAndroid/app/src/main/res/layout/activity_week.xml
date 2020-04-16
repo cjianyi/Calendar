@@ -60,118 +60,167 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/sunday"
+
+        <LinearLayout
+            android:id="@+id/sunsun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sunday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/monday"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sddjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/monmon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Monday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfd"/>
 
-        <TextView
-            android:id="@+id/tuesday"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tuetue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tuesday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/wednesday"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wedwed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wednesday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/thursday"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/wed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thuthu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thursday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/friday"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/frifri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/saturday"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/satsat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saturday"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saturday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/sun"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/mon"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/tue"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/wed"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/thu"
-            android:layout_width="58dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/fri"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
-
-        <TextView
-            android:id="@+id/sat"
-            android:layout_width="58dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="skudhfksdhfjshdf"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+        </LinearLayout>
     </LinearLayout>
 
 
