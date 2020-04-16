@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
-public class WeekActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeekActivity extends MenuActivity implements View.OnClickListener {
 
     LocalDate currentDat;
     TextView weekNum;
@@ -36,7 +38,10 @@ public class WeekActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week);
+        setContentView(getContentViewId());
+        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
+
         currentDat = LocalDate.now();
         days = new ArrayList<>();
         alltexts = new ArrayList<>();
@@ -157,4 +162,15 @@ public class WeekActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    @Override
+    int getContentViewId() {
+        return R.layout.activity_week;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        return R.id.action_week;
+    }
+
 }

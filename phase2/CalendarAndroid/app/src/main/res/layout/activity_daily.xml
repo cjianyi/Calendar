@@ -73,5 +73,10 @@
         android:visibility="visible"
         android:text="@string/no_events" />
 
+    <include
+        android:id="@+id/navigation"
+        layout="@layout/activity_menu"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,8 @@
     <string name="wrong_time">Entered wrong time</string>
     <string name="wrong_tag">Cannot find the corresponding tag</string>
     <string name="wrong_alert">Cannot find the corresponding alert</string>
+    <string name="wrong_memo_id">cannot find corresponding memo</string>
+    <string name="wrong_memo_id_f">wrong_memo_id_f</string>
 
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
 
