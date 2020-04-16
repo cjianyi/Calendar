@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxItemDecoration;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
@@ -24,7 +25,7 @@ import org.w3c.dom.Text;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class MonthViewActivity extends AppCompatActivity implements MonthViewAdapter.OnDayClickListener {
+public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.OnDayClickListener {
 
     RecyclerView month;
     TextView t;
@@ -39,8 +40,13 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set up view with menu bar
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_month_view);
+        setContentView(getContentViewId());
+        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
+
+
         t = findViewById(R.id.monthName);
         whichCal = 1;
         currentDate = LocalDate.now();
@@ -153,4 +159,17 @@ public class MonthViewActivity extends AppCompatActivity implements MonthViewAda
         ParseUser.logOut();
         finish();
     }
+
+    @Override
+    int getContentViewId() {
+        // set to this activity's layout
+        return R.layout.activity_month_view;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        // the id of the menu button
+        return R.id.action_month;
+    }
+
 }

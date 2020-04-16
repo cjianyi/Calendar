@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class DateActivity extends AppCompatActivity {
+public class DateActivity extends MenuActivity {
 
     Calendar currentCalendar;
     LocalDateTime date;
@@ -31,7 +33,10 @@ public class DateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily);
+        setContentView(getContentViewId());
+        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
+
         recyclerView = (RecyclerView) findViewById(R.id.event_list);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
@@ -88,4 +93,15 @@ public class DateActivity extends AppCompatActivity {
     public void backToCal(View v) {
         finish();
     }
+
+    @Override
+    int getContentViewId() {
+        return R.layout.activity_daily;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        return R.id.action_day;
+    }
+
 }
