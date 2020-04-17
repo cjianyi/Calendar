@@ -1,5 +1,7 @@
 package com.example.calendarandroid;
 
+import android.content.Intent;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -13,12 +15,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 
-public class alert_modifymenu extends AppCompatActivity{
+public class alert_modifymenu extends AppCompatActivity implements View.OnClickListener{
     private Button backed;
     private EditText alert_name;
     private EditText alert_date;
     private EditText alert_time;
     private TextView wrong_time;
+    private Button set_name;
+    private Button set_time;
     public static Alert a;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,45 +33,10 @@ public class alert_modifymenu extends AppCompatActivity{
         alert_date = findViewById(R.id.eddate);
         alert_time = findViewById(R.id.edtime);
         wrong_time = findViewById(R.id.wrongalerttime);
+        set_name = findViewById(R.id.changalertname);
+        set_time = findViewById(R.id.changealerttime);
         a = modifyalert.getter_alert();
-        TextWatcher name = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                set_name();
-            }
-        };
-        alert_name.addTextChangedListener(name);
-
-        TextWatcher time = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                set_time();
-            }
-        };
-        alert_date.addTextChangedListener(time);
-        alert_time.addTextChangedListener(time);
     }
-
 
 
     public void set_name(){
@@ -89,4 +58,16 @@ public class alert_modifymenu extends AppCompatActivity{
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.backed1:
+                Intent b = new Intent(this, EditeventActivity.class);
+                startActivity(b);
+            case R.id.changalertname:
+                set_name();
+            case R.id.changealerttime:
+                set_time();
+        }
+    }
 }

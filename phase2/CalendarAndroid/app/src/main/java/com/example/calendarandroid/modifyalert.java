@@ -73,8 +73,13 @@ public class modifyalert extends AppCompatActivity implements View.OnClickListen
                 Intent inte = new Intent(this, Creationalertmenu.class);
                 startActivity(inte);
             case R.id.modifyalert:
-                Intent intent = new Intent(this, alert_modifymenu.class);
-                startActivity(intent);
+                a = getter_alert();
+                if (a == null){
+                    wrong_alert.setText(R.string.wrong_alert);
+                }else {
+                    Intent intent = new Intent(this, alert_modifymenu.class);
+                    startActivity(intent);
+                }
 
         }
 
