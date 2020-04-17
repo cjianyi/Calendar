@@ -14,7 +14,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 
-public class EditeventActivity extends AppCompatActivity{
+public class EditeventActivity extends AppCompatActivity implements View.OnClickListener{
     private  EditText event_name;
     public static Event e;
     private TextView event_message;
@@ -35,31 +35,7 @@ public class EditeventActivity extends AppCompatActivity{
         tag_b = findViewById(R.id.button3);
         alert_b = findViewById(R.id.button4);
         series_b = findViewById(R.id.button5);
-
-
-        TextWatcher name_watcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (matched_name()) {
-                    event_message.setText(R.string.wrong_event_name);
-                } else {
-                    event_message.setText(R.string.correct_event_name);
-                }
-            }
-        };
-        event_name.addTextChangedListener(name_watcher);
     }
-
 
 
     public boolean matched_name(){
@@ -83,5 +59,22 @@ public class EditeventActivity extends AppCompatActivity{
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button2:
+                Intent ev = new Intent(this, modifyeventActivity.class);
+                startActivity(ev);
+            case R.id.button3:
+                Intent ta = new Intent(this, modifytag.class);
+                startActivity(ta);
+            case R.id.button4:
+                Intent al = new Intent(this, modifyalert.class);
+            case R.id.button:
+                break;
+            case R.id.button5:
+                break;
+        }
 
+    }
 }

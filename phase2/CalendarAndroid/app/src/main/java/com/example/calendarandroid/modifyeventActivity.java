@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 
-public class modifyeventActivity extends AppCompatActivity {
+public class modifyeventActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText new_name;
     private EditText new_start;
@@ -34,8 +34,7 @@ public class modifyeventActivity extends AppCompatActivity {
         new_end = findViewById(R.id.enternewend);
         new_start_time  = findViewById(R.id.ednewstarttime);
         new_end_time = findViewById(R.id.ednewendtime);
-        back_main = findViewById(R.id.button8);
-        back_edit = findViewById(R.id.button8);
+        back_edit = findViewById(R.id.button7);
         wrong_time = findViewById(R.id.wrong_start);
         this.e = EditeventActivity.get_e();
 
@@ -128,4 +127,12 @@ public class modifyeventActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button7:
+                Intent in = new Intent(this, EditeventActivity.class);
+                startActivity(in);
+        }
+    }
 }
