@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,16 +58,7 @@ public class DateActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 // change the date to the next one
-                date = date.plusDays(1);
-                dateText.setText(formatter.format(date));
-                List<Event> input = currentCalendar.search("any", date);
-                if (input.size() == 0) {
-                    noEvents.setVisibility(View.VISIBLE);
-                } else {
-                    noEvents.setVisibility(View.INVISIBLE);
-                }
-                eLAdapter.updateList(input);
-
+                nextDate();
             }
         });
         Button back = view.findViewById(R.id.prev_date);
@@ -74,20 +66,12 @@ public class DateActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 // change the date to the previous one
-                date = date.minusDays(1);
-                dateText.setText(formatter.format(date));
-                List<Event> input = currentCalendar.search("any", date);
-                if (input.size() == 0) {
-                    noEvents.setVisibility(View.VISIBLE);
-                } else {
-                    noEvents.setVisibility(View.INVISIBLE);
-                }
-                eLAdapter.updateList(input);
+               previousDate();
             }
         });
 
 
-        return inflater.inflate(R.layout.activity_daily, container, false);
+        return view;
     }
 
 
@@ -95,6 +79,7 @@ public class DateActivity extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.event_list);
+
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -121,10 +106,11 @@ public class DateActivity extends Fragment {
         recyclerView.setAdapter(eLAdapter);
     }
 
-    public void nextDate(View v) {
+    public void nextDate() {
         // change the date to the next one
         date = date.plusDays(1);
-        dateText.setText(formatter.format(date));
+        Log.d("date change", "starting");
+        dateText.setText(date.toLocalDate().toString());
         List<Event> input = currentCalendar.search("any", date);
         if (input.size() == 0) {
             noEvents.setVisibility(View.VISIBLE);
@@ -134,10 +120,10 @@ public class DateActivity extends Fragment {
         eLAdapter.updateList(input);
     }
 
-    public void previousDate(View v) {
+    public void previousDate() {
         // change the date to the previous one
         date = date.minusDays(1);
-        dateText.setText(formatter.format(date));
+        dateText.setText(date.toLocalDate().toString());
         List<Event> input = currentCalendar.search("any", date);
         if (input.size() == 0) {
             noEvents.setVisibility(View.VISIBLE);
