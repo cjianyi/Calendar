@@ -65,7 +65,7 @@ public class EditeventActivity extends AppCompatActivity{
     public boolean matched_name(){
         String name = event_name.getText().toString();
         boolean flag = false;
-        for (Event e : MainActivity.currentCalendar.getEvents()){
+        for (Event e : CalendarActivity.currentCalendar.getEvents()){
             if (e.getName().equals(name)) {
                 this.e = e;
                 flag = true;

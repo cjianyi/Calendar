@@ -77,7 +77,8 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
 
         month.setLayoutManager(g);
 
-        currentCalendar= MainActivity.currentCalendar;
+
+        currentCalendar = CalendarActivity.currentCalendar;
 
         currentMonth = currentCalendar.getCurrentMonth();
         currentMonthDays = new ArrayList<>();

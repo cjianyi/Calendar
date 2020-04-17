@@ -22,6 +22,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
     BottomNavigationView bottomNavigation;
     Fragment currentFragment;
+     static Calendar currentCalendar= new Calendar(1);
 
 
     @Override
@@ -81,7 +82,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_cal:
-                
+
                 return true;
             case R.id.cal_switch:
 

@@ -2,8 +2,12 @@ package com.example.calendarandroid;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -11,48 +15,13 @@ import java.io.*;
 public class UserManager  {
     /** This is an array list that stores all the users of the program. */
     private ArrayList<User> users;
+    Context context;
     /**
      * Constructor for UserManager. It creates an arrayList of users and it loads
      * users' username, email, and password stored in users.txt to the program.
      */
     UserManager(Context context)  {
-        this.users = new ArrayList<>();
-//        File file = new File("com\\example\\calendarandroid\\users.txt");
-//
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader(file));
-//            String st;
-//            String[] user = new String[0];
-//            while ((st = br.readLine()) != null) {
-//
-//                user = st.split("\\s*,");
-//                this.createAccount(user[0], user[1], user[2]);
-//            }
-//            br.close();
-//        }catch(IOException e){
-//
-//        }
-
-        String data = "";
-        StringBuffer db = new StringBuffer();
-        InputStream is = context.getResources().openRawResource(R.raw.users);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        if(is != null){
-
-            try{
-                while((data = reader.readLine()) != null){
-                    String[] s = data.split(",");
-                    s[0] = s[0].trim();
-                    s[1] = s[1].trim();
-                    s[2] = s[2].trim();
-                    this.createAccount(s[0], s[1], s[2]);
-                }
-                is.close();
-                reader.close();
-            }catch(IOException e){
-                Log.d("create users", "wtf");
-            }
-        }
+        this.context = context;
 
     }
 
@@ -67,16 +36,7 @@ public class UserManager  {
      * @param password the password of an user
      */
     public void createAccount(String username, String emailAddress, String password)  {
-        this.users.add(new User(username, "", password));
-        try {
-            FileWriter fw = new FileWriter("src\\users.txt");
-            for (User user : users) {
-                fw.write(user.getUsername() + "," + user.getEmailAddress() + "," + user.getPassword() + "\n");
-            }
-            fw.close();
-        }catch(IOException e){
-            Log.d("myTag", "cannot read file");
-        }
+
     }
 
     /**
@@ -105,18 +65,7 @@ public class UserManager  {
      * @param email the email that the user wants to use
      * @return true if user can use the email; false otherwise
      */
-    public boolean emailAvailable(String email){
-        //place holder to make code run
-        if (!users.isEmpty()) {
-            for (User user : users) {
-                if (user.getEmailAddress().equalsIgnoreCase(email))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
 
     /**
      * Checks if the user inputted the correct username and password to login. Both username and
@@ -126,19 +75,19 @@ public class UserManager  {
      * @param password the password that the user inputted to login
      * @return true if both the username and password match; false otherwise.
      */
-    public User logIn(String username, String password){
-        if (!users.isEmpty()) {
-            for (User user : users) {
-                if (user.getUsername().equals(username) &&
-                        user.getPassword().equals(password)) {
-                    return user;
-                }
-            }
-        }else if(users.isEmpty()){
-            Log.d("myTag", "empty");
+    public boolean logIn(String username, String password) {
+        try{
+            ParseUser user = ParseUser.logIn(username, password);
+            Log.d("login", "success");
+            return true;
+        }catch(ParseException e){
+            Log.d("login", "failed");
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
         }
 
-        return null;
+
     }
+
 
 }

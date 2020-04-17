@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signUpButton;
 
-  //  public static UserManager userManager;
 
-    public static User currentUser;
-    public static Calendar currentCalendar;
+
+    UserManager userManager;
     private boolean correct;
 
     @Override
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ParseInstallation.getCurrentInstallation().saveInBackground();
-
+        userManager = new UserManager(this);
         username = findViewById(R.id.edUserName);
         password = findViewById(R.id.edPassword);
 
@@ -62,54 +61,15 @@ public class MainActivity extends AppCompatActivity {
         final String currentUserName = username.getText().toString();
         final String currentPassword = password.getText().toString();
         this.correct = false;
-//        currentUser = userManager.logIn(currentUserName, currentPassword);
-//        if(currentUser != null){
-//            passwordMessage.setText(R.string.correct_password_message);
-//            currentCalendar = currentUser.getCalendars().get(0);
-//            currentCalendar.loadEvents(currentUser.getUsername());
-//            Intent intent = new Intent(this, MonthViewActivity.class);
-//            startActivity(intent);
-//        }else{
-//            passwordMessage.setText(R.string.incorrect_password_message);
-//        }
 
+         correct = userManager.logIn(currentUserName, currentPassword);
+         if(correct){
+             Intent intent = new Intent(this, CalendarActivity.class);
+             startActivity(intent);
+         }
 
-        ParseUser.logInInBackground(currentUserName, currentPassword, new LogInCallback() {
-            @Override
-            public void done(ParseUser parseUser, ParseException e) {
-                if (parseUser != null) {
-
-                    Log.d("login", "success");
-                    log(currentUserName, currentPassword);
-//                    ParseUser.logOut();
-                    correct = true;
-
-                } else {
-
-                    ParseUser.logOut();
-                    Log.d("Login", "failed");
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
-
-    public void log(String username, String password){
-//        currentUser = userManager.logIn(username, password);
-//        if(currentUser != null){
-//            passwordMessage.setText(R.string.correct_password_message);
-//            currentCalendar = currentUser.getCalendars().get(0);
-//            currentCalendar.loadEvents(currentUser.getUsername());
-        currentCalendar = new Calendar("");
-        Intent intent = new Intent(this, CalendarActivity.class);
-        startActivity(intent);
-//        }else{
-//            passwordMessage.setText(R.string.incorrect_password_message);
-//        }
-    }
-
-
-
+    
     public void createAccount(View view){
         Intent intent = new Intent(this, createAccountActivity.class);
         startActivity(intent);

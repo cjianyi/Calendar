@@ -42,7 +42,7 @@ public class editmemoactivity extends AppCompatActivity implements View.OnClickL
         removememo = findViewById(R.id.edremovevent);
         wrongmemo = findViewById(R.id.wrongmemoname);
         wrongevent = findViewById(R.id.wrongeventname);
-        current = MainActivity.currentCalendar;
+        current = CalendarActivity.currentCalendar;
         m = modifymemo.get_m();
 
     }

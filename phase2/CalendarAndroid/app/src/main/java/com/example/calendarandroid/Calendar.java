@@ -38,10 +38,10 @@ public class Calendar {
     /**
      * Constructor for a calendar. Creates an empty calendar with a name.
      *
-     * @param name The name of a calendar.
+     * @param calNum Specifies which calendar of the user to load
      */
-    public Calendar (String name) {
-        this.calendarName = name;
+    public Calendar (int calNum) {
+        this.calendarName = ParseUser.getCurrentUser().getUsername() + String.valueOf(calNum);
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
         this.series = new ArrayList<>();
@@ -71,7 +71,7 @@ public class Calendar {
         }
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.setCurrentMonth(LocalDate.now());
-        this.loadEvents("");
+        this.loadEvents(calNum);
 
         for(int i = 1; i < this.months.size(); i++){
             int wrap = this.months.get(i).getWrapBeforeSize();
@@ -125,7 +125,7 @@ public class Calendar {
 
     }
 
-    private List<ParseObject> loadEventsFile() {
+    private List<ParseObject> loadEventsFile(int calNum) {
 //        File file = new File("src\\" + username + "calendar" +  this.calendarName + ".txt");
 //        ArrayList<String> eventGetter = new ArrayList<>();
 //        BufferedReader br;
@@ -148,7 +148,7 @@ public class Calendar {
         // Query Parameters
         ArrayList<String> event = new ArrayList<>();
         query.whereEqualTo("userID", u);
-        query.whereEqualTo("calendarName", u.getUsername() + "1");
+        query.whereEqualTo("calendarName", u.getUsername() + String.valueOf(calNum));
         try {
             cal = query.find();
             Log.d("test", "test");
@@ -175,8 +175,8 @@ public class Calendar {
         return a;
     }
 
-    public void loadEvents(String username){
-        List<ParseObject>  events = this.loadEventsFile();
+    public void loadEvents(int calNum){
+        List<ParseObject>  events = this.loadEventsFile(calNum);
         String eventName = "";
         LocalDateTime startDate;
         LocalDateTime endDate;
@@ -213,7 +213,7 @@ public class Calendar {
             Event p = new Event(startDate, endDate, eventName, tags, alerts2, durationSeriesString);
 
             this.alerts.addAll(alerts2);
-            this.addEvent(p, username);
+            this.addEvent(p, ParseUser.getCurrentUser().getUsername());
             JsonArray me = new JsonArray(event.get("memos").toString());
             this.loadMemos(me, memo);
             for(Memo m: memo){
