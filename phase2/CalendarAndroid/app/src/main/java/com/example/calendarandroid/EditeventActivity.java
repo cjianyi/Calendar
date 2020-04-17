@@ -22,7 +22,6 @@ public class EditeventActivity extends AppCompatActivity implements View.OnClick
     private Button event_b;
     private Button tag_b;
     private Button alert_b;
-    private Button series_b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class EditeventActivity extends AppCompatActivity implements View.OnClick
         event_b = findViewById(R.id.button2);
         tag_b = findViewById(R.id.button3);
         alert_b = findViewById(R.id.button4);
-        series_b = findViewById(R.id.button5);
     }
 
 
@@ -71,8 +69,6 @@ public class EditeventActivity extends AppCompatActivity implements View.OnClick
             case R.id.button4:
                 Intent al = new Intent(this, modifyalert.class);
             case R.id.button:
-                break;
-            case R.id.button5:
                 break;
         }
 
