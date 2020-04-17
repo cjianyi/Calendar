@@ -1,8 +1,11 @@
 package com.example.calendarandroid;
 
 import androidx.annotation.LongDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxItemDecoration;
@@ -25,7 +30,7 @@ import org.w3c.dom.Text;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.OnDayClickListener {
+public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDayClickListener {
 
     RecyclerView month;
     TextView t;
@@ -39,29 +44,34 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
     int whichCal;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         // set up view with menu bar
         super.onCreate(savedInstanceState);
-        setContentView(getContentViewId());
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);
+//        setContentView(getContentViewId());
+//        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        navigationView.setOnNavigationItemSelectedListener(this);
 
+    }
 
-        t = findViewById(R.id.monthName);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        t = view.findViewById(R.id.monthName);
+
         whichCal = 1;
         currentDate = LocalDate.now();
         monthViewDate = LocalDate.now();
 //        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
 //
 //        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
-        month = findViewById(R.id.calView);
+        month = view.findViewById(R.id.calView);
         month.setHasFixedSize(true);
-        month.addItemDecoration(new DividerItemDecoration(this,
+        month.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.HORIZONTAL));
-        month.addItemDecoration(new DividerItemDecoration(this,
+        month.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
 
-        GridLayoutManager g = new GridLayoutManager(this, 7);
+        GridLayoutManager g = new GridLayoutManager(this.getActivity(), 7);
 
         month.setLayoutManager(g);
 
@@ -82,17 +92,29 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
         day.add(d3);
 
 
-        currentMonth.getMonth().get(0).addEvent(new Event("b"));
-        currentMonth.getMonth().get(0).addEvent(new Event("b"));
-        currentMonth.getMonth().get(0).addEvent(new Event("c"));
-        currentMonth.getMonth().get(0).addEvent(new Event("d"));
+//        currentMonth.getMonth().get(0).addEvent(new Event("b"));
+//        currentMonth.getMonth().get(0).addEvent(new Event("b"));
+//        currentMonth.getMonth().get(0).addEvent(new Event("c"));
+//        currentMonth.getMonth().get(0).addEvent(new Event("d"));
         for(int i = 0; i <=41; i++){
             currentMonthDays.add(currentMonth.getMonth().get(i));
         }
 
         t.setText(currentMonth.getMonthName());
-        adapter = new MonthViewAdapter(this, currentMonthDays, this);
+        adapter = new MonthViewAdapter(this.getActivity(), currentMonthDays, this);
         month.setAdapter(adapter);
+
+    }
+
+    public static MonthViewActivity get(){
+        return new MonthViewActivity();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_month_view, container, false);
+
     }
     public void nextMonth(View view){
         monthViewDate = monthViewDate.plusMonths(1);
@@ -124,7 +146,7 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
     @Override
     public void onDayClick(int position) {
         Log.d("day click", Integer.toString(position));
-        Intent intent = new Intent(this, ViewEventsOnClickActivity.class);
+        Intent intent = new Intent(getContext(), ViewEventsOnClickActivity.class);
         Day d = this.currentMonthDays.get(position);
         int len = d.getEvents().size();
         ArrayList<Event> events = d.getEvents();
@@ -157,24 +179,24 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
 
     public void logout(View view){
         ParseUser.logOut();
-        finish();
+        getActivity().finish();
     }
 
     public void createEvent(View view){
-        Intent intent = new Intent(this, Addeventmenu.class);
+        Intent intent = new Intent(getActivity(), Addeventmenu.class);
         startActivity(intent);
     }
 
-    @Override
-    int getContentViewId() {
-        // set to this activity's layout
-        return R.layout.activity_month_view;
-    }
-
-    @Override
-    int getNavigationMenuItemId() {
-        // the id of the menu button
-        return R.id.action_month;
-    }
+//    @Override
+//    int getContentViewId() {
+//        // set to this activity's layout
+//        return R.layout.activity_month_view;
+//    }
+//
+//    @Override
+//    int getNavigationMenuItemId() {
+//        // the id of the menu button
+//        return R.id.action_month;
+//    }
 
 }

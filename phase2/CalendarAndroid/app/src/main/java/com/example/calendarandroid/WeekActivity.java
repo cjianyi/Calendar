@@ -4,12 +4,18 @@ import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
-public class WeekActivity extends MenuActivity implements View.OnClickListener {
+public class WeekActivity extends Fragment implements View.OnClickListener {
 
     LocalDate currentDat;
     TextView weekNum;
@@ -38,10 +44,23 @@ public class WeekActivity extends MenuActivity implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(getContentViewId());
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);
+//        setContentView(getContentViewId());
+//        navigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
+//        navigationView.setOnNavigationItemSelectedListener(this);
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        return inflater.inflate(R.layout.activity_week, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
         currentDat = LocalDate.now();
         days = new ArrayList<>();
         alltexts = new ArrayList<>();
@@ -56,31 +75,31 @@ public class WeekActivity extends MenuActivity implements View.OnClickListener {
         /*ArrayList<String> days = new ArrayList<>();
         days.add(seven days)
          */
-        Button back = findViewById(R.id.backward);
-        Button front = findViewById(R.id.forward);
-        weekNum = findViewById(R.id.num);
-        yearNum = findViewById(R.id.year);
+        Button back = view.findViewById(R.id.backward);
+        Button front = view.findViewById(R.id.forward);
+        weekNum = view.findViewById(R.id.num);
+        yearNum = view.findViewById(R.id.year);
         yearNum.setText(currentDat.getYear());
         int weekN = currentDat.get(WeekFields.of(Locale.US).weekOfWeekBasedYear());
         weekNum.setText(weekN);
         back.setOnClickListener(this);
         front.setOnClickListener(this);
 
-        /*mon = findViewById(R.id.mon);
-        tue = findViewById(R.id.tue);
-        wed = findViewById(R.id.wed);
-        thu = findViewById(R.id.thu);
-        fri = findViewById(R.id.fri);
-        sat = findViewById(R.id.sat);
-        sun = findViewById(R.id.sun);*/
+        /*mon = view.findViewById(R.id.mon);
+        tue = view.findViewById(R.id.tue);
+        wed = view.findViewById(R.id.wed);
+        thu = view.findViewById(R.id.thu);
+        fri = view.findViewById(R.id.fri);
+        sat = view.findViewById(R.id.sat);
+        sun = view.findViewById(R.id.sun);*/
 
-        monmon = findViewById(R.id.monmon);
-        tuetue = findViewById(R.id.tuetue);
-        wedwed = findViewById(R.id.wedwed);
-        thuthu = findViewById(R.id.thuthu);
-        frifri = findViewById(R.id.frifri);
-        satsat = findViewById(R.id.satsat);
-        sunsun = findViewById(R.id.sunsun);
+        monmon = view.findViewById(R.id.monmon);
+        tuetue = view.findViewById(R.id.tuetue);
+        wedwed = view.findViewById(R.id.wedwed);
+        thuthu = view.findViewById(R.id.thuthu);
+        frifri = view.findViewById(R.id.frifri);
+        satsat = view.findViewById(R.id.satsat);
+        sunsun = view.findViewById(R.id.sunsun);
         layouts = new ArrayList<>();
         layouts.add(sunsun);
         layouts.add(monmon);
@@ -92,7 +111,7 @@ public class WeekActivity extends MenuActivity implements View.OnClickListener {
         for (int i = 0; i < layouts.size(); i++)
         {
             layouts.get(i).removeAllViews();
-            TextView t = new TextView(this);
+            TextView t = new TextView(getContext());
             t.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             t.setText(days.get(i));
@@ -113,10 +132,11 @@ public class WeekActivity extends MenuActivity implements View.OnClickListener {
 
 
 
-        //RecyclerView recyclerView = findViewById(R.id.recyclerView2);
+        //RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //RecyclerViewAdapter23 adapter = new RecyclerViewAdapter23(days);
         //recyclerView.setAdapter(adapter);
+
     }
 
     public ArrayList<TextView> intenseAlgorithms(LocalDate ld, int i) {
@@ -163,14 +183,14 @@ public class WeekActivity extends MenuActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    int getContentViewId() {
-        return R.layout.activity_week;
-    }
-
-    @Override
-    int getNavigationMenuItemId() {
-        return R.id.action_week;
-    }
+//    @Override
+//    int getContentViewId() {
+//        return R.layout.activity_week;
+//    }
+//
+//    @Override
+//    int getNavigationMenuItemId() {
+//        return R.id.action_week;
+//    }
 
 }

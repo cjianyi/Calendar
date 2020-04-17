@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //            currentCalendar = currentUser.getCalendars().get(0);
 //            currentCalendar.loadEvents(currentUser.getUsername());
         currentCalendar = new Calendar("");
-        Intent intent = new Intent(this, MonthViewActivity.class);
+        Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
 //        }else{
 //            passwordMessage.setText(R.string.incorrect_password_message);

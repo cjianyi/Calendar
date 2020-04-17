@@ -70,9 +70,9 @@ public class editmemoactivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     }
-                    wrongmemo.setText(R.string.wrong_memo);
+                 //   wrongmemo.setText(R.string.wrong_memo);
                 }catch (NumberFormatException nfe){
-                    wrongmemo.setText(R.string.wrong_memo);
+                 //   wrongmemo.setText(R.string.wrong_memo);
                     break;
                 }
 
@@ -86,9 +86,9 @@ public class editmemoactivity extends AppCompatActivity implements View.OnClickL
                             break;
                         }
                     }
-                    wrongmemo.setText(R.string.wrong_memo);
+                 //   wrongmemo.setText(R.string.wrong_memo);
                 }catch (NumberFormatException nfe){
-                    wrongmemo.setText(R.string.wrong_memo);
+                 //   wrongmemo.setText(R.string.wrong_memo);
                     break;
                 }
 

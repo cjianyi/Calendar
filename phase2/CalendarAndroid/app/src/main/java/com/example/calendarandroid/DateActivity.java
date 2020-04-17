@@ -1,12 +1,18 @@
 package com.example.calendarandroid;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class DateActivity extends MenuActivity {
+public class DateActivity extends Fragment {
 
     Calendar currentCalendar;
     LocalDateTime date;
@@ -31,39 +37,55 @@ public class DateActivity extends MenuActivity {
     Format formatter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getContentViewId());
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);
-
-        recyclerView = (RecyclerView) findViewById(R.id.event_list);
-        recyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-      //  currentCalendar = MainActivity.currentCalendar;
-        dateText = (TextView) findViewById(R.id.this_date);
-        noEvents = (TextView) findViewById(R.id.empty_ls);
-
-        // TODO: change this so date refers to whichever date was clicked on in MonthView
-        date = LocalDateTime.now();
-        formatter = new SimpleDateFormat("MMM. dd", Locale.CANADA);
-        dateText.setText(formatter.format(date));
+//        setContentView(getContentViewId());
+//        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        navigationView.setOnNavigationItemSelectedListener(this);
 
 
-        List<Event> input = currentCalendar.search("any", date);
-        if (input.size() == 0) {
-            noEvents.setVisibility(View.VISIBLE);
-        } else {
-            noEvents.setVisibility(View.INVISIBLE);
-        }
-        // define an adapter
-        eLAdapter = new DateListAdopter(input);
-        recyclerView.setAdapter(eLAdapter);
     }
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+
+        return inflater.inflate(R.layout.activity_daily, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView = (RecyclerView) view.findViewById(R.id.event_list);
+        recyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        //  currentCalendar = MainActivity.currentCalendar;
+        dateText = (TextView) view.findViewById(R.id.this_date);
+        noEvents = (TextView) view.findViewById(R.id.empty_ls);
+
+        // TODO: change this so date refers to whichever date was clicked on in MonthView
+//        date = LocalDateTime.now();
+//      //  formatter = new SimpleDateFormat("MMM. dd", Locale.CANADA);
+//       // dateText.setText(formatter.format(date));
+//
+//
+//        List<Event> input = currentCalendar.search("any", date);
+//        if (input.size() == 0) {
+//            noEvents.setVisibility(View.VISIBLE);
+//        } else {
+//            noEvents.setVisibility(View.INVISIBLE);
+//        }
+//        // define an adapter
+        eLAdapter = new DateListAdopter(new ArrayList<Event>());
+        recyclerView.setAdapter(eLAdapter);
+
+    }
     public void nextDate(View v) {
         // change the date to the next one
         date = date.plusDays(1);
@@ -91,17 +113,17 @@ public class DateActivity extends MenuActivity {
     }
 
     public void backToCal(View v) {
-        finish();
+        getActivity().finish();
     }
 
-    @Override
-    int getContentViewId() {
-        return R.layout.activity_daily;
-    }
-
-    @Override
-    int getNavigationMenuItemId() {
-        return R.id.action_day;
-    }
+//    @Override
+//    int getContentViewId() {
+//        return R.layout.activity_daily;
+//    }
+//
+//    @Override
+//    int getNavigationMenuItemId() {
+//        return R.id.action_day;
+//    }
 
 }
