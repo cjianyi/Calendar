@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.KeyStore;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -70,7 +71,6 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
             }
             return false;
         }catch (NumberFormatException n){
-            //wrong_memo.setText(R.string.wrong_memo_id_f);
             return false;
         }
     }
@@ -84,10 +84,14 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
                     e.removeMemo(m);
                 }
             case R.id.addmemo:
-                break;
+                Intent ine = new Intent(this, addmemo.class);
             case R.id.editmemo:
-                Intent in = new Intent(this, editmemoactivity.class);
-                startActivity(in);
+                flag = verifyname();
+                if (flag == true) {
+                    Intent in = new Intent(this, editmemoactivity.class);
+                    startActivity(in);
+                }
+                wrong_memo.setText(R.string.wrong_memo);
         }
 
     }
