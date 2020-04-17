@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity"
     >
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="65dp"
+        android:clickable="true"
+        android:onClick="createEvent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

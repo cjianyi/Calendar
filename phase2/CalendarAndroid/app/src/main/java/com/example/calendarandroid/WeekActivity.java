@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -47,7 +48,7 @@ public class WeekActivity extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         currentDat = LocalDate.now();
         days = new ArrayList<>();
@@ -66,10 +67,10 @@ public class WeekActivity extends Fragment implements View.OnClickListener {
         Button back = view.findViewById(R.id.backward);
         Button front = view.findViewById(R.id.forward);
         weekNum = view.findViewById(R.id.num);
-        yearNum = view.findViewById(R.id.thisYear);
-        yearNum.setText(currentDat.getYear());
+        yearNum = view.findViewById(R.id.whydoesthisnotwork);
+        yearNum.setText(String.valueOf(currentDat.getYear()));
         int weekN = currentDat.get(WeekFields.of(Locale.US).weekOfWeekBasedYear());
-        weekNum.setText(weekN);
+        weekNum.setText(String.valueOf(weekN));
         back.setOnClickListener(this);
         front.setOnClickListener(this);
 
@@ -117,7 +118,6 @@ public class WeekActivity extends Fragment implements View.OnClickListener {
                 layouts.get(i).addView(temp.get(j));
             }
         }
-
 
 
         //RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);

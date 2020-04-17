@@ -36,6 +36,7 @@
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="logout"
+
         app:showAsAction="ifRoom" />
 
 </menu>
