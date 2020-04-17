@@ -7,6 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -32,10 +34,42 @@ public class UserManager  {
      * is loading users' information stored in users.txt.
      * </p>
      * @param username the username of an user
-     * @param emailAddress the email of an user
+     *
      * @param password the password of an user
      */
-    public void createAccount(String username, String emailAddress, String password)  {
+    public boolean createAccount(String username,  String password)  {
+        final ParseUser user = new ParseUser();
+        // Set the user's username and password, which can be obtained by a forms
+        user.setUsername(username);
+        user.setPassword(password);
+        try {
+            user.signUp();
+            ParseUser.logIn(username, password);
+            createCalendar(1);
+            Log.d("account creation", "failed");
+            return true;
+        } catch (ParseException e) {
+            Log.d("acoount creation", "failed");
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    public void createCalendar(int calNum){
+        final ParseUser u = ParseUser.getCurrentUser();
+        final ParseObject entity = new ParseObject("Calendar");
+        entity.put("calendarName", u.getUsername() + String.valueOf(calNum));
+        entity.put("userID", ParseUser.getCurrentUser());
+        ParseRelation<ParseObject> r = u.getRelation("Calendars");
+
+
+        try {
+            entity.save();
+            r.add(entity);
+            u.save();
+        }catch (ParseException e){
+            Log.d("calendar creation", "save failed");
+        }
 
     }
 
@@ -57,14 +91,6 @@ public class UserManager  {
         }
         return true;
     }
-
-    /**
-     * Checks if the user can use a specific email. If this email is used by another user,
-     * then returns false; otherwise, returns true.
-     *
-     * @param email the email that the user wants to use
-     * @return true if user can use the email; false otherwise
-     */
 
 
     /**

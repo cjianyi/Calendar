@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
          }
 
     }
-    
+
     public void createAccount(View view){
         Intent intent = new Intent(this, createAccountActivity.class);
         startActivity(intent);

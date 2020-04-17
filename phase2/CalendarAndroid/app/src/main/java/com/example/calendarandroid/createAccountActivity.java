@@ -183,63 +183,22 @@ public class createAccountActivity extends AppCompatActivity {
         return pass.matches("^([^,]{0,7}|[^,]{20,}|[^0-9]*|[^a-z]*|[^A-Z]*|[^!@#$%^&*]*)$");
     }
 
-    public void createAccount(View view){
-        final boolean exit = false;
-        if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()){
+    public void createAccount(View view) {
+
+        if (usernameVaild() && usernameAvailable() && !passwordInvalid() && passwordsMatch()) {
 //            userManager.createAccount(username.getText().toString(), "", password.getText().toString());
 
             final ParseUser user = new ParseUser();
-// Set the user's username and password, which can be obtained by a forms
+            // Set the user's username and password, which can be obtained by a forms
             user.setUsername(username.getText().toString());
             user.setPassword(password.getText().toString());
-            user.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-
-                        Log.d("create account", "success");
-                        ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
-                            @Override
-                            public void done(ParseUser parseUser, ParseException e) {
-                                if (parseUser != null) {
-                                    Log.d("login", "success");
-                                    createCalendar();
-                                    Log.d("calendar createed", "success");
-                                    ParseUser.logOut();
-
-                                } else {
-                                    ParseUser.logOut();
-                                    Toast.makeText(createAccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                    } else {
-                        Log.d("reate account", "failed");
-                        ParseUser.logOut();
-                        Toast.makeText(createAccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+            UserManager u = new UserManager(this);
+            boolean done = u.createAccount(username.getText().toString(), password.getText().toString());
+            if (done) {
+                finish();
+            }
         }
-        finish();
     }
 
-    private void createCalendar(){
-        final ParseUser u = ParseUser.getCurrentUser();
-        final ParseObject entity = new ParseObject("Calendar");
-        entity.put("calendarName", u.getUsername() + "1");
-        entity.put("userID", ParseUser.getCurrentUser());
-        ParseRelation<ParseObject> r = u.getRelation("Calendars");
-
-
-        try {
-            entity.save();
-            r.add(entity);
-            u.save();
-        }catch (ParseException e){
-            Log.d("calendar creation", "save failed");
-        }
-
-
-    }
+   
 }
