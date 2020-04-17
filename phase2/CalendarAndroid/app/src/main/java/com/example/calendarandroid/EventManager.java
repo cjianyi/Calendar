@@ -26,7 +26,7 @@ public class EventManager {
                         durationSeries.addEvent(event);
                         start = start.plusDays(1);
                         System.out.println(start);
-                        endSeriesTime = endSeriesTime.plusDays(1);
+                        end = end.plusDays(1);
                     }
                     break;
                 case 2:
@@ -35,7 +35,7 @@ public class EventManager {
                         cal.addEvent(event, user);
                         durationSeries.addEvent(event);
                         start = start.plusDays(7);
-                        endSeriesTime = endSeriesTime.plusDays(7);
+                        end = end.plusDays(7);
                     }
                     break;
                 case 3:
@@ -44,7 +44,7 @@ public class EventManager {
                         cal.addEvent(event, user);
                         durationSeries.addEvent(event);
                         start = start.plusMonths(1);
-                        endSeriesTime = endSeriesTime.plusMonths(1);
+                        end = end.plusMonths(1);
                     }
                     break;
                 case 4:
@@ -53,7 +53,7 @@ public class EventManager {
                         cal.addEvent(event, user);
                         durationSeries.addEvent(event);
                         start = start.plusYears(1);
-                        endSeriesTime = endSeriesTime.plusYears(1);
+                        end = end.plusYears(1);
                     }
                     break;
             }

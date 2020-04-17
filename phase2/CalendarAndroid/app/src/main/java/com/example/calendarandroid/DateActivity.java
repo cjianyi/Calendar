@@ -84,8 +84,8 @@ public class DateActivity extends Fragment {
 //        // define an adapter
         eLAdapter = new DateListAdopter(new ArrayList<Event>());
         recyclerView.setAdapter(eLAdapter);
-
     }
+
     public void nextDate(View v) {
         // change the date to the next one
         date = date.plusDays(1);

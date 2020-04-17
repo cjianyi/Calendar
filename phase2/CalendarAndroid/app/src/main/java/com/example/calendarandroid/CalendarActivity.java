@@ -22,14 +22,17 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
     BottomNavigationView bottomNavigation;
     Fragment currentFragment;
-     static Calendar currentCalendar= new Calendar(1);
+    static Calendar currentCalendar= new Calendar(1);
+    UserManager userManager;
+    EventManager eventManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
+        this.userManager = new UserManager(this);
+        eventManager = new EventManager();
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -82,7 +85,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_cal:
-
+                createCalendar();
                 return true;
             case R.id.cal_switch:
 
@@ -90,6 +93,10 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
             default:
                 return false;
         }
+    }
+
+    public void createCalendar(){
+        this.userManager.createCalendar();
     }
 
 
