@@ -90,4 +90,6 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
         }
 
     }
+    public static Memo get_m(){return m;}
+
 }
