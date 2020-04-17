@@ -54,7 +54,7 @@ public class createAccountActivity extends AppCompatActivity {
 
     private Button signUp;
 
-    private UserManager userManager = MainActivity.userManager;
+  //  private UserManager userManager = MainActivity.userManager;
     private ArrayList<String> usernames;
 
 

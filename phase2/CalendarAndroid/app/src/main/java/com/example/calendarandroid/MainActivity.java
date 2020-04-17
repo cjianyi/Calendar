@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signUpButton;
 
-    public static UserManager userManager;
+  //  public static UserManager userManager;
 
     public static User currentUser;
     public static Calendar currentCalendar;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.btnLogin);
         signUpButton = findViewById(R.id.btnSignUp);
 
-        userManager = new UserManager(this);
+     //   userManager = new UserManager(this);
     }
     String data = "";
 
