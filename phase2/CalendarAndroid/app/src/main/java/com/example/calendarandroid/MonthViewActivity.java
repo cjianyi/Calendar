@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxItemDecoration;
@@ -116,10 +117,26 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_month_view, container, false);
+
+        View view = inflater.inflate(R.layout.activity_month_view, container, false);
+        Button forw = view.findViewById(R.id.btn_forw);
+        forw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextMonth();
+            }
+        });
+        Button back = view.findViewById(R.id.btn_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prevMonth();
+            }
+        });
+        return view;
 
     }
-    public void nextMonth(View view){
+    private void nextMonth(){
         monthViewDate = monthViewDate.plusMonths(1);
         currentMonth = currentMonth.getNext();
         currentMonthDays.clear();
@@ -131,7 +148,7 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
         t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(0).getDay().getYear()));
     }
 
-    public void prevMonth(View view){
+    private void prevMonth(){
         monthViewDate = monthViewDate.minusMonths(1);
         currentMonth = currentMonth.getPrev();
         if(currentMonth == null){

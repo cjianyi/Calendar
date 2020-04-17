@@ -23,6 +23,7 @@
             android:layout_height="65dp">
 
             <Button
+                android:id="@+id/btn_forw"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -30,6 +31,7 @@
                 android:text="@string/next" />
 
             <Button
+                android:id="@+id/btn_back"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
