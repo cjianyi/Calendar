@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/to_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/back_to_cal"
-        android:onClick="backToCal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/prev_date"
@@ -23,7 +13,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:text="@string/back"
-        android:onClick="previousDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +23,6 @@
         android:layout_marginStart="300dp"
         android:layout_marginTop="80dp"
         android:text="@string/forward"
-        android:onClick="nextDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintStart_toEndOf="@+id/prev_date"
-        app:layout_constraintTop_toBottomOf="@id/to_week"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="30dp"
         tools:layout_editor_absoluteY="93dp" />
 
@@ -70,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/next_date"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:text="@string/no_events" />
 
 
