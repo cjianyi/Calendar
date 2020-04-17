@@ -38,20 +38,22 @@
             android:layout_height="wrap_content"
             android:text="Week"
             android:textSize="20sp" />
-        <TextView
+        <EditText
             android:id="@+id/num"
             android:layout_width="50dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="16"
-            android:textSize="20sp" />
-        <TextView
+            android:textSize="20sp"
+            android:background="@android:color/transparent"/>
+        <EditText
             android:id="@+id/whydoesthisnotwork"
             android:layout_width="50dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="2020"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:background="@android:color/transparent"/>
 
         <Button
             android:id="@+id/forward"
@@ -254,13 +256,13 @@
             android:layout_y="0dp"
             android:text="aksfhkasjfh"/>
     </AbsoluteLayout>
-    -->
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+     -->
 
 
 
