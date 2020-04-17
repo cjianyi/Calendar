@@ -2,20 +2,23 @@ package com.example.calendarandroid;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ActionBar;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
+import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     BottomNavigationView bottomNavigation;
     Fragment currentFragment;
@@ -25,6 +28,7 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -48,6 +52,8 @@ public class CalendarActivity extends AppCompatActivity {
                         break;
                     case R.id.action_logout:
                         break;
+//                    case R.id.action_switch_calendars:
+//                        break;
                 }
                 return false;
             };
@@ -63,6 +69,28 @@ public class CalendarActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Addeventmenu.class);
         startActivity(intent);
     }
+
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.tolol_bar, popup.getMenu());
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_cal:
+                
+                return true;
+            case R.id.cal_switch:
+
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
 
 }
