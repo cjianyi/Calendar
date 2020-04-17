@@ -120,6 +120,9 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
 
         View view = inflater.inflate(R.layout.activity_month_view, container, false);
         Button forw = view.findViewById(R.id.btn_forw);
+        TextView t  = view.findViewById(R.id.tvMonday);
+
+
         forw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
