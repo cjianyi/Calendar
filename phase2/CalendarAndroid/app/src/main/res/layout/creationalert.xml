@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <Button
+            android:text="back to edit event menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/backed1"
+            android:layout_marginBottom="39dp"
+            app:layout_constraintBottom_toTopOf="@+id/alertname" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="189dp"/>
+    <EditText
+            android:layout_width="266dp"
+            android:layout_height="54dp"
+            android:inputType="textPersonName"
+            android:text="Enter the edscription of alert"
+            android:ems="10"
+            android:id="@+id/alertname" android:layout_marginTop="39dp"
+            app:layout_constraintTop_toBottomOf="@+id/backed1" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="89dp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the date"
+            android:ems="10"
+            android:id="@+id/edalertdate" android:layout_marginTop="47dp"
+            app:layout_constraintTop_toBottomOf="@+id/alertname" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="89dp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the time"
+            android:ems="10"
+            android:id="@+id/edalerttime"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="89dp"
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/edalertdate"/>
+    <TextView
+            android:text=" "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/wrongtimealert"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/frequencyentered" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="89dp"/>
+    <Button
+            android:text="Create alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/createalert"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@+id/wrongtimealert" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="86dp"/>
+    <TextView
+            android:text="Or enter the frequnce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/frequencyremind"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/edalerttime" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="90dp"/>
+    <TextView
+            android:text="please enter 1 for daily, 2 for weekly,\n 3 for monthly, 4 for yearly  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView4"
+            android:layout_marginTop="19dp"
+            app:layout_constraintTop_toBottomOf="@+id/frequencyremind" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="86dp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the frequency"
+            android:ems="10"
+            android:id="@+id/frequencyentered"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="86dp"
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
