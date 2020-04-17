@@ -46,12 +46,13 @@
 
     <EditText
         android:id="@+id/starttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="276dp"
+        android:layout_height="41dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/add_start_date"
         android:inputType="time"
+        android:text="Start date (YYYY-MM-DD HH:MM)"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,12 +60,13 @@
 
     <EditText
         android:id="@+id/endtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="282dp"
+        android:layout_height="38dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/add_end_date"
         android:inputType="time"
+        android:text="End date (YYYY-MM-DD HH:MM)"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +109,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
 
+        android:text="Add a description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endtime" />
