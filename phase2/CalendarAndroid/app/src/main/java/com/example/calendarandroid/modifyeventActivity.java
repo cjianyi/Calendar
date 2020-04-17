@@ -24,6 +24,9 @@ public class modifyeventActivity extends AppCompatActivity implements View.OnCli
     private TextView wrong_time;
     private Button back_main;
     private Button back_edit;
+    private Button set_name;
+    private Button set_start;
+    private Button set_end;
     private Event e;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,72 +35,17 @@ public class modifyeventActivity extends AppCompatActivity implements View.OnCli
         new_name = findViewById(R.id.enternewstart);
         new_start = findViewById(R.id.enternewstart);
         new_end = findViewById(R.id.enternewend);
-        new_start_time  = findViewById(R.id.ednewstarttime);
+        new_start_time = findViewById(R.id.ednewstarttime);
         new_end_time = findViewById(R.id.ednewendtime);
         back_edit = findViewById(R.id.button7);
         wrong_time = findViewById(R.id.wrong_start);
+        set_name  = findViewById(R.id.changeeventname);
+        set_start = findViewById(R.id.changeeventstart);
+        set_end = findViewById(R.id.changeeventend);
         this.e = EditeventActivity.get_e();
 
-
-        TextWatcher event_name = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                set_name();
-            }
-
-        };
-        new_name.addTextChangedListener(event_name);
-
-        TextWatcher start_time  = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                set_start();
-            }
-        };
-        new_start_time.addTextChangedListener(start_time);
-        new_start.addTextChangedListener(start_time);
-
-        TextWatcher end_time = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                set_end();
-            }
-        };
-        new_end.addTextChangedListener(end_time);
-        new_end_time.addTextChangedListener(end_time);
-
-
     }
+
     public void set_name() {
         String name = new_name.getText().toString();
         e.setName(name);
@@ -133,6 +81,12 @@ public class modifyeventActivity extends AppCompatActivity implements View.OnCli
             case R.id.button7:
                 Intent in = new Intent(this, EditeventActivity.class);
                 startActivity(in);
+            case R.id.changeeventname:
+                set_name();
+            case R.id.changeeventstart:
+                set_start();
+            case R.id.changeeventend:
+                set_end();
         }
     }
 }
