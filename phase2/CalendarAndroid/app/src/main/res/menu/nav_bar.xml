@@ -36,7 +36,15 @@
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="logout"
-
         app:showAsAction="ifRoom" />
+
+<!--    <item-->
+<!--        android:id="@+id/action_switch_calendars"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@android:drawable/ic_menu_my_calendar"-->
+<!--        android:title="Calendars"-->
+<!--        app:showAsAction="ifRoom" />-->
+
+
 
 </menu>

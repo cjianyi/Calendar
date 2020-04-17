@@ -4,6 +4,7 @@ import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -57,6 +58,7 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         t = view.findViewById(R.id.monthName);
+
 
         whichCal = 1;
         currentDate = LocalDate.now();
