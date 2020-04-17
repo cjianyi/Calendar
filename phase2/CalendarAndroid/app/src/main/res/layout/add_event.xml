@@ -44,34 +44,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/daybutton" />
 
-    <EditText
-        android:id="@+id/starttime"
-        android:layout_width="276dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/add_start_date"
-        android:inputType="time"
-        android:text="Start date (YYYY-MM-DD HH:MM)"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventname" />
-
-    <EditText
-        android:id="@+id/endtime"
-        android:layout_width="282dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/add_end_date"
-        android:inputType="time"
-        android:text="End date (YYYY-MM-DD HH:MM)"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/starttime" />
-
     <Button
         android:id="@+id/addeventbutton"
         android:layout_width="wrap_content"
@@ -104,7 +76,6 @@
         android:id="@+id/eventdescription"
         android:layout_width="252dp"
         android:layout_height="78dp"
-        android:layout_marginTop="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -112,7 +83,7 @@
         android:text="Add a description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endtime" />
+        tools:layout_editor_absoluteY="307dp" />
 
     <EditText
         android:id="@+id/eventtags"
@@ -133,5 +104,25 @@
         app:layout_constraintStart_toEndOf="@+id/daybutton"
         app:layout_constraintTop_toBottomOf="@+id/eventdescription"
         app:layout_constraintVertical_bias="0.153" />
+
+    <EditText
+        android:id="@+id/starttime"
+        android:layout_width="284dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Start date (YYYY-MM-DDTHH:MM)"
+        tools:layout_editor_absoluteX="68dp"
+        tools:layout_editor_absoluteY="179dp" />
+
+    <EditText
+        android:id="@+id/endtime"
+        android:layout_width="286dp"
+        android:layout_height="51dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="End date (YYYY-MM-DDTHH:MM)"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="236dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
