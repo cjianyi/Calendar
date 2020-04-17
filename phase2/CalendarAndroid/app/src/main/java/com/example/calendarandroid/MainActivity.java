@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public static UserManager userManager;
 
     public static User currentUser;
-
     public static Calendar currentCalendar;
     private boolean correct;
 

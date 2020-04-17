@@ -171,7 +171,8 @@ public class Calendar {
             Log.d("error", ":(");
 
         }
-        return null;
+        ArrayList<ParseObject> a = new ArrayList<>();
+        return a;
     }
 
     public void loadEvents(String username){

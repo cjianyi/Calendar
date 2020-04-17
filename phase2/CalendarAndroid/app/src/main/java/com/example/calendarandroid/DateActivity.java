@@ -43,7 +43,7 @@ public class DateActivity extends MenuActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        currentCalendar = MainActivity.currentCalendar;
+      //  currentCalendar = MainActivity.currentCalendar;
         dateText = (TextView) findViewById(R.id.this_date);
         noEvents = (TextView) findViewById(R.id.empty_ls);
 
