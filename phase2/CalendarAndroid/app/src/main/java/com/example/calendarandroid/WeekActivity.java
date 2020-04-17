@@ -8,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,8 +24,8 @@ import java.util.Locale;
 public class WeekActivity extends Fragment {
 
     LocalDate currentDat;
-    EditText weekNum;
-    EditText yearNum;
+    TextView weekNum;
+    TextView yearNum;
     // TextView mon, tue, wed, thu, fri, sat, sun;
     LinearLayout monmon, tuetue, wedwed, thuthu, frifri, satsat, sunsun;
     ArrayList<LinearLayout> layouts;
