@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 public abstract class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -17,7 +18,7 @@ public abstract class MenuActivity extends AppCompatActivity implements BottomNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
     }
 
@@ -45,6 +46,8 @@ public abstract class MenuActivity extends AppCompatActivity implements BottomNa
                 startActivity(new Intent(this, DateActivity.class));
             } else if (itemId == R.id.action_search) {
                 startActivity(new Intent(this, modifyeventActivity.class));
+            }else if(itemId == R.id.action_logout){
+                ParseUser.logOut();
             }
             finish();
         }, 300);

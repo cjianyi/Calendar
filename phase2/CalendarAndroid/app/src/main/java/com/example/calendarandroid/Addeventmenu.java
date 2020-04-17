@@ -103,7 +103,7 @@ public class Addeventmenu extends AppCompatActivity{
 
         String name = event_name.getText().toString();
         String tags = event_tags.getText().toString();
-        ArrayList<String> tags_list = new ArrayList<String>(Arrays.asList(tags.split(",")));
+        ArrayList<String> tags_list = new ArrayList<>(Arrays.asList(tags.split(",")));
         Event newEvent = new Event(start, end, name, tags_list, null, null);
     }
 
