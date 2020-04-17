@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.parse.ParseObject;
 
@@ -47,6 +48,11 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
         r.setAdapter(this.adapter);
         r.setLayoutManager(layoutManager);
 
+    }
+
+    public void createEvent(View view){
+        Intent intent = new Intent(this, Addeventmenu.class);
+        startActivity(intent);
     }
 
     @Override
