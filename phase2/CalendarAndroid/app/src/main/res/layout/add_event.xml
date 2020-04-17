@@ -107,7 +107,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="Enter event description"
-        android:textAlignment="center"
+        
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endtime" />
@@ -124,7 +124,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="Add a tag"
-        android:textAlignment="center"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.265"
