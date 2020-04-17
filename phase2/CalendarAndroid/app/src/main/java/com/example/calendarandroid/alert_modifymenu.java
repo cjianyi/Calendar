@@ -2,16 +2,12 @@ package com.example.calendarandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -28,7 +24,7 @@ public class alert_modifymenu extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alert_modify_menu);
-        backed = findViewById(R.id.backed);
+        backed = findViewById(R.id.backed1);
         alert_name = findViewById(R.id.edname);
         alert_date = findViewById(R.id.eddate);
         alert_time = findViewById(R.id.edtime);
