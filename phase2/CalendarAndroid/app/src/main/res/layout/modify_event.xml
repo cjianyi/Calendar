@@ -46,16 +46,6 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginTop="129dp" app:layout_constraintTop_toBottomOf="@+id/enternewend"
             app:layout_constraintVertical_bias="1.0"/>
-    <Button
-            android:text="Back to main page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button8" android:layout_marginTop="52dp"
-            app:layout_constraintTop_toBottomOf="@+id/enternewend" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="81dp" android:layout_marginBottom="29dp"
-            app:layout_constraintBottom_toTopOf="@+id/button7" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="169dp" app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="1.0"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,8 +67,8 @@
             android:id="@+id/ednewendtime" android:layout_marginTop="38dp"
             app:layout_constraintTop_toBottomOf="@+id/enternewend" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="82dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="116dp" android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/button8"/>
+            android:layout_marginEnd="116dp"
+    />
     <TextView
             android:text="  "
             android:layout_width="wrap_content"
