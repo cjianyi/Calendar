@@ -86,7 +86,8 @@ public class modifymemo extends AppCompatActivity implements View.OnClickListene
             case R.id.addmemo:
                 break;
             case R.id.editmemo:
-                break;
+                Intent in = new Intent(this, editmemoactivity.class);
+                startActivity(in);
         }
 
     }
