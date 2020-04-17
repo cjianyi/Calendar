@@ -91,8 +91,8 @@ public class DateActivity extends Fragment {
 
         date = LocalDateTime.now();
 
-        formatter = new SimpleDateFormat("MMM. dd", Locale.CANADA);
-        dateText.setText(date.format(DateTimeFormatter.ofPattern("MMM. dd", Locale.CANADA)));
+        formatter = new SimpleDateFormat("MMM dd", Locale.CANADA);
+        dateText.setText(date.format(DateTimeFormatter.ofPattern("MMM dd", Locale.CANADA)));
 
 
         List<Event> input = currentCalendar.search("any", date);
@@ -110,7 +110,7 @@ public class DateActivity extends Fragment {
         // change the date to the next one
         date = date.plusDays(1);
         Log.d("date change", "starting");
-        dateText.setText(date.toLocalDate().toString());
+        dateText.setText(date.format(DateTimeFormatter.ofPattern("MMM dd", Locale.CANADA)));
         List<Event> input = currentCalendar.search("any", date);
         if (input.size() == 0) {
             noEvents.setVisibility(View.VISIBLE);
@@ -123,7 +123,7 @@ public class DateActivity extends Fragment {
     public void previousDate() {
         // change the date to the previous one
         date = date.minusDays(1);
-        dateText.setText(date.toLocalDate().toString());
+        dateText.setText(date.format(DateTimeFormatter.ofPattern("MMM dd", Locale.CANADA)));
         List<Event> input = currentCalendar.search("any", date);
         if (input.size() == 0) {
             noEvents.setVisibility(View.VISIBLE);
@@ -133,9 +133,6 @@ public class DateActivity extends Fragment {
         eLAdapter.updateList(input);
     }
 
-    public void backToCal(View v) {
-        getActivity().finish();
-    }
 
 //    @Override
 //    int getContentViewId() {
