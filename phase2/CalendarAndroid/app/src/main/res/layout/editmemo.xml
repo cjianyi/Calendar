@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <Button
+            android:text="Back to the edit event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/backed2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="205dp"/>
+    <EditText
+            android:layout_width="287dp"
+            android:layout_height="47dp"
+            android:inputType="textPersonName"
+            android:text="Enter the description of the memo"
+            android:ems="10"
+            android:id="@+id/edmemoname" android:layout_marginTop="27dp"
+            app:layout_constraintTop_toBottomOf="@+id/backed2" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="78dp"/>
+    <Button
+            android:text="edit the new message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/newmemoname"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="78dp"
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/edmemoname"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the id of the memo"
+            android:ems="10"
+            android:id="@+id/edassociatedmemo"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/newmemoname" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="78dp"/>
+    <Button
+            android:text="Add the assciated memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/addnewmemo"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/edassociatedmemo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="78dp"/>
+    <Button
+            android:text="Remove the entered memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/removenewmemo"
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@+id/addnewmemo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="79dp"/>
+    <TextView
+            android:text="  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/wrongmemoid"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="79dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/removenewmemo"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the event name"
+            android:ems="10"
+            android:id="@+id/edassevent" android:layout_marginTop="27dp"
+            app:layout_constraintTop_toBottomOf="@+id/wrongmemoid" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="78dp"/>
+    <Button
+            android:text="Add this event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/addassevent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="81dp"
+            android:layout_marginTop="21dp" app:layout_constraintTop_toBottomOf="@+id/edassevent"/>
+    <Button
+            android:text="Remove this event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/edremovevent"
+            android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/addassevent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="81dp"/>
+    <TextView
+            android:text="  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/wrongeventname"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/edremovevent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="82dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
