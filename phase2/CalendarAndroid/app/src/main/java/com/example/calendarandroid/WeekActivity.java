@@ -1,6 +1,5 @@
 package com.example.calendarandroid;
 
-import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -12,23 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Random;
 
 public class WeekActivity extends Fragment implements View.OnClickListener {
 
@@ -78,7 +66,7 @@ public class WeekActivity extends Fragment implements View.OnClickListener {
         Button back = view.findViewById(R.id.backward);
         Button front = view.findViewById(R.id.forward);
         weekNum = view.findViewById(R.id.num);
-        yearNum = view.findViewById(R.id.year);
+        yearNum = view.findViewById(R.id.thisYear);
         yearNum.setText(currentDat.getYear());
         int weekN = currentDat.get(WeekFields.of(Locale.US).weekOfWeekBasedYear());
         weekNum.setText(weekN);
