@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,98 +10,125 @@
         android:id="@+id/backbutton"
         android:layout_width="98dp"
         android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="156dp"
         android:text="Back"
-        tools:layout_editor_absoluteX="280dp"
-        tools:layout_editor_absoluteY="27dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/hourbutton"
         android:layout_width="105dp"
         android:layout_height="48dp"
-        android:text="Remind me every hour"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="427dp" />
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/add_alert_hourly"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventdescription" />
 
     <CheckBox
         android:id="@+id/daybutton"
         android:layout_width="105dp"
         android:layout_height="50dp"
-        android:text="Remind me every 24 hours"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="476dp" />
+        android:layout_marginStart="68dp"
+        android:text="@string/add_alert_daily"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hourbutton" />
 
     <CheckBox
         android:id="@+id/weekbutton"
         android:layout_width="107dp"
         android:layout_height="51dp"
-        android:text="Remind me every 7 days"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="526dp" />
+        android:layout_marginStart="68dp"
+        android:text="@string/add_alert_weekly"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daybutton" />
 
     <EditText
         android:id="@+id/starttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="@string/add_start_date"
         android:inputType="time"
-        android:text="Enter start time"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="188dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventname" />
 
     <EditText
         android:id="@+id/endtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="@string/add_end_date"
         android:inputType="time"
-        android:text="Enter end time"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="259dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/starttime" />
 
     <Button
         android:id="@+id/addeventbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add event"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="629dp" />
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="44dp"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventtags"
+        app:layout_constraintVertical_bias="0.981" />
 
     <EditText
         android:id="@+id/eventname"
         android:layout_width="270dp"
         android:layout_height="58dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="@string/add_event_name"
         android:inputType="textPersonName"
-        android:text="Enter event name"
         android:textAlignment="center"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="98dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backbutton" />
 
     <EditText
         android:id="@+id/eventdescription"
         android:layout_width="252dp"
         android:layout_height="78dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="Enter event description"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="326dp" />
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endtime" />
 
     <EditText
         android:id="@+id/eventtags"
         android:layout_width="126dp"
         android:layout_height="146dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="@string/add_tags"
+
         android:inputType="textMultiLine"
-        android:text="Add a tag"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="431dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toEndOf="@+id/daybutton"
+        app:layout_constraintTop_toBottomOf="@+id/eventdescription"
+        app:layout_constraintVertical_bias="0.153" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

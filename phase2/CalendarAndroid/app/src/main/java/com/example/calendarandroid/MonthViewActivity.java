@@ -160,6 +160,11 @@ public class MonthViewActivity extends MenuActivity implements MonthViewAdapter.
         finish();
     }
 
+    public void createEvent(View view){
+        Intent intent = new Intent(this, Addeventmenu.class);
+        startActivity(intent);
+    }
+
     @Override
     int getContentViewId() {
         // set to this activity's layout
