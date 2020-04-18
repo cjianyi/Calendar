@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -57,7 +58,8 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
                         break;
                     case R.id.action_logout:
-                       
+                        ParseUser.logOut();
+                        finish();
                         break;
 //                    case R.id.action_switch_calendars:
 //                        break;

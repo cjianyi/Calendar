@@ -118,7 +118,9 @@ public class Addeventmenu extends AppCompatActivity{
         }
 
         eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, new ArrayList<>(), new ArrayList<>(), repeat, endSeries);
+        finish();
     }
+
 
 
 }

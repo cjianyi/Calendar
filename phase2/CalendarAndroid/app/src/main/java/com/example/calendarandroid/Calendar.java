@@ -334,10 +334,10 @@ public class Calendar {
             ParseUser u = ParseUser.getCurrentUser();
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Calendar");
             query.whereEqualTo("calendarName", this.calendarName);
-
-            ParseRelation<ParseObject> rel = query.find().get(0).getRelation("events");
+            ParseObject cal = query.find().get(0);
+            ParseRelation<ParseObject> rel = cal.getRelation("events");
             rel.add(event);
-            event.save();
+            cal.save();
             u.save();
         }catch(ParseException ex){
             Log.d("add evenr", "failed");
