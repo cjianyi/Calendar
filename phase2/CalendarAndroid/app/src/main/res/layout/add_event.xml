@@ -64,7 +64,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="End date(YYYY-MM-DDTHH:MM)"
-        android:inputType="time"
+        android:inputType="date|number|text|time"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
