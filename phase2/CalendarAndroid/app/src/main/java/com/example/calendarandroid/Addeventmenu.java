@@ -57,12 +57,14 @@ public class Addeventmenu extends AppCompatActivity{
     private CheckBox hour;
     private CheckBox day;
     private CheckBox week;
+    private EventManager eventManager;
     private CheckBox repeat_event;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event);
         event_name = findViewById(R.id.eventname);
+        eventManager = CalendarActivity.eventManager;
         event_description = findViewById(R.id.eventdescription);
         start_time = findViewById(R.id.starttime);
         end_time = findViewById(R.id.endtime);
@@ -82,19 +84,20 @@ public class Addeventmenu extends AppCompatActivity{
                     case R.id.addeventbutton:
 
 
-                    if (hour.isChecked()) {
-                        add_Event("hours");
+                        if (hour.isChecked()) {
+                            add_Event("hours");
 
-                    } else if (day.isChecked()) {
-                        add_Event("days");
-                    } else if (week.isChecked()) {
-                        add_Event("weeks");
-                    } else {
-                        add_Event("None");
-                    }
-                    if (repeat_event.isChecked()) {
+                        } else if (day.isChecked()) {
+                            add_Event("days");
+                        } else if (week.isChecked()) {
+                            add_Event("weeks");
+                        } else {
+                            add_Event("None");
+                        }
+                        if (repeat_event.isChecked()) {
 
-                    }case R.id.backbutton:
+
+                        }case R.id.backbutton:
                         startActivity(intent);
 
                 }
@@ -102,8 +105,7 @@ public class Addeventmenu extends AppCompatActivity{
 
             }
 
-            });
-
+        });
 
 
 
@@ -120,9 +122,8 @@ public class Addeventmenu extends AppCompatActivity{
         String name = event_name.getText().toString();
         String tags = event_tags.getText().toString();
         ArrayList<String> tags_list = new ArrayList<>(Arrays.asList(tags.split(",")));
-        Event newEvent = new Event(start, end, name, tags_list, null, null);
+        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, null, null, 0, null);
     }
 
 
 }
-
