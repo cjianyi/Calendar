@@ -69,8 +69,8 @@ public class Calendar {
             Log.d("month array",  Integer.toString(months.get(i).getMonth().get(0).getDay().getYear())
                     +  Integer.toString(months.get(i).getMonth().get(0).getDay().getMonthValue()));
         }
-        this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.setCurrentMonth(LocalDate.now());
+        this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.loadEvents(calNum);
 
         for(int i = 1; i < this.months.size(); i++){
