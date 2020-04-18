@@ -95,25 +95,29 @@ public class Addeventmenu extends AppCompatActivity{
         start = LocalDateTime.parse(startTime);
         LocalDateTime end;
         end = LocalDateTime.parse(endTime);
-
+        LocalDateTime endSeries = LocalDateTime.now();
         String name = event_name.getText().toString();
         String tags = event_tags.getText().toString();
         ArrayList<String> tags_list = new ArrayList<>(Arrays.asList(tags.split(",")));
         int repeat = 0;
         if(repeatDay.isChecked()){
             repeat = 1;
+            endSeries = LocalDateTime.parse(series.getText().toString());
         }
         if(repeatWeek.isChecked()){
             repeat = 2;
+            endSeries = LocalDateTime.parse(series.getText().toString());
         }
         if(repeatMonth.isChecked()){
             repeat = 3;
+            endSeries = LocalDateTime.parse(series.getText().toString());
         }
         if(repeatYear.isChecked()){
             repeat = 4;
+            endSeries = LocalDateTime.parse(series.getText().toString());
         }
 
-        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, null, null, repeat, null);
+        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, new ArrayList<>(), new ArrayList<>(), repeat, endSeries);
     }
 
 
