@@ -45,7 +45,7 @@ public abstract class MenuActivity extends AppCompatActivity implements BottomNa
             } else if (itemId == R.id.action_day) {
                 startActivity(new Intent(this, DateActivity.class));
             } else if (itemId == R.id.action_search) {
-                startActivity(new Intent(this, modifyeventActivity.class));
+                startActivity(new Intent(this, SearchActivity.class));
             }else if(itemId == R.id.action_logout){
                 ParseUser.logOut();
             }
