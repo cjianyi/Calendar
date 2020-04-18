@@ -32,6 +32,7 @@ public class WeekActivity extends Fragment {
     ArrayList<String> days;
     ArrayList<TextView> alltexts;
     Button forward, backward;
+    int count = 0;
     // Calendar calendar;
 
     public void onCreate(Bundle savedInstanceState)
@@ -57,6 +58,14 @@ public class WeekActivity extends Fragment {
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (layouts.get(i).getChildCount() > 0) {
+                        for (int j = 1; j < layouts.get(i).getChildCount(); j++) {
+                            layouts.get(i).getChildAt(j).setVisibility(View.GONE);
+                        }
+                    }
+                }
                 currentDat = currentDat.minusWeeks(1);
                 yearNum.setText(String.valueOf(currentDat.getYear()));
                 int weekN = currentDat.get(WeekFields.of(Locale.CANADA).weekOfWeekBasedYear());
@@ -76,6 +85,14 @@ public class WeekActivity extends Fragment {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (layouts.get(i).getChildCount() > 0) {
+                        for (int j = 1; j < layouts.get(i).getChildCount(); j++) {
+                            layouts.get(i).getChildAt(j).setVisibility(View.GONE);
+                        }
+                    }
+                }
                 currentDat = currentDat.plusWeeks(1);
                 yearNum.setText(String.valueOf(currentDat.getYear()));
                 int weekN = currentDat.get(WeekFields.of(Locale.CANADA).weekOfWeekBasedYear());
@@ -91,6 +108,7 @@ public class WeekActivity extends Fragment {
                     }
                 }
             }
+
         });
         return view;
     }
