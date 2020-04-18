@@ -428,36 +428,25 @@ public class Calendar {
 
         // Query parameters based on the item name
         try {
-            ParseRelation<ParseObject> r =query.find().get(0).getRelation("events");
-            ParseQuery<ParseObject> query2 = r.getQuery();
-            query2.whereEqualTo("eventName", info[0]);
-            query2.whereEqualTo("starDate", info[1]);
-            query2.whereEqualTo("endDate", info[2]);
-            query2.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(final List<ParseObject> object, ParseException e) {
-                    if (e == null) {
-                        //Delete based on the position
-                        object.get(0).deleteInBackground(new DeleteCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                if (e == null) {
-                                    Log.d("delete", "success");
+            List<ParseObject> l = query.find();
 
-                                } else {
-                                    Log.d("delete", "failed");
-                                }
-                            }
-                        });
-                    } else {
-                        Log.d("delete", "could not find");
-                    }
-                };
-            });
+            ParseRelation<ParseObject> r =query.getFirst().getRelation("events");
+
+            ParseQuery<ParseObject> query2 = r.getQuery();
+
+            List<ParseObject> p = query2.find();
+           for(ParseObject e: p){
+               if (e.get("eventName").toString().equals(info[0])
+                       && e.get("startDate").equals(info[1]) && e.get("endDate").toString().equals(info[2])){
+                   e.delete();
+                   Log.d("delete", "success");
+                   break;
+               }
+           }
 
 
         }catch(ParseException e){
-
+            Log.d("deletion", "error");
         }
     }
 

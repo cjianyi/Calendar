@@ -3,47 +3,14 @@ package com.example.calendarandroid;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import org.w3c.dom.Text;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.android.material.chip.ChipGroup;
-import com.parse.LogInCallback;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.ParseRelation;
-import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseRelation;
-import com.parse.SaveCallback;
 
 public class Addeventmenu extends AppCompatActivity{
     private EditText event_name;
@@ -57,6 +24,11 @@ public class Addeventmenu extends AppCompatActivity{
     private CheckBox hour;
     private CheckBox day;
     private CheckBox week;
+    private CheckBox repeatDay;
+    private CheckBox repeatWeek;
+    private CheckBox repeatMonth;
+    private CheckBox repeatYear;
+    private EditText series;
     private EventManager eventManager;
     private CheckBox repeat_event;
     @Override
@@ -65,7 +37,7 @@ public class Addeventmenu extends AppCompatActivity{
         setContentView(R.layout.add_event);
         event_name = findViewById(R.id.eventname);
         eventManager = CalendarActivity.eventManager;
-        event_description = findViewById(R.id.eventdescription);
+        event_description = findViewById(R.id.eventtags);
         start_time = findViewById(R.id.starttime);
         end_time = findViewById(R.id.endtime);
         event_tags = findViewById(R.id.eventtags);
@@ -74,7 +46,12 @@ public class Addeventmenu extends AppCompatActivity{
         hour = findViewById(R.id.hourbutton);
         day = findViewById(R.id.daybutton);
         week = findViewById(R.id.weekbutton);
-        repeat_event = findViewById(R.id.repeatevent);
+        repeat_event = findViewById(R.id.repeatevent_day);
+        repeatDay = findViewById(R.id.repeatevent_day);
+        repeatWeek = findViewById(R.id.repreatevent_week);
+        repeatMonth = findViewById(R.id.repretevent_month);
+        repeatYear = findViewById(R.id.repeatevent_year);
+        series = findViewById(R.id.event_series_end);
 
         Intent intent = new Intent(this, CalendarActivity.class);
         add_event.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +99,21 @@ public class Addeventmenu extends AppCompatActivity{
         String name = event_name.getText().toString();
         String tags = event_tags.getText().toString();
         ArrayList<String> tags_list = new ArrayList<>(Arrays.asList(tags.split(",")));
-        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, null, null, 0, null);
+        int repeat = 0;
+        if(repeatDay.isChecked()){
+            repeat = 1;
+        }
+        if(repeatWeek.isChecked()){
+            repeat = 2;
+        }
+        if(repeatMonth.isChecked()){
+            repeat = 3;
+        }
+        if(repeatYear.isChecked()){
+            repeat = 4;
+        }
+
+        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, null, null, repeat, null);
     }
 
 

@@ -56,7 +56,6 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
 
         Intent intent = new Intent(this, Addeventmenu.class);
         startActivity(intent);
-
     }
 
     @Override

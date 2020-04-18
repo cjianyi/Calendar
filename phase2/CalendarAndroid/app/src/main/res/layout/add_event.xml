@@ -6,6 +6,35 @@
     android:layout_height="match_parent"
     android:textAlignment="center">
 
+    <CheckBox
+        android:id="@+id/repeatevent_year"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="56dp"
+        android:text="repeat every year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repretevent_month" />
+
+    <CheckBox
+        android:id="@+id/repretevent_month"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
+        android:text="Repeat every month"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repreatevent_week" />
+
+    <CheckBox
+        android:id="@+id/repreatevent_week"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="60dp"
+        android:text="repeat every week"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repeatevent_day" />
+
     <Button
         android:id="@+id/backbutton"
         android:layout_width="98dp"
@@ -21,10 +50,10 @@
         android:layout_width="105dp"
         android:layout_height="48dp"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:text="@string/add_alert_hourly"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventdescription" />
+        app:layout_constraintTop_toBottomOf="@+id/event_series_end" />
 
     <CheckBox
         android:id="@+id/daybutton"
@@ -74,14 +103,13 @@
         android:id="@+id/addeventbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
         android:layout_marginBottom="44dp"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.746"
+        app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventtags"
+        app:layout_constraintTop_toBottomOf="@+id/weekbutton"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
@@ -100,46 +128,37 @@
         app:layout_constraintTop_toBottomOf="@+id/backbutton" />
 
     <EditText
-        android:id="@+id/eventdescription"
+        android:id="@+id/eventtags"
         android:layout_width="252dp"
-        android:layout_height="78dp"
+        android:layout_height="49dp"
         android:layout_marginTop="24dp"
-        android:ems="10"
         android:gravity="start|top"
-        android:hint="Add a description"
-
-        android:inputType="textMultiLine"
+        android:hint="enter some tags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endtime" />
 
-    <EditText
-        android:id="@+id/eventtags"
-        android:layout_width="126dp"
-        android:layout_height="146dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/add_tags"
-
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
-        app:layout_constraintStart_toEndOf="@+id/daybutton"
-        app:layout_constraintTop_toBottomOf="@+id/eventdescription"
-        app:layout_constraintVertical_bias="0.153" />
 
     <CheckBox
-        android:id="@+id/repeatevent"
-        android:layout_width="107dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="68dp"
-        android:text="Repeat event?"
+        android:id="@+id/repeatevent_day"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="60dp"
+        android:text="Repeat every day"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_series_end" />
+
+    <EditText
+        android:id="@+id/event_series_end"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Series end date(YYYY-MM-DDTHH:MM)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/eventtags" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
