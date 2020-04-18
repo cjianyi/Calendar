@@ -338,6 +338,7 @@ public class Calendar {
             ParseRelation<ParseObject> rel = query.find().get(0).getRelation("events");
             rel.add(event);
             event.save();
+            u.save();
         }catch(ParseException ex){
             Log.d("add evenr", "failed");
 

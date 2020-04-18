@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -53,8 +54,10 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                         openFragment(new DateActivity());
                         return true;
                     case R.id.action_search:
+
                         break;
                     case R.id.action_logout:
+                       
                         break;
 //                    case R.id.action_switch_calendars:
 //                        break;
