@@ -19,6 +19,7 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
     LinearLayoutManager layoutManager;
     ArrayList<Event> event;
     ViewEventsAdapter adapter;
+    ArrayList<String[]> eventsData;
 
 
     @Override
@@ -29,7 +30,7 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         Intent extras = getIntent();
         Bundle data  = extras.getExtras();
-        ArrayList<String[]> eventsData = new ArrayList<>();
+        eventsData = new ArrayList<>();
         String[] singleEventData = new String[3];
         assert data != null;
         String[] name = data.getStringArray("name");
@@ -44,6 +45,7 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
             eventsData.add(singleEventData);
             singleEventData = new String[3];
         }
+
         this.adapter = new ViewEventsAdapter(this, eventsData, this);
         r.setAdapter(this.adapter);
         r.setLayoutManager(layoutManager);
@@ -51,13 +53,27 @@ public class ViewEventsOnClickActivity extends AppCompatActivity implements View
     }
 
     public void createEvent(View view){
+
         Intent intent = new Intent(this, Addeventmenu.class);
         startActivity(intent);
+
     }
 
     @Override
     public void onEventClick(int position) {
         Log.d("click", String.valueOf(position));
         //start activity to view individual event
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+        Log.d("button in event", String.valueOf(position));
+        CalendarActivity.currentCalendar.deleteEvent(this.eventsData.get(position));
+    }
+
+    @Override
+    public void onShareClick(int position) {
+        Log.d("button share in event", String.valueOf(position));
+
     }
 }

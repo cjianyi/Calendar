@@ -1,6 +1,7 @@
 package com.example.calendarandroid;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.*;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -412,11 +414,54 @@ public class Calendar {
         return memos;
     }
     //Event editor menu
+    //TODO: change this to update the cal
+
     public void deleteEvent(Event e) {
         if (events.contains(e)) {
             this.events.remove(e);
         }
     }
+
+    public void deleteEvent(String[] info){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Calendar");
+        query.whereEqualTo("calendarName", this.calendarName);
+
+        // Query parameters based on the item name
+        try {
+            ParseRelation<ParseObject> r =query.find().get(0).getRelation("events");
+            ParseQuery<ParseObject> query2 = r.getQuery();
+            query2.whereEqualTo("eventName", info[0]);
+            query2.whereEqualTo("starDate", info[1]);
+            query2.whereEqualTo("endDate", info[2]);
+            query2.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(final List<ParseObject> object, ParseException e) {
+                    if (e == null) {
+                        //Delete based on the position
+                        object.get(0).deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Log.d("delete", "success");
+
+                                } else {
+                                    Log.d("delete", "failed");
+                                }
+                            }
+                        });
+                    } else {
+                        Log.d("delete", "could not find");
+                    }
+                };
+            });
+
+
+        }catch(ParseException e){
+
+        }
+    }
+
+
 
     //Event editor menu
     public void editEvent(Event e) {
