@@ -148,7 +148,8 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
         }
 
         adapter.notifyDataSetChanged();
-        t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(currentMonth.getWrapBeforeSize() + 1).getDay().getYear()));
+        t.setText(currentMonth.getMonthName() + " " +
+                currentMonth.getMonth().get(currentMonth.getWrapBeforeSize() + 1).getDay().getYear());
     }
 
     private void prevMonth(){
@@ -162,7 +163,8 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
             currentMonthDays.add(currentMonth.getMonth().get(i));
         }
         adapter.notifyDataSetChanged();
-        t.setText(currentMonth.getMonthName() + Integer.toString(currentMonth.getMonth().get(currentMonth.getWrapBeforeSize() + 1).getDay().getYear()));
+        t.setText(currentMonth.getMonthName() + " " +
+                currentMonth.getMonth().get(currentMonth.getWrapBeforeSize() + 1).getDay().getYear());
     }
 
 

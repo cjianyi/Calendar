@@ -24,7 +24,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     Fragment currentFragment;
     static Calendar currentCalendar= new Calendar(1);
     UserManager userManager;
-    EventManager eventManager;
+    static EventManager eventManager;
 
 
     @Override

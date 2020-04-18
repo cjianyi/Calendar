@@ -57,11 +57,13 @@ public class Addeventmenu extends AppCompatActivity{
     private CheckBox hour;
     private CheckBox day;
     private CheckBox week;
+    private EventManager eventManager;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event);
         event_name = findViewById(R.id.eventname);
+        eventManager = CalendarActivity.eventManager;
         event_description = findViewById(R.id.eventdescription);
         start_time = findViewById(R.id.starttime);
         end_time = findViewById(R.id.endtime);
@@ -104,7 +106,7 @@ public class Addeventmenu extends AppCompatActivity{
         String name = event_name.getText().toString();
         String tags = event_tags.getText().toString();
         ArrayList<String> tags_list = new ArrayList<>(Arrays.asList(tags.split(",")));
-        Event newEvent = new Event(start, end, name, tags_list, null, null);
+        eventManager.createEvent(CalendarActivity.currentCalendar, name, start, end, tags_list, null, null, 0, null);
     }
 
 

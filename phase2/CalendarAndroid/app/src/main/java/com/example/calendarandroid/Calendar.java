@@ -34,6 +34,7 @@ public class Calendar {
 
     private ArrayList<String> totalDurationSeries = new ArrayList<>();
     private ArrayList<String> totalLinkedSeries = new ArrayList<>();
+    private int calNum;
 
     /**
      * Constructor for a calendar. Creates an empty calendar with a name.
@@ -41,6 +42,7 @@ public class Calendar {
      * @param calNum Specifies which calendar of the user to load
      */
     public Calendar (int calNum) {
+        this.calNum = calNum;
         this.calendarName = ParseUser.getCurrentUser().getUsername() + String.valueOf(calNum);
         this.events = new ArrayList<>();
         this.alerts = new ArrayList<>();
@@ -49,10 +51,10 @@ public class Calendar {
 
         months = new ArrayList<>();
         day = new ArrayList<>();
-        d = d.minusYears(1);
+        d = d.minusYears(5);
         d = d.withMonth(1);
         d = d.withDayOfMonth(1);
-        LocalDate max = d.plusYears(3);
+        LocalDate max = d.plusYears(5);
 
         while(d.isBefore(max)){
             day.add(new Day(d));
@@ -65,10 +67,6 @@ public class Calendar {
             d = d.plusDays(1);
         }
 
-        for(int i = 0; i < months.size(); i++){
-            Log.d("month array",  Integer.toString(months.get(i).getMonth().get(0).getDay().getYear())
-                    +  Integer.toString(months.get(i).getMonth().get(0).getDay().getMonthValue()));
-        }
         this.setCurrentMonth(LocalDate.now());
         this.months.get(0).addDaysBefore(this.wrapBeforeFirstMonth());
         this.loadEvents(calNum);
@@ -79,9 +77,7 @@ public class Calendar {
             if (wrap > 0) {
                 this.months.get(i).addDaysBefore(this.months.get(i - 1).getMonth().subList(size - wrap, size));
             }
-            if(this.months.get(i - 1) == null){
-                Log.d("null month", "what the fuck");
-            }
+
             this.months.get(i).setPrev(this.months.get(i - 1));
         }
 
@@ -91,6 +87,10 @@ public class Calendar {
             this.months.get(i).addDaysAfter(this.months.get(i + 1).getMonth().subList(wrapStartIndex, wrapStartIndex + wrapLength));
             this.months.get(i).setNext(this.months.get(i + 1));
         }
+    }
+
+    public void setMonths(){
+
     }
 
     Month getCurrentMonth(){
@@ -108,7 +108,7 @@ public class Calendar {
             dates.add(new Day(d));
             d = d.plusDays(1);
         }
-        Log.d("wrapBeforeFirstMonth", "finished");
+
         return dates;
 
     }
@@ -213,7 +213,7 @@ public class Calendar {
             Event p = new Event(startDate, endDate, eventName, tags, alerts2, durationSeriesString);
 
             this.alerts.addAll(alerts2);
-            this.addEvent(p, ParseUser.getCurrentUser().getUsername());
+            this.addEvent(p);
             JsonArray me = new JsonArray(event.get("memos").toString());
             this.loadMemos(me, memo);
             for(Memo m: memo){
@@ -311,20 +311,30 @@ public class Calendar {
     }
 
     //Event editor menu
-    public void addEvent(Event e, String username) {
+    public void addEvent(Event e) {
         this.events.add(e);
-
+        ParseObject event = new ParseObject("Event");
+        ArrayList<String> info = e.eventFileFormatter();
+        event.put("eventName", info.get(0));
+        event.put("startDate", info.get(1));
+        event.put("endDate", info.get(2));
+        event.put("alerts", info.get(3));
+        event.put("tags", info.get(4));
+        event.put("memos", info.get(5));
+        event.put("series", info.get(6));
         try {
-            FileWriter fw = new FileWriter("src\\" + username + "calendar" + this.calendarName + ".txt");
-            for (Event event : this.events) {
-                fw.write(event.eventFileFormatter() + "\n");
-            }
-            fw.close();
+            event.save();
+            ParseUser u = ParseUser.getCurrentUser();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Calendar");
+            query.whereEqualTo("calendarname", u.getUsername() + String.valueOf(this.calNum));
 
-        }catch(IOException ex){
-            System.out.println("error");
+            ParseRelation<ParseObject> rel = query.find().get(0).getRelation("events");
+            rel.add(event);
+            u.save();
+        }catch(ParseException ex){
+            Log.d("add evenr", "failed");
+
         }
-
     }
 
 

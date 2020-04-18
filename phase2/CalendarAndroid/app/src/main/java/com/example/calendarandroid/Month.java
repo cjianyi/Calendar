@@ -63,9 +63,7 @@ public class Month implements Comparable<Month>{
 
         this.monthName = month.get(0).getDay().getMonth().toString();
         this.monthVal = month.get(0).getDay().getMonthValue();
-        for(Day d: this.month){
-            Log.d("days", d.getDay().toString());
-        }
+
 
     }
 
