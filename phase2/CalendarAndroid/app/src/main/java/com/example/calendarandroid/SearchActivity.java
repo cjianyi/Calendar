@@ -1,11 +1,13 @@
 package com.example.calendarandroid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -52,6 +54,8 @@ public class SearchActivity extends Fragment {
             public void onClick(View v) {
                 String data = tag.getText().toString();
                 results = currentCalendar.search("tag", data);
+                Log.d("Results",  results.toString());
+                Toast.makeText(getActivity(),"Results in Console",Toast.LENGTH_SHORT).show();
             }
         });
         byDate.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +68,8 @@ public class SearchActivity extends Fragment {
                     System.out.println("Wrong format");
                 }
                 results = currentCalendar.search("date", data);
+                Log.d("Results",  results.toString());
+                Toast.makeText(getActivity(),"Results in Console",Toast.LENGTH_SHORT).show();
             }
         });
         bySeries.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +77,8 @@ public class SearchActivity extends Fragment {
             public void onClick(View v) {
                 String data = series.getText().toString();
                 results = currentCalendar.search("series_name", data);
+                Log.d("Results",  results.toString());
+                Toast.makeText(getActivity(),"Results in Console",Toast.LENGTH_SHORT).show();
             }
         });
 
