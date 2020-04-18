@@ -53,6 +53,7 @@ public class WeekActivity extends Fragment {
         forward = view.findViewById(R.id.forward);
         yearNum = view.findViewById(R.id.whydoesthisnotwork);
         weekNum = view.findViewById(R.id.num);
+        alltexts = new ArrayList<>();
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,16 +61,35 @@ public class WeekActivity extends Fragment {
                 yearNum.setText(String.valueOf(currentDat.getYear()));
                 int weekN = currentDat.get(WeekFields.of(Locale.CANADA).weekOfWeekBasedYear());
                 weekNum.setText(String.valueOf(weekN));
+                for (int i = 1; i < 8; i++)
+                {
+                    ArrayList<TextView> temp = intenseAlgorithms(currentDat, i);
+                    for (int j = 0; j < temp.size(); j++) {
+                        alltexts.add(temp.get(j));
+                        temp.get(j).setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        layouts.get(i).addView(temp.get(j));
+                    }
+                }
             }
         });
         forward.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 currentDat = currentDat.plusWeeks(1);
                 yearNum.setText(String.valueOf(currentDat.getYear()));
                 int weekN = currentDat.get(WeekFields.of(Locale.CANADA).weekOfWeekBasedYear());
                 weekNum.setText(String.valueOf(weekN));
+                for (int i = 1; i < 8; i++)
+                {
+                    ArrayList<TextView> temp = intenseAlgorithms(currentDat, i);
+                    for (int j = 0; j < temp.size(); j++) {
+                        alltexts.add(temp.get(j));
+                        temp.get(j).setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        layouts.get(i).addView(temp.get(j));
+                    }
+                }
             }
         });
         return view;
@@ -80,7 +100,7 @@ public class WeekActivity extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         currentDat = LocalDate.now();
         days = new ArrayList<>();
-        alltexts = new ArrayList<>();
+        // alltexts = new ArrayList<>();
         days.add("Sunday");
         days.add("Monday");
         days.add("Tuesday");
@@ -126,7 +146,7 @@ public class WeekActivity extends Fragment {
             t.setTypeface(null, Typeface.BOLD);
             layouts.get(i).addView(t);
         }*/
-        for (int i = 1; i < 8; i++)
+        /*for (int i = 1; i < 8; i++)
         {
             ArrayList<TextView> temp = intenseAlgorithms(currentDat, i);
             for (int j = 0; j < temp.size(); j++) {
@@ -135,7 +155,7 @@ public class WeekActivity extends Fragment {
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 layouts.get(i).addView(temp.get(j));
             }
-        }
+        }*/
 
 
         /*RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
