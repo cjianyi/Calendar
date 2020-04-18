@@ -58,6 +58,7 @@ public class Addeventmenu extends AppCompatActivity{
     private CheckBox day;
     private CheckBox week;
     private EventManager eventManager;
+    private CheckBox repeat_event;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -73,24 +74,39 @@ public class Addeventmenu extends AppCompatActivity{
         hour = findViewById(R.id.hourbutton);
         day = findViewById(R.id.daybutton);
         week = findViewById(R.id.weekbutton);
+        repeat_event = findViewById(R.id.repeatevent);
 
+        Intent intent = new Intent(this, CalendarActivity.class);
         add_event.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if (hour.isChecked()){
-                    add_Event("hours");
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.addeventbutton:
 
-                }else if(day.isChecked()){
-                    add_Event("days");
-                }else if(week.isChecked()){
-                    add_Event("weeks");
-                }else{
-                    add_Event("None");
+
+                        if (hour.isChecked()) {
+                            add_Event("hours");
+
+                        } else if (day.isChecked()) {
+                            add_Event("days");
+                        } else if (week.isChecked()) {
+                            add_Event("weeks");
+                        } else {
+                            add_Event("None");
+                        }
+                        if (repeat_event.isChecked()) {
+
+
+                        }case R.id.backbutton:
+                        startActivity(intent);
+
                 }
+
 
             }
 
         });
+
 
 
     }
@@ -111,4 +127,3 @@ public class Addeventmenu extends AppCompatActivity{
 
 
 }
-
