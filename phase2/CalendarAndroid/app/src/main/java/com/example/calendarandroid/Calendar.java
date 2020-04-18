@@ -51,10 +51,10 @@ public class Calendar {
 
         months = new ArrayList<>();
         day = new ArrayList<>();
-        d = d.minusYears(5);
+        d = d.minusYears(1);
         d = d.withMonth(1);
         d = d.withDayOfMonth(1);
-        LocalDate max = d.plusYears(5);
+        LocalDate max = d.plusYears(3);
 
         while(d.isBefore(max)){
             day.add(new Day(d));
@@ -118,6 +118,7 @@ public class Calendar {
             for(Day day: m.getMonth()){
                 if(d.equals(day.getDay())){
                     this.currentMonth = m;
+                    Log.d("month", "found");
                     break;
                 }
             }
@@ -313,6 +314,10 @@ public class Calendar {
     //Event editor menu
     public void addEvent(Event e) {
         this.events.add(e);
+    }
+
+    public void createEvent(Event e){
+        this.events.add(e);
         ParseObject event = new ParseObject("Event");
         ArrayList<String> info = e.eventFileFormatter();
         event.put("eventName", info.get(0));
@@ -326,7 +331,7 @@ public class Calendar {
             event.save();
             ParseUser u = ParseUser.getCurrentUser();
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Calendar");
-            query.whereEqualTo("calendarname", u.getUsername() + String.valueOf(this.calNum));
+            query.whereEqualTo("calendarName", u.getUsername() + String.valueOf(this.calNum));
 
             ParseRelation<ParseObject> rel = query.find().get(0).getRelation("events");
             rel.add(event);

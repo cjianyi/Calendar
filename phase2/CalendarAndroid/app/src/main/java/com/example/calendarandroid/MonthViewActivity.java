@@ -100,6 +100,12 @@ public class MonthViewActivity extends Fragment implements MonthViewAdapter.OnDa
 //        currentMonth.getMonth().get(0).addEvent(new Event("b"));
 //        currentMonth.getMonth().get(0).addEvent(new Event("c"));
 //        currentMonth.getMonth().get(0).addEvent(new Event("d"));
+        if(currentCalendar == null){
+            Log.d("cal", "null");
+        }
+        if(currentMonth == null){
+            Log.d("month","null");
+        }
         for(int i = 0; i <=41; i++){
             currentMonthDays.add(currentMonth.getMonth().get(i));
         }

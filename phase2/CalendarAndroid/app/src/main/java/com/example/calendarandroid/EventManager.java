@@ -13,7 +13,7 @@ public class EventManager {
                             int duration, LocalDateTime endSeriesTime) {
         if (duration == 0){
             Event newEvent = new Event(start, end, name, tags, alerts, series);
-            cal.addEvent(newEvent);
+            cal.createEvent(newEvent);
         }else {
             ArrayList<Event> eventList = new ArrayList<>();
             Duration_series durationSeries = new Duration_series(series.get(0), 0, start,
@@ -22,7 +22,7 @@ public class EventManager {
                 case 1:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusDays(1);
                         System.out.println(start);
@@ -32,7 +32,7 @@ public class EventManager {
                 case 2:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusDays(7);
                         end = end.plusDays(7);
@@ -41,7 +41,7 @@ public class EventManager {
                 case 3:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusMonths(1);
                         end = end.plusMonths(1);
@@ -50,7 +50,7 @@ public class EventManager {
                 case 4:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusYears(1);
                         end = end.plusYears(1);
