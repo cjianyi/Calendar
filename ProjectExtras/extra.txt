@@ -1,0 +1,20 @@
+SOLID princles used
+single responsibility: each class is in charge of one thing
+
+Design patterns:
+dependency injection:
+In the calendar class when an event is added, the object itself is passed instead of the parameters for event
+The event class gets alerts and series that are already created passed to it
+
+How the code improved since phase 1:
+One improvement is that there is no longer a hugh 1000 line controller class. Now, each menu is broken up into its own class.
+Another improvement is using a database instead of Json formatted txt files. Before, each calendar was stored in its own text 
+file which made reading hard to manage. Now in the database, each user has related calendars and each calendar has related events
+-EventMananger serves as a middle-man between the user interface and the calendar class, to facilitate adding repeated avents
+and alerts
+
+Features added
+-android
+-user can view by month, week, or day
+-upon clicking a day, you can view its events, and choose to delete them
+
