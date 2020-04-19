@@ -95,6 +95,12 @@ public class Calendar {
 
     }
 
+
+    public void updateCalendar(){
+        this.events.clear();
+        this.loadEvents(this.calNum);
+    }
+
     Month getCurrentMonth(){
         return this.currentMonth;
     }
@@ -343,6 +349,7 @@ public class Calendar {
             Log.d("add evenr", "failed");
 
         }
+        this.updateCalendar();
     }
 
 
