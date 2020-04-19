@@ -1,11 +1,21 @@
 SOLID princles used
 single responsibility: each class is in charge of one thing
 
+open/closed:changing the event class does not require changing the U.I classes (except for how data is passed between them)
+or dependent classes like day or calendar. 
+
+Liskov substitution principle: event takes in a Series, which has subclasses DurationSeries and linked series. When creating
+events, the subclasses are passed in
+
+interface segregation: classes such as EventManager only depend on the create event method in calendar
+
+dependency inversion: classes like calendar, event, month don't depend on any of the U.I classes
+
+
 Design patterns:
 dependency injection:
 In the calendar class when an event is added, the object itself is passed instead of the parameters for event
 The event class gets alerts and series that are already created passed to it
-
 How the code improved since phase 1:
 One improvement is that there is no longer a hugh 1000 line controller class. Now, each menu is broken up into its own class.
 Another improvement is using a database instead of Json formatted txt files. Before, each calendar was stored in its own text 
