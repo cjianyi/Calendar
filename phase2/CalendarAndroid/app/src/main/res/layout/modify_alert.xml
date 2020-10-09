@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <Button
+            android:text="Back to edit event page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/backtoed"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="202dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="7dp" app:layout_constraintHorizontal_bias="1.0"/>
+    <Button
+            android:text="add a new alert "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/addalert"
+            android:layout_marginTop="33dp"
+            app:layout_constraintTop_toBottomOf="@+id/backtoed" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="122dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="586dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="141dp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter the alert name "
+            android:ems="10"
+            android:id="@+id/edalertname" android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/addalert" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="123dp" android:layout_marginBottom="510dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="75dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"/>
+    <Button
+            android:text="Remove this alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/removealert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="379dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="123dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="127dp" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="39dp" app:layout_constraintTop_toBottomOf="@+id/wrong_name"/>
+    <TextView
+            android:text="  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrong_name" android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/edalertname" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="123dp" android:layout_marginBottom="39dp"
+            app:layout_constraintBottom_toTopOf="@+id/removealert" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="281dp"/>
+    <Button
+            android:text="Modify this alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/modifyalert"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/removealert" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="125dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="291dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="198dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

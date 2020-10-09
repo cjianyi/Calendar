@@ -1,29 +1,31 @@
 package com.example.calendarandroid;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.io.*;
 
-public class UserManager {
+public class UserManager  {
     /** This is an array list that stores all the users of the program. */
-    public ArrayList<User> users;
-
+    private ArrayList<User> users;
+    Context context;
     /**
      * Constructor for UserManager. It creates an arrayList of users and it loads
      * users' username, email, and password stored in users.txt to the program.
      */
-    public UserManager()  {
-        this.users = new ArrayList<>();
-        File file = new File("src\\users.txt");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String st;
-            String[] user = new String[0];
-            while ((st = br.readLine()) != null) {
-                user = st.split("\\s*,");
-                this.createAccount(user[0], user[1], user[2]);
-            }
-            br.close();
-        }catch(IOException e){}
+    UserManager(Context context)  {
+        this.context = context;
+
     }
 
     /**
@@ -33,18 +35,52 @@ public class UserManager {
      * is loading users' information stored in users.txt.
      * </p>
      * @param username the username of an user
-     * @param emailAddress the email of an user
+     *
      * @param password the password of an user
      */
-    public void createAccount(String username, String emailAddress, String password)  {
-        this.users.add(new User(username, emailAddress, password));
+    public boolean createAccount(String username,  String password)  {
+        final ParseUser user = new ParseUser();
+        // Set the user's username and password, which can be obtained by a forms
+        user.setUsername(username);
+        user.setPassword(password);
         try {
-            FileWriter fw = new FileWriter("src\\users.txt");
-            for (User user : users) {
-                fw.write(user.getUsername() + " ," + user.getEmailAddress() + " ," + user.getPassword() + "\n");
+            user.signUp();
+            ParseUser.logIn(username, password);
+            createCalendar();
+            Log.d("account creation", "failed");
+            return true;
+        } catch (ParseException e) {
+            Log.d("acoount creation", "failed");
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    public void createCalendar(){
+        final ParseUser u = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query2 =  u.getRelation("Calendars").getQuery();
+        int numcals;
+        try {
+            numcals = query2.find().size();
+
+            final ParseObject entity = new ParseObject("Calendar");
+            entity.put("calendarName", u.getUsername() + String.valueOf(numcals + 1));
+            entity.put("userID", ParseUser.getCurrentUser());
+            ParseRelation<ParseObject> r = u.getRelation("Calendars");
+
+            try {
+                entity.save();
+                r.add(entity);
+                u.save();
+                Log.d("calendar creation", "successful");
+            } catch (ParseException e) {
+                Log.d("calendar creation", "save failed");
             }
-            fw.close();
-        }catch(IOException e){}
+        }catch (ParseException e){
+            Log.d("calendar creation", "cant find");
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     /**
@@ -66,25 +102,6 @@ public class UserManager {
         return true;
     }
 
-    /**
-     * Checks if the user can use a specific email. If this email is used by another user,
-     * then returns false; otherwise, returns true.
-     *
-     * @param email the email that the user wants to use
-     * @return true if user can use the email; false otherwise
-     */
-    public boolean emailAvailable(String email){
-        //place holder to make code run
-        if (!users.isEmpty()) {
-            for (User user : users) {
-                if (user.getEmailAddress().equalsIgnoreCase(email))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     /**
      * Checks if the user inputted the correct username and password to login. Both username and
@@ -94,19 +111,19 @@ public class UserManager {
      * @param password the password that the user inputted to login
      * @return true if both the username and password match; false otherwise.
      */
-    public User logIn(String username, String password){
-        //place holder to make code run
-        // return new User(username, "holder", password);
-        if (!users.isEmpty()) {
-            for (User user : users) {
-                if (user.getUsername().equals(username) &&
-                        user.getPassword().equals(password)) {
-
-                    return user;
-                }
-            }
+    public boolean logIn(String username, String password) {
+        try{
+            ParseUser user = ParseUser.logIn(username, password);
+            Log.d("login", "success");
+            return true;
+        }catch(ParseException e){
+            Log.d("login", "failed");
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
         }
-        return null;
+
+
     }
+
 
 }

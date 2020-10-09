@@ -8,12 +8,12 @@ public class EventManager {
     // Maybe a variable keeping track of one event?
 
     // too many variables. Could probably move some up or down hierarchy
-    public void createEvent(Calendar cal, String user, String name, LocalDateTime start, LocalDateTime end,
+    public void createEvent(Calendar cal, String name, LocalDateTime start, LocalDateTime end,
                             ArrayList<String> tags, ArrayList<Alert> alerts, ArrayList<String> series,
                             int duration, LocalDateTime endSeriesTime) {
         if (duration == 0){
             Event newEvent = new Event(start, end, name, tags, alerts, series);
-            cal.addEvent(newEvent, user);
+            cal.createEvent(newEvent);
         }else {
             ArrayList<Event> eventList = new ArrayList<>();
             Duration_series durationSeries = new Duration_series(series.get(0), 0, start,
@@ -22,38 +22,38 @@ public class EventManager {
                 case 1:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event, user);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusDays(1);
                         System.out.println(start);
-                        endSeriesTime = endSeriesTime.plusDays(1);
+                        end = end.plusDays(1);
                     }
                     break;
                 case 2:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event, user);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusDays(7);
-                        endSeriesTime = endSeriesTime.plusDays(7);
+                        end = end.plusDays(7);
                     }
                     break;
                 case 3:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event, user);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusMonths(1);
-                        endSeriesTime = endSeriesTime.plusMonths(1);
+                        end = end.plusMonths(1);
                     }
                     break;
                 case 4:
                     while (start.toLocalDate().isBefore(end.toLocalDate()) || start.toLocalDate().isEqual(end.toLocalDate())) {
                         Event event = new Event(start, endSeriesTime, name, tags, alerts, series);
-                        cal.addEvent(event, user);
+                        cal.createEvent(event);
                         durationSeries.addEvent(event);
                         start = start.plusYears(1);
-                        endSeriesTime = endSeriesTime.plusYears(1);
+                        end = end.plusYears(1);
                     }
                     break;
             }

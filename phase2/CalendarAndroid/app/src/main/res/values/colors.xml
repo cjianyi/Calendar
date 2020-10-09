@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="event1">#E60505</color>
+    <color name="event2">#4CAF50</color>
+    <color name="event3">#0C2BDA</color>
+    <color name="event4">#FF5722</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#09BCD3</color>
 </resources>

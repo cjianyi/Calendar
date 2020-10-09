@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_event_name">Enter a name</string>
+    <string name="add_start_date">start date</string>
+    <string name="add_end_date">end date</string>
+    <string name="add_tags">enter some tags</string>
+    <string name="add_alert_hourly">Remind me every hour</string>
+    <string name="add_alert_daily">Remind me every 24 hours</string>
+    <string name="add_alert_weekly">Remind me every 7 days</string>
+    <string name="add">ADD EVENT</string>
+</resources>

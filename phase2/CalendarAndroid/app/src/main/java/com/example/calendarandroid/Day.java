@@ -1,5 +1,11 @@
 package com.example.calendarandroid;
 
+import android.icu.util.LocaleData;
+
+
+import androidx.core.util.Pair;
+
+import java.time.Month;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -8,14 +14,38 @@ public class Day implements Comparable<Day>{
     private LocalDate date;
     private ArrayList<Event> events;
     private ArrayList<Alert> alerts;
+    private String name;
+    private String month;
+
+
+
 
     public Day(LocalDate date) {
         this.date = date;
+        this.name = date.getDayOfWeek().name();
+        this.month = Integer.toString(date.getDayOfMonth());
+        this.events = new ArrayList<>();
+    }
+
+    public LocalDate getDay(){
+        return this.date;
+    }
+
+    public String getDayName(){
+        return this.name;
+    }
+
+    public int getWeekNum(){
+        return this.date.getDayOfWeek().getValue();
+    }
+
+    public String getMonthDayNumber(){
+        return this.month;
     }
 
     public void addEvent(Event event) {
         this.events.add(event);
-        Collections.sort(this.events);
+        //Collections.sort(this.events);
     }
     public void removeEvent(Event event) {
         this.events.remove(event);
@@ -39,4 +69,6 @@ public class Day implements Comparable<Day>{
     public int compareTo(Day other) {
         return this.date.compareTo(other.date);
     }
+
+
 }

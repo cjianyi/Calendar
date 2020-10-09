@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="day_Sunday">Sun</string>
+    <string name="day_Monday">Mon</string>
+    <string name="day_Tuesday">Tues</string>
+    <string name="day_Wednesday">Wed</string>
+    <string name="day_Thursday">Thurs</string>
+    <string name="day_Friday">Fri</string>
+    <string name="day_Saturday">Sat</string>
+    <string name="delete_event">DELETE</string>
+</resources>

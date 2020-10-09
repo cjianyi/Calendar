@@ -1,6 +1,33 @@
 <resources>
     <string name="app_name">CalendarAndroid</string>
-    <string name="btn_login">Login</string>
+
+
     <string name="btn_signup">Sign Up</string>
-    <string name="sign_up_message">Don\'t have an account?</string>
+
+    <string name="username_hint">username</string>
+    <string name="password_hint">password</string>
+    <string name="wrong_event_name">cannot find corresponding event name</string>
+    <string name="correct_event_name">find the corresponding event name</string>
+    <string name="back_to_cal">Back to Calendar</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="enter_date">Today</string>
+    <string name="create_account">Create Account</string>
+    <string name="next">NEXT</string>
+    <string name="prev">PREV</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="no_events">There are no events today</string>
+    <string name="wrong_time">Entered wrong time</string>
+    <string name="wrong_tag">Cannot find the corresponding tag</string>
+    <string name="wrong_alert">Cannot find the corresponding alert</string>
+    <string name="wrong_memo">Cannot find the corresponding memo</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="wrong_linked">Cannot find the corresponding linked name</string>
+
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">k7lRhg0GOaqpN3FyIJNA77NWb5nR8b6h862m5QfS</string>
+    <string name="back4app_client_key">QHlm5gbtF80T95IcaKKbzYtotftQyfMp19uVGdhp</string>
+    <string name="shareEvent">SHARE</string>
+
+
 </resources>

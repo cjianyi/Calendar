@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="sign_up_message">Don\'t have an account?</string>
+    <string name="incorrect_password_message">wrong password</string>
+    <string name="correct_password_message">correct!</string>
+    <string name="btn_login">Login</string>
+</resources>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeekActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/to_month"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="back to month" />
+    </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prev week" />
+
+        <TextView
+            android:id="@+id/week"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Week"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="16"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/whydoesthisnotwork"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="2020"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next week" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/sunsun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sddjfs"/>
+               -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/monmon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tuetue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wedwed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/wed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thuthu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/frifri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/satsat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saturday"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kjdfksjdfhjsd"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sdkjfsdjfs"/>
+                -->
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--
+    <AbsoluteLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="Deprecated">
+
+        <Button
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:text="MORE"
+            android:textSize="5dp"
+            android:layout_x="0dp"
+            android:layout_y="400dp"/>
+        <
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_x="0px"
+            android:layout_y="50dp"
+            android:text="skdugskjg"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_x="45dp"
+            android:layout_y="0dp"
+            android:text="aksfhkasjfh"/>
+    </AbsoluteLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+     -->
+
+
+
+
+</LinearLayout>
+</FrameLayout>

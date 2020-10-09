@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item android:id="@+id/add_cal"
+        android:title="Add Calendar" />
+    <item android:id="@+id/cal_switch"
+        android:title="Switch Calendar" />
+
+
+</menu>

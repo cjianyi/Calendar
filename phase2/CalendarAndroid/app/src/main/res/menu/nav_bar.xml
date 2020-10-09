@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_month"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_month"
+        android:title="Month"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_week"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_week"
+        android:title="Week"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_day"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Day"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="logout"
+        app:showAsAction="ifRoom" />
+
+<!--    <item-->
+<!--        android:id="@+id/action_switch_calendars"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@android:drawable/ic_menu_my_calendar"-->
+<!--        android:title="Calendars"-->
+<!--        app:showAsAction="ifRoom" />-->
+
+
+
+</menu>

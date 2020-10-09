@@ -28,6 +28,16 @@ public class Event implements Comparable<Event>{
         this.durationSeriesNames.addAll(series);
     }
 
+    public Event(String name){
+        this.name = name;
+    }
+
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime){
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -125,36 +135,44 @@ public class Event implements Comparable<Event>{
      *
      * @return a string representing the event in file
      */
-    public String eventFileFormatter(){
+    public ArrayList<String> eventFileFormatter(){
+        ArrayList<String> event = new ArrayList<>();
         StringBuilder s = new StringBuilder();
-        s.append("{ 'name': ").append("'").append(this.name).append("',");
-        s.append("'startTime':").append("'").append(this.startTime.toString()).append("',");
-        s.append("'endTime':").append("'").append(this.endTime.toString()).append("',");
-        s.append("'alerts':[");
+        event.add(this.name);
+        event.add(this.startTime.toString());
+        event.add(this.endTime.toString());
+
+        s.append("[");
         for(Alert alert: this.alerts){
             s.append(alert.alertFileFormatter()).append(",");
         }
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
         }
-        s.append("],");
-        s.append("'tags':[");
+        s.append("]");
+        event.add(s.toString());
+        s = new StringBuilder();
+        s.append("[");
         for(String tag:this.tags){
             s.append(tag).append(",");
         }
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
         }
-        s.append("],");
-        s.append("'memos':[");
+        s.append("]");
+        event.add(s.toString());
+        s = new StringBuilder();
+        s.append("[");
         for(Memo memo:this.memos){
-            s.append(memo.getId()).append(",");
+            s.append(memo.getText()).append(",");
         }
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
         }
-        s.append("],");
-        s.append("'series':[[");
+        s.append("]");
+        event.add(s.toString());
+        s = new StringBuilder();
+        s.append("[[");
         for(String serie: this.durationSeriesNames){
             s.append(serie).append(",");
         }
@@ -168,7 +186,8 @@ public class Event implements Comparable<Event>{
         if(s.charAt(s.length() - 1) == ',') {
             s.replace(s.length() - 1, s.length(), "");
         }
-        s.append("]]}");
-        return s.toString();
+        s.append("]]");
+        event.add(s.toString());
+        return event;
     }
 }
